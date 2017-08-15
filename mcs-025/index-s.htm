@@ -1,0 +1,1184 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<link rel="icon" href="img/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="//expertcodedesign.com/img/favicon.png" type="image/x-icon" />
+<meta name="description" content="Website Development Application Development">
+<meta name="keywords" content="Expert Code Design, Expert, Code, design, Coding, Designing, Programmer, Developer, Coder, Designer" />
+<meta name="author" content="sorabh sharma"> 
+<title>MCA 022 | Expert Code Design</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Georgia;
+	panose-1:2 4 5 2 5 4 5 2 3 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	line-height:125%;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.Default, li.Default, div.Default
+	{mso-style-name:Default;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-autospace:none;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:"Courier New";}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:36.0pt 36.0pt 36.0pt 36.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+<div class="container-fluid">
+	<div class="bg-primary row" style="margin-bottom:40px">
+	  <img class="col-md-2 col-md-offset-5" alt="LOGO" src="//expertcodedesign.com/img/logo.png"  />
+	</div>
+</div>
+<div class="container">
+
+<div class=WordSection1>
+
+<p class=Default align=center style='margin-bottom:12.0pt;text-align:center'><b><span
+style='font-size:11.5pt'>PART-1: MCS-021</span></b></p>
+
+<p class=Default><b><span style='font-size:11.5pt'>1. </span></b><b><span
+style='font-size:11.5pt'>Write a program in C language for multiplication of
+two sparse matrices using Pointers </span></b></p>
+
+<p class=Default><b><span style='font-size:11.5pt'>Ans:</span></b></p>
+
+<p class=MsoNormal>A matrix in which number of zero entries are much higher
+than the number of non zero entries is called sparse matrix. The natural method
+of representing matrices in memory as two-dimensional arrays may not be
+suitable foe sparse matrices. One may save space by storing for only non zero
+entries. For example matrix A (4*4 matrix) represented below</p>
+
+<p class=MsoNormal>where first row represent the dimension of matrix and last
+column tells the number of non zero values; second row onwards it is giving the
+position and value of non zero number.</p>
+
+<pre style='background:#F8F8F8'><span style='color:#BC7A00'>#include &lt;stdio.h&gt;</span>
+<span style='color:#BC7A00'>#include &lt;conio.h&gt;</span>
+<span style='color:#BC7A00'>#include &lt;alloc.h&gt;</span>
+&nbsp;
+<span style='color:#BC7A00'>#define MAX1 3</span>
+<span style='color:#BC7A00'>#define MAX2 3</span>
+<span style='color:#BC7A00'>#define MAXSIZE 20</span>
+<span style='color:#BC7A00'>#define TRUE 1</span>
+<span style='color:#BC7A00'>#define FALSE 2</span>
+&nbsp;
+<span style='color:green'>struct</span></b> sparse {</pre><pre style='background:
+#F8F8F8'>    <span style='color:#B00040'>int</span> <span style='color:#666666'>*</span>sp;
+    <span style='color:#B00040'>int</span> row;
+    <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>result;</pre><pre style='background:#F8F8F8'>};
+&nbsp;</pre><pre style='background:#F8F8F8'>void initsparse(<b><span
+style='color:green'>struct</span></b> sparse <span style='color:#666666'>*</span>);
+void create_array(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>);</pre><pre style='background:#F8F8F8'><span
+style='color:#B00040'>int</span> <span style='color:blue'>count</span>(<b><span
+style='color:green'>struct</span></b> sparse);</pre><pre style='background:
+#F8F8F8'><span style='color:#B00040'>void</span> <span style='color:blue'>display</span>(<b><span
+style='color:green'>struct</span></b> sparse);</pre><pre style='background:
+#F8F8F8'>void create_tuple(<b><span style='color:green'>struct</span></b> sparse<span
+style='color:#666666'>*</span>, <b><span style='color:green'>struct</span></b> sparse);
+void display_tuple(<b><span style='color:green'>struct</span></b> sparse);
+void prodmat(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>, <b><span style='color:green'>struct</span></b> sparse, <b><span
+style='color:green'>struct</span></b> sparse);</pre><pre style='background:
+#F8F8F8'>void searchina(<span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>sp, <span style='color:#B00040'>int</span> ii, <span
+style='color:#B00040'>int</span><span style='color:#666666'>*</span>p, <span
+style='color:#B00040'>int</span><span style='color:#666666'>*</span>flag ) ;</pre><pre
+style='background:#F8F8F8'>void searchinb(<span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>sp, intjj, intcolofa, <span style='color:#B00040'>int</span><span
+style='color:#666666'>*</span>p, <span style='color:#B00040'>int</span><span
+style='color:#666666'>*</span>flag);</pre><pre style='background:#F8F8F8'>void display_result(<b><span
+style='color:green'>struct</span></b> sparse);</pre><pre style='background:
+#F8F8F8'>void delsparse(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>);</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><span style='color:#B00040'>void</span> <span
+style='color:blue'>main</span>() {</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>struct</span></b> sparse s[<span style='color:#666666'>5</span>];</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> i;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    clrscr();</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (i<span style='color:#666666'>=0</span>; i<span
+style='color:#666666'>&lt;=3</span>; i<span style='color:#666666'>++</span>)</pre><pre
+style='background:#F8F8F8'>        initsparse(<span style='color:#666666'>&amp;</span>s[i]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    create_array(<span
+style='color:#666666'>&amp;</span>s[<span style='color:#666666'>0</span>]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    create_tuple(<span
+style='color:#666666'>&amp;</span>s[<span style='color:#666666'>1</span>], s[<span
+style='color:#666666'>0</span>]);</pre><pre style='background:#F8F8F8'>    display_tuple(s[<span
+style='color:#666666'>1</span>]);</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    create_array(<span style='color:#666666'>&amp;</span>s[<span
+style='color:#666666'>2</span>]);</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    create_tuple(<span style='color:#666666'>&amp;</span>s[<span
+style='color:#666666'>3</span>], s[<span style='color:#666666'>2</span>]);</pre><pre
+style='background:#F8F8F8'>    display_tuple(s[<span style='color:#666666'>3</span>]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    prodmat(<span
+style='color:#666666'>&amp;</span>s[<span style='color:#666666'>4</span>], s[<span
+style='color:#666666'>1</span>], s[<span style='color:#666666'>3</span>]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    printf(<span
+style='color:#BA2121'>&quot;</span><b><span style='color:#BB6622'>\n</span></b><span
+style='color:#BA2121'>Result of multiplication of two matrices: &quot;</span>);</pre><pre
+style='background:#F8F8F8'>    display_result(s[<span style='color:#666666'>4</span>]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> ( i <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span> ; i <span style='color:#666666'>&lt;=</span> <span
+style='color:#666666'>3</span> ; i<span style='color:#666666'>++</span> )</pre><pre
+style='background:#F8F8F8'>        delsparse(<span style='color:#666666'>&amp;</span>s[i]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    getch();</pre><pre
+style='background:#F8F8F8'>}</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><i><span style='color:#408080'>/* initialises elements of structure */</span></i></pre><pre
+style='background:#F8F8F8'>void initsparse(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>p) {</pre><pre style='background:#F8F8F8'>    p <span
+style='color:#666666'>-&gt;</span>sp <span style='color:#666666'>=</span> <span
+style='color:green'>NULL</span>;</pre><pre style='background:#F8F8F8'>    p <span
+style='color:#666666'>-&gt;</span> result <span style='color:#666666'>=</span> <span
+style='color:green'>NULL</span>;</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* dynamically creates the matrix */</span></i></pre><pre
+style='background:#F8F8F8'>void create_array(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>p) {</pre><pre style='background:#F8F8F8'>    <span
+style='color:#B00040'>int</span> n, i ;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* allocate memory */</span></i></pre><pre
+style='background:#F8F8F8'>    p<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>=</span> ( <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span> ) malloc(MAX1 <span style='color:#666666'>*</span> MAX2 <span
+style='color:#666666'>*</span> <b><span style='color:green'>sizeof</span></b>(<span
+style='color:#B00040'>int</span>));</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* add elements to the array */</span></i></pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b> (i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i <span
+style='color:#666666'>&lt;</span> MAX1 <span style='color:#666666'>*</span> MAX2; i<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        printf(<span
+style='color:#BA2121'>&quot;Enter element no. %d: &quot;</span>, i);</pre><pre
+style='background:#F8F8F8'>        scanf(<span style='color:#BA2121'>&quot;%d&quot;</span>, <span
+style='color:#666666'>&amp;</span>n);</pre><pre style='background:#F8F8F8'>        <span
+style='color:#666666'>*</span> (p<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>+</span> i) <span style='color:#666666'>=</span> n;</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* displays the contents of the matrix */</span></i></pre><pre
+style='background:#F8F8F8'><span style='color:#B00040'>void</span> display(<b><span
+style='color:green'>struct</span></b> sparse s) {</pre><pre style='background:
+#F8F8F8'>    <span style='color:#B00040'>int</span> i;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <i><span
+style='color:#408080'>/* traverses the entire matrix */</span></i></pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b>(i<span
+style='color:#666666'>=0</span>; i <span style='color:#666666'>&lt;</span> MAX1 <span
+style='color:#666666'>*</span> MAX2; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        <i><span style='color:#408080'>/* positions the cursor to the new line for every new row */</span></i></pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b> (i <span
+style='color:#666666'>%</span> <span style='color:#666666'>3==0</span>)</pre><pre
+style='background:#F8F8F8'>            printf(<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>&quot;</span>);</pre><pre
+style='background:#F8F8F8'>        printf(<span style='color:#BA2121'>&quot;%d</span><b><span
+style='color:#BB6622'>\t</span></b><span style='color:#BA2121'>&quot;</span>, <span
+style='color:#666666'>*</span> ( s.sp <span style='color:#666666'>+</span> i ));</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* counts the number of non-zero elements */</span></i></pre><pre
+style='background:#F8F8F8'><span style='color:#B00040'>int</span> count(<b><span
+style='color:green'>struct</span></b> sparse s) {</pre><pre style='background:
+#F8F8F8'>    intcnt <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>, i ;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b> ( i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span> ; i <span
+style='color:#666666'>&lt;</span> MAX1 <span style='color:#666666'>*</span> MAX2 ; i<span
+style='color:#666666'>++</span> ) {</pre><pre style='background:#F8F8F8'>        <b><span
+style='color:green'>if</span></b> ( <span style='color:#666666'>*</span> ( s.sp <span
+style='color:#666666'>+</span> i ) <span style='color:#666666'>!=</span> <span
+style='color:#666666'>0</span> )</pre><pre style='background:#F8F8F8'>            cnt<span
+style='color:#666666'>++</span>;</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>    returncnt;</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* creates an array that stores information about non-zero elements */</span></i></pre><pre
+style='background:#F8F8F8'>void create_tuple(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>p, <b><span style='color:green'>struct</span></b> sparse s) {</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> r <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span> , c <span
+style='color:#666666'>=</span> <span style='color:#666666'>-1</span>, l <span
+style='color:#666666'>=</span> <span style='color:#666666'>-1</span>, i;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <i><span
+style='color:#408080'>/* get the total number of non-zero elements */</span></i></pre><pre
+style='background:#F8F8F8'>    p<span style='color:#666666'>-&gt;</span>row <span
+style='color:#666666'>=</span> count(s) <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* allocate memory */</span></i></pre><pre
+style='background:#F8F8F8'>    p<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>=</span> ( <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span> ) malloc(p<span style='color:#666666'>-&gt;</span>row <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>*</span> <b><span style='color:green'>sizeof</span></b>(<span
+style='color:#B00040'>int</span>));</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* store information about total no. of rows, cols, and non-zero values */</span></i></pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span> (p<span
+style='color:#666666'>-&gt;</span>sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span>) <span style='color:#666666'>=</span> MAX1;</pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span> (p<span
+style='color:#666666'>-&gt;</span>sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>) <span style='color:#666666'>=</span> MAX2;</pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span> ( p<span
+style='color:#666666'>-&gt;</span>sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>2</span>) <span style='color:#666666'>=</span> p<span
+style='color:#666666'>-&gt;</span>row <span style='color:#666666'>-</span> <span
+style='color:#666666'>1</span>;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    l <span style='color:#666666'>=</span> <span
+style='color:#666666'>2</span>;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* scan the array and store info. about non-zero values in the 3-tuple */</span></i></pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b>(i<span
+style='color:#666666'>=0</span>; i<span style='color:#666666'>&lt;</span>MAX1 <span
+style='color:#666666'>*</span> MAX2; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        c<span style='color:#666666'>++</span> ;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>        <i><span
+style='color:#408080'>/* sets the row and column values */</span></i></pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b>(((i <span
+style='color:#666666'>%</span> <span style='color:#666666'>3</span>) <span
+style='color:#666666'>==</span> <span style='color:#666666'>0</span>) <span
+style='color:#666666'>&amp;&amp;</span> (i<span style='color:#666666'>!=0</span>)) {</pre><pre
+style='background:#F8F8F8'>            r<span style='color:#666666'>++</span>;</pre><pre
+style='background:#F8F8F8'>            c<span style='color:#666666'>=0</span>;</pre><pre
+style='background:#F8F8F8'>        }</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>        <i><span style='color:#408080'>/* checks for non-zero element, row, column and non-zero value is assigned to the matrix */</span></i></pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b> (<span
+style='color:#666666'>*</span>( s.sp <span style='color:#666666'>+</span> i )<span
+style='color:#666666'>!=0</span>) {</pre><pre style='background:#F8F8F8'>            l<span
+style='color:#666666'>++</span>;</pre><pre style='background:#F8F8F8'>            <span
+style='color:#666666'>*</span>(p<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>+</span> l) <span style='color:#666666'>=</span> r;</pre><pre
+style='background:#F8F8F8'>            l<span style='color:#666666'>++</span>;</pre><pre
+style='background:#F8F8F8'>            <span style='color:#666666'>*</span>(p<span
+style='color:#666666'>-&gt;</span>sp <span style='color:#666666'>+</span> l) <span
+style='color:#666666'>=</span> c;</pre><pre style='background:#F8F8F8'>            l<span
+style='color:#666666'>++</span>;</pre><pre style='background:#F8F8F8'>            <span
+style='color:#666666'>*</span>(p<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>+</span> l) <span style='color:#666666'>=</span> <span
+style='color:#666666'>*</span>(s.sp <span style='color:#666666'>+</span> i);</pre><pre
+style='background:#F8F8F8'>        }</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>}</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><i><span style='color:#408080'>/* displays the contents of the matrix */</span></i></pre><pre
+style='background:#F8F8F8'>void display_tuple(<b><span style='color:green'>struct</span></b> sparse s) {</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> i, j;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <i><span
+style='color:#408080'>/* traverses the entire matrix */</span></i></pre><pre
+style='background:#F8F8F8'>    printf (<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>Elements in a 3-tuple: &quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    j <span
+style='color:#666666'>=</span> (<span style='color:#666666'>*</span>(s.sp <span
+style='color:#666666'>+</span> <span style='color:#666666'>2</span>) <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span>) <span
+style='color:#666666'>+</span> <span style='color:#666666'>3</span>;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (i<span style='color:#666666'>=0</span>; i <span
+style='color:#666666'>&lt;</span> j; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        <i><span style='color:#408080'>/* positions the cursor to the new line for every new row */</span></i></pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b> (i <span
+style='color:#666666'>%</span> <span style='color:#666666'>3==0</span>)</pre><pre
+style='background:#F8F8F8'>            printf (<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>&quot;</span>);</pre><pre
+style='background:#F8F8F8'>        printf (<span style='color:#BA2121'>&quot;%d</span><b><span
+style='color:#BB6622'>\t</span></b><span style='color:#BA2121'>&quot;</span>, <span
+style='color:#666666'>*</span>(s.sp <span style='color:#666666'>+</span> i));</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>    printf (<span
+style='color:#BA2121'>&quot;</span><b><span style='color:#BB6622'>\n</span></b><span
+style='color:#BA2121'>&quot;</span>);</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* performs multiplication of sparse matrices */</span></i></pre><pre
+style='background:#F8F8F8'>void prodmat(<b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>p, <b><span style='color:green'>struct</span></b> sparse a, <b><span
+style='color:green'>struct</span></b> sparse b) {</pre><pre style='background:
+#F8F8F8'>    <span style='color:#B00040'>int</span> sum, k, position, posi, flaga, flagb, i , j;</pre><pre
+style='background:#F8F8F8'>    k <span style='color:#666666'>=</span> <span
+style='color:#666666'>1</span>;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    p<span style='color:#666666'>-&gt;</span>result <span
+style='color:#666666'>=</span> ( <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span> ) malloc(MAXSIZE <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>*</span> <b><span
+style='color:green'>sizeof</span></b>(<span style='color:#B00040'>int</span>));</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b>(i<span style='color:#666666'>=0</span>; i<span
+style='color:#666666'>&lt;</span> <span style='color:#666666'>*</span> (a.sp <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span> <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span>); i<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        <b><span
+style='color:green'>for</span></b>(j<span style='color:#666666'>=0</span>; j<span
+style='color:#666666'>&lt;*</span>(b.sp<span style='color:#666666'>+0</span> <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span>); j<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>            <i><span
+style='color:#408080'>/* search if an element present at ith row */</span></i></pre><pre
+style='background:#F8F8F8'>            searchina(a.sp, i, <span
+style='color:#666666'>&amp;</span>position, <span style='color:#666666'>&amp;</span>flaga);</pre><pre
+style='background:#F8F8F8'>            <b><span style='color:green'>if</span></b>(flaga<span
+style='color:#666666'>==</span>TRUE) {</pre><pre style='background:#F8F8F8'>                sum <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span> ;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>                <i><span
+style='color:#408080'>/* run loop till there are element at ith row in first 3-tuple */</span></i></pre><pre
+style='background:#F8F8F8'>                <b><span style='color:green'>while</span></b> (<span
+style='color:#666666'>*</span>(a.sp <span style='color:#666666'>+</span> position <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span>)<span
+style='color:#666666'>==</span>i) {</pre><pre style='background:#F8F8F8'>                    <i><span
+style='color:#408080'>/* search if an element present at ith col. in second 3-tuple */</span></i></pre><pre
+style='background:#F8F8F8'>                    searchinb(b.sp, j, <span
+style='color:#666666'>*</span> ( a.sp <span style='color:#666666'>+</span> position <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span> ), <span
+style='color:#666666'>&amp;</span>posi, <span style='color:#666666'>&amp;</span>flagb);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>                    <i><span
+style='color:#408080'>/* if found then multiply */</span></i></pre><pre
+style='background:#F8F8F8'>                    <b><span style='color:green'>if</span></b>(flagb<span
+style='color:#666666'>==</span>TRUE)</pre><pre style='background:#F8F8F8'>                        sum <span
+style='color:#666666'>=</span> sum <span style='color:#666666'>+</span> <span
+style='color:#666666'>*</span>(a.sp <span style='color:#666666'>+</span> position <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>2</span>) <span
+style='color:#666666'>*</span> <span style='color:#666666'>*</span>(b.sp <span
+style='color:#666666'>+</span> posi <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>2</span>);</pre><pre style='background:#F8F8F8'>                    position <span
+style='color:#666666'>=</span> position <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>;</pre><pre style='background:#F8F8F8'>                }</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>                <i><span
+style='color:#408080'>/* add result */</span></i></pre><pre style='background:
+#F8F8F8'>                <b><span style='color:green'>if</span></b>(sum <span
+style='color:#666666'>!=</span> <span style='color:#666666'>0</span>) {</pre><pre
+style='background:#F8F8F8'>                    <span style='color:#666666'>*</span>(p<span
+style='color:#666666'>-&gt;</span>result <span style='color:#666666'>+</span> k <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span>) <span
+style='color:#666666'>=</span> i;</pre><pre style='background:#F8F8F8'>                    <span
+style='color:#666666'>*</span>(p<span style='color:#666666'>-&gt;</span>result <span
+style='color:#666666'>+</span> k <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>) <span style='color:#666666'>=</span> j;</pre><pre
+style='background:#F8F8F8'>                    <span style='color:#666666'>*</span>(p<span
+style='color:#666666'>-&gt;</span>result <span style='color:#666666'>+</span> k <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>2</span>) <span
+style='color:#666666'>=</span> sum;</pre><pre style='background:#F8F8F8'>                    k <span
+style='color:#666666'>=</span> k <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>;</pre><pre style='background:#F8F8F8'>                }</pre><pre
+style='background:#F8F8F8'>            }</pre><pre style='background:#F8F8F8'>         }</pre><pre
+style='background:#F8F8F8'>      }</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>/* add total no. of rows, cols and non-zero values */</span></i></pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span>(p<span
+style='color:#666666'>-&gt;</span>result <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span> <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span>) <span style='color:#666666'>=</span> <span
+style='color:#666666'>*</span>(a.sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span> <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span>);</pre><pre style='background:#F8F8F8'>    <span
+style='color:#666666'>*</span>(p<span style='color:#666666'>-&gt;</span>result <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span> <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span>) <span
+style='color:#666666'>=</span> <span style='color:#666666'>*</span>(b.sp <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span> <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span>);</pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span>(p<span
+style='color:#666666'>-&gt;</span>result <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span> <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>2</span>) <span style='color:#666666'>=</span> k <span
+style='color:#666666'>-</span> <span style='color:#666666'>1</span>;</pre><pre
+style='background:#F8F8F8'>}</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><i><span style='color:#408080'>/* searches if an element present at iith row */</span></i></pre><pre
+style='background:#F8F8F8'>void searchina( <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>sp, <span style='color:#B00040'>int</span> ii, <span
+style='color:#B00040'>int</span> <span style='color:#666666'>*</span>p, <span
+style='color:#B00040'>int</span> <span style='color:#666666'>*</span>flag ) {</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> j;</pre><pre
+style='background:#F8F8F8'>    <span style='color:#666666'>*</span>flag <span
+style='color:#666666'>=</span> FALSE;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b>( j <span style='color:#666666'>=</span> <span
+style='color:#666666'>1</span>; j <span style='color:#666666'>&lt;=</span> <span
+style='color:#666666'>*</span>(sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span> <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>2</span>); j<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b> ( <span
+style='color:#666666'>*</span> ( sp <span style='color:#666666'>+</span> j <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span> ) <span
+style='color:#666666'>==</span> ii ) {</pre><pre style='background:#F8F8F8'>            <span
+style='color:#666666'>*</span>p <span style='color:#666666'>=</span> j;</pre><pre
+style='background:#F8F8F8'>            <span style='color:#666666'>*</span>flag <span
+style='color:#666666'>=</span> TRUE;</pre><pre style='background:#F8F8F8'>            <b><span
+style='color:green'>return</span></b>;</pre><pre style='background:#F8F8F8'>        }</pre><pre
+style='background:#F8F8F8'>     }</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* searches if an element where col. of first 3-tuple is equal to row of second 3-tuple */</span></i></pre><pre
+style='background:#F8F8F8'>void searchinb(<span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>sp, intjj, intcolofa, <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>p, <span style='color:#B00040'>int</span> <span
+style='color:#666666'>*</span>flag) {</pre><pre style='background:#F8F8F8'>    <span
+style='color:#B00040'>int</span> j ;</pre><pre style='background:#F8F8F8'>    <span
+style='color:#666666'>*</span>flag <span style='color:#666666'>=</span> FALSE ;</pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b> (j<span
+style='color:#666666'>=1</span>; j <span style='color:#666666'>&lt;=</span> <span
+style='color:#666666'>*</span>(sp <span style='color:#666666'>+</span> <span
+style='color:#666666'>0</span> <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span> <span style='color:#666666'>+</span> <span
+style='color:#666666'>2</span>); j<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b>(<span
+style='color:#666666'>*</span>(sp <span style='color:#666666'>+</span> j <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span>)<span
+style='color:#666666'>==</span>jj <span style='color:#666666'>&amp;&amp;</span> <span
+style='color:#666666'>*</span>(sp <span style='color:#666666'>+</span> j <span
+style='color:#666666'>*</span> <span style='color:#666666'>3</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span>)<span
+style='color:#666666'>==</span>colofa) {</pre><pre style='background:#F8F8F8'>            <span
+style='color:#666666'>*</span>p <span style='color:#666666'>=</span> j;</pre><pre
+style='background:#F8F8F8'>            <span style='color:#666666'>*</span>flag <span
+style='color:#666666'>=</span> TRUE;</pre><pre style='background:#F8F8F8'>            <b><span
+style='color:green'>return</span></b>;</pre><pre style='background:#F8F8F8'>        }</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* displays the contents of the matrix */</span></i></pre><pre
+style='background:#F8F8F8'>void display_result (<b><span style='color:green'>struct</span></b> sparse s) {</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> i ;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <i><span
+style='color:#408080'>/* traverses the entire matrix */</span></i></pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b>(i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i<span
+style='color:#666666'>&lt;</span>(<span style='color:#666666'>*</span>(s.result <span
+style='color:#666666'>+</span> <span style='color:#666666'>0</span> <span
+style='color:#666666'>+</span> <span style='color:#666666'>2</span>)<span
+style='color:#666666'>+1</span>) <span style='color:#666666'>*</span> <span
+style='color:#666666'>3</span>; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>        <i><span style='color:#408080'>/* positions the cursor to the new line for every new row */</span></i></pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b>(i <span
+style='color:#666666'>%</span> <span style='color:#666666'>3==0</span>)</pre><pre
+style='background:#F8F8F8'>            printf(<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>&quot;</span>);</pre><pre
+style='background:#F8F8F8'>        printf(<span style='color:#BA2121'>&quot;%d</span><b><span
+style='color:#BB6622'>\t</span></b><span style='color:#BA2121'>&quot;</span>, <span
+style='color:#666666'>*</span>(s.result <span style='color:#666666'>+</span> i));</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>}</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><i><span
+style='color:#408080'>/* deallocates memory */</span></i></pre><pre
+style='background:#F8F8F8'>void delsparse ( <b><span style='color:green'>struct</span></b> sparse <span
+style='color:#666666'>*</span>s ) {</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>if</span></b> (s<span style='color:#666666'>-&gt;</span>sp <span
+style='color:#666666'>!=</span> <span style='color:green'>NULL</span>)</pre><pre
+style='background:#F8F8F8'>        free(s<span style='color:#666666'>-&gt;</span>sp);</pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>if</span></b> (s<span
+style='color:#666666'>-&gt;</span>result <span style='color:#666666'>!=</span> <span
+style='color:green'>NULL</span>)</pre><pre style='background:#F8F8F8'>        free(s<span
+style='color:#666666'>-&gt;</span>result);</pre><pre style='background:#F8F8F8'>}</pre><pre><span
+style='font-size:11.5pt;line-height:125%'>&nbsp;</span></pre>
+
+<p class=Default><span style='font-size:11.5pt'>&nbsp;</span></p>
+
+<p class=Default><span style='font-size:11.5pt'>&nbsp;</span></p>
+
+<p class=Default><b><span style='font-size:11.5pt'>2. Write a program in C
+language that will accept a Graph as input and will perform a Depth First
+Search on it. Make necessary assumptions. </span></b></p>
+
+<p class=Default><b><span style='font-size:11.5pt'>Ans:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><b><span
+style='font-size:14.0pt;line-height:107%'>DFS:-</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;background:#FFF9EE'><span style='font-size:11.5pt;font-family:"Arial",sans-serif;
+color:#444444;background:white'>Depth First Search is an algorithm used to
+search the Tree or Graph. DFS search starts from root node then traversal into
+left child node and continues, if item found it stops otherwise it continues.</span></p>
+
+<p class=MsoNormal style='line-height:normal;background:white'><span
+style='font-size:11.5pt;font-family:"Arial",sans-serif;color:#444444'>The
+advantage of DFS is it requires less memory compare to Breadth First
+Search(BFS).</span></p>
+
+<pre style='background:#F8F8F8'>n &#8592; number of nodes</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>Initialize visited[ ] to <span
+style='color:green'>false</span> (<span style='color:#666666'>0</span>)</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><b><span
+style='color:green'>for</span></b>(i<span style='color:#666666'>=0</span>;i<span
+style='color:#666666'>&lt;</span>n;i<span style='color:#666666'>++</span>)</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    visited[i] <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>;</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><span
+style='color:#B00040'>void</span> DFS(vertex i) [DFS starting from i]</pre><pre
+style='background:#F8F8F8'>{</pre><pre style='background:#F8F8F8'>    visited[i]<span
+style='color:#666666'>=1</span>;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> each w adjacent to i</pre><pre
+style='background:#F8F8F8'>        <span style='color:blue'>if</span>(<span
+style='color:#666666'>!</span>visited[w])</pre><pre style='background:#F8F8F8'>            DFS(w);</pre><pre
+style='background:#F8F8F8'>}</pre>
+
+<p class=Default style='margin-top:12.0pt'><img width=320 height=309
+id="Picture 1" src="image001.png"
+alt="https://3.bp.blogspot.com/-sHN9nx_31jc/WK7kFYZsptI/AAAAAAAAAIU/kRvtjHZzwKwPVlLucQkrI3jsyWvCovC6gCLcB/s320/p1.png"></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt;line-height:150%;background:#FFF9EE'><b><span
+style='font-size:11.5pt;line-height:150%;font-family:"Arial",sans-serif;
+color:#222222'>Depth First Search (DFS) Program in C [Adjacency Matrix]</span></b></p>
+
+<pre style='background:#F8F8F8'><span style='color:#BC7A00'>#include&lt;stdio.h&gt;</span></pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><span
+style='color:#B00040'>void</span> <span style='color:blue'>DFS</span>(<span
+style='color:#B00040'>int</span>);</pre><pre style='background:#F8F8F8'><span
+style='color:#B00040'>int</span> G[<span style='color:#666666'>10</span>][<span
+style='color:#666666'>10</span>],visited[<span style='color:#666666'>10</span>],n;    <i><span
+style='color:#408080'>//n is no of vertices and graph is sorted in array G[10][10]</span></i></pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'><span
+style='color:#B00040'>void</span> <span style='color:blue'>main</span>() {</pre><pre
+style='background:#F8F8F8'>    inti,j;</pre><pre style='background:#F8F8F8'>    printf(<span
+style='color:#BA2121'>&quot;Enter number of vertices:&quot;</span>);</pre><pre
+style='background:#F8F8F8'>    scanf(<span style='color:#BA2121'>&quot;%d&quot;</span>,<span
+style='color:#666666'>&amp;</span>n);</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    <i><span style='color:#408080'>//read the adjecency matrix</span></i></pre><pre
+style='background:#F8F8F8'>    printf(<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>Enteradjecency matrix of the graph:&quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b>(i<span style='color:#666666'>=0</span>;i<span
+style='color:#666666'>&lt;</span>n;i<span style='color:#666666'>++</span>)</pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>for</span></b>(j<span
+style='color:#666666'>=0</span>;j<span style='color:#666666'>&lt;</span>n;j<span
+style='color:#666666'>++</span>)</pre><pre style='background:#F8F8F8'>            scanf(<span
+style='color:#BA2121'>&quot;%d&quot;</span>,<span style='color:#666666'>&amp;</span>G[i][j]);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <i><span
+style='color:#408080'>//visited is initialized to zero</span></i></pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>for</span></b>(i<span
+style='color:#666666'>=0</span>;i<span style='color:#666666'>&lt;</span>n;i<span
+style='color:#666666'>++</span>)</pre><pre style='background:#F8F8F8'>        visited[i]<span
+style='color:#666666'>=0</span>;</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>    DFS(<span style='color:#666666'>0</span>);</pre><pre
+style='background:#F8F8F8'>}</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><span style='color:#B00040'>void</span> <span
+style='color:blue'>DFS</span>(<span style='color:#B00040'>int</span> i) {</pre><pre
+style='background:#F8F8F8'>    <span style='color:#B00040'>int</span> j;</pre><pre
+style='background:#F8F8F8'>    printf(<span style='color:#BA2121'>&quot;</span><b><span
+style='color:#BB6622'>\n</span></b><span style='color:#BA2121'>%d&quot;</span>,i);</pre><pre
+style='background:#F8F8F8'>    visited[i]<span style='color:#666666'>=1</span>;</pre><pre
+style='background:#F8F8F8'>           </pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b>(j<span style='color:#666666'>=0</span>;j<span
+style='color:#666666'>&lt;</span>n;j<span style='color:#666666'>++</span>)</pre><pre
+style='background:#F8F8F8'>        <b><span style='color:green'>if</span></b>(<span
+style='color:#666666'>!</span>visited[j]<span style='color:#666666'>&amp;&amp;</span>G[i][j]<span
+style='color:#666666'>==1</span>)</pre><pre style='background:#F8F8F8'>            DFS(j);</pre><pre
+style='background:#F8F8F8'>}</pre>
+
+<p class=MsoNormal><img width=640 height=415 id="Picture 2"
+src="image002.jpg"
+alt="https://2.bp.blogspot.com/-Lf7KwckMCfo/WK7kC5rSBbI/AAAAAAAAAIQ/rDnWa0UbqAImdro9H2lb4hbUxXzv01C_gCLcB/s640/p2.jpg"></p>
+
+<p class=Default><span style='font-size:11.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:11.5pt;font-family:"Times New Roman",serif;color:black'>PART-2:
+MCS-022</span></b></p>
+
+<p class=Default><span style='font-size:11.5pt'>&nbsp;</span></p>
+
+<p class=Default><b>1. </b><b><span style='font-size:11.5pt'>Write a shell
+script in Linux/Unix that accepts a text file as input and prints the number of
+sentences in the file. </span></b></p>
+
+<p class=MsoNormal><b>Ans:</b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal;background:#FFF9EE'><span style='font-size:11.5pt;font-family:"Arial",sans-serif;
+color:#252525;background:white'>A&nbsp;<b>shell script</b>&nbsp;is a&nbsp;computer
+program&nbsp;designed to be run by the&nbsp;Unix shell, a&nbsp;command – line
+Interpreter .The various dialects of shell scripts are considered to be&nbsp;scripting
+languages.</span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;line-height:normal;background:
+white'><span style='font-size:11.5pt;font-family:"Arial",sans-serif;color:#252525'>Typical
+operations performed by shell scripts include file manipulation, program
+execution, and printing text. A script which sets up the environment, runs the
+program, and does any necessary cleanup, logging, etc. is called a&nbsp;<b>wrapper</b>.</span></p>
+
+<pre style='background:#F8F8F8'>echo Enter a text</pre><pre style='background:
+#F8F8F8'>read text</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>w<span style='color:#666666'>=</span>`echo $text <span
+style='color:#666666'>|</span> wc <span style='color:#666666'>-</span>w`</pre><pre
+style='background:#F8F8F8'>w<span style='color:#666666'>=</span>`expr $w`</pre><pre
+style='background:#F8F8F8'>c<span style='color:#666666'>=</span>`echo $text <span
+style='color:#666666'>|</span> wc <span style='color:#666666'>-</span>c`</pre><pre
+style='background:#F8F8F8'>c<span style='color:#666666'>=</span>`expr $c <span
+style='color:#666666'>-</span> <span style='color:#666666'>1</span>`</pre><pre
+style='background:#F8F8F8'>s<span style='color:#666666'>=0</span></pre><pre
+style='background:#F8F8F8'>alpha<span style='color:#666666'>=0</span></pre><pre
+style='background:#F8F8F8'>j<span style='color:#666666'>=</span>` `</pre><pre
+style='background:#F8F8F8'>n<span style='color:#666666'>=1</span></pre><pre
+style='background:#F8F8F8'><b><span style='color:green'>while</span></b> [ $n <span
+style='color:#666666'>-</span>le $c ]</pre><pre style='background:#F8F8F8'><b><span
+style='color:green'>do</span></b></pre><pre style='background:#F8F8F8'>ch<span
+style='color:#666666'>=</span>`echo $text <span style='color:#666666'>|</span> cut <span
+style='color:#666666'>-</span>c $n`</pre><pre style='background:#F8F8F8'><b><span
+style='color:green'>if</span></b> test $ch <span style='color:#666666'>=</span>  $j</pre><pre
+style='background:#F8F8F8'>then</pre><pre style='background:#F8F8F8'>s<span
+style='color:#666666'>=</span>`expr $s <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>`</pre><pre style='background:#F8F8F8'>fi</pre><pre
+style='background:#F8F8F8'><b><span style='color:green'>case</span></b> $ch in</pre><pre
+style='background:#F8F8F8'>(a<span style='color:#666666'>|</span>b<span
+style='color:#666666'>|</span>c<span style='color:#666666'>|</span>d<span
+style='color:#666666'>|</span>e<span style='color:#666666'>|</span>f<span
+style='color:#666666'>|</span>g<span style='color:#666666'>|</span>h<span
+style='color:#666666'>|</span>i<span style='color:#666666'>|</span>j<span
+style='color:#666666'>|</span>k<span style='color:#666666'>|</span>l<span
+style='color:#666666'>|</span>m<span style='color:#666666'>|</span>n<span
+style='color:#666666'>|</span>o<span style='color:#666666'>|</span>p<span
+style='color:#666666'>|</span>q<span style='color:#666666'>|</span>r<span
+style='color:#666666'>|</span>s<span style='color:#666666'>|</span>t<span
+style='color:#666666'>|</span>u<span style='color:#666666'>|</span>v<span
+style='color:#666666'>|</span>w<span style='color:#666666'>|</span>x<span
+style='color:#666666'>|</span>y<span style='color:#666666'>|</span>z) alpha<span
+style='color:#666666'>=</span>`expr $alpha <span style='color:#666666'>+</span> <span
+style='color:#666666'>1</span>`;;</pre><pre style='background:#F8F8F8'>esac</pre><pre
+style='background:#F8F8F8'>n<span style='color:#666666'>=</span>`expr $n <span
+style='color:#666666'>+</span> <span style='color:#666666'>1</span>`</pre><pre
+style='background:#F8F8F8'>done</pre><pre style='background:#F8F8F8'>special<span
+style='color:#666666'>=</span>`expr $c <span style='color:#666666'>-</span> $s <span
+style='color:#666666'>-</span> $alpha`</pre><pre style='background:#F8F8F8'>echo Words<span
+style='color:#666666'>=</span>$w</pre><pre style='background:#F8F8F8'>echo Characters<span
+style='color:#666666'>=</span>$c</pre><pre style='background:#F8F8F8'>echo Spaces<span
+style='color:#666666'>=</span>$s</pre><pre style='background:#F8F8F8'>echo Special symbols<span
+style='color:#666666'>=</span>$special</pre><pre style='background:#F8F8F8'>sentences <span
+style='color:#666666'>=</span> Words<span style='color:#666666'>+</span> Characters<span
+style='color:#666666'>+</span> Spaces <span style='color:#666666'>+</span> Special Symbols</pre><pre
+style='background:#F8F8F8'>echo $Sentences</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=Default><b>2. </b><b><span style='font-size:11.5pt'>Your PC is on a
+network. Make necessary settings in your PC so that it can Print to a Printer
+that is on the Network of PC but not directly connected. </span></b></p>
+
+<p class=MsoNormal><b>Ans:</b></p>
+
+<p class=MsoNoSpacing style='line-height:150%'>STEPS To Connect Printer:-</p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>1.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Start</b>&nbsp;in the bottom left corner of your screen. A popup
+list will appear.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>2.&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;<b>Control
+Panel</b>&nbsp;from the popup list. Type the word&nbsp;<b>network</b>&nbsp;in
+the search box.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>3.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Network and Sharing Center</b>.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>4.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Change advanced shared settings</b>, in the left pane.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>5.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on the down arrow, which will expand the network profile.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>6.&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;<b>File
+and printer sharing</b>&nbsp;and choose&nbsp;<b>Turn on file and printer
+sharing</b>.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>7.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Save changes</b>.</span></p>
+
+<p class=MsoNoSpacing style='margin-top:12.0pt;line-height:150%'><span
+style='font-size:11.5pt;line-height:150%;color:#333333'>You're now ready to
+share your printer.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>1.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Start</b>&nbsp;in the bottom left corner of your screen. A popup
+list will appear.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>2.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Devices and Printers</b>, from the popup list.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>3.&nbsp;&nbsp;&nbsp;&nbsp;Right
+click the printer you want to share. A dropdown list will appear.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>4.&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;<b>Printer
+properties</b>&nbsp;from the dropdown list.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>5.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on the&nbsp;<b>Sharing</b>&nbsp;tab</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>6.&nbsp;&nbsp;&nbsp;&nbsp;Select
+the&nbsp;<b>Share this printer</b>&nbsp;check box.</span></p>
+
+<p class=MsoNoSpacing style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
+12.0pt;margin-left:0cm'><span style='font-size:11.5pt;color:#333333'>In order
+for other people to connect to the printer, they just have to add the network
+printer that you just opened for sharing to their computers. Here's how to do
+this.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>1.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Start</b>&nbsp;in the bottom left corner of your screen. A popup
+list will appear.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>2.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Devices and Printers</b>&nbsp;from the popup list.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>3.&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;<b>Add
+a printer</b>.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>4.&nbsp;&nbsp;&nbsp;&nbsp;Click
+on&nbsp;<b>Add a network</b>, <b>wireless or Bluetooth printer</b>.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>5.&nbsp;&nbsp;&nbsp;&nbsp;Click
+the <b>shared printer</b>.</span></p>
+
+<p class=MsoNoSpacing><span style='font-size:11.5pt;color:#333333'>6.&nbsp;&nbsp;&nbsp;&nbsp;Click&nbsp;<b>Next</b>.
+Continue according to the instructions on the screen.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:11.5pt;font-family:"Times New Roman",serif;color:black'>PART-3:
+MCS-023</span></b></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=Default><b>1. </b><b><span style='font-size:11.5pt'>Create a database
+consisting of Name of Study Center, Code of Study Center, Programmes offered at
+Study Center, Number of Students enrolled Programme Wise.After creating the
+database, perform the following tasks: </span></b></p>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal;text-autospace:
+none'><b><span style='font-size:11.5pt;font-family:"Times New Roman",serif;
+color:black'>(i) List the number of Students who are enrolled for MCA across
+all Study Centers </span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Ans:</b></p>
+
+<p class=MsoNormal style='line-height:normal'><b>Step 1) Create Table :-</b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><img width=583 height=215 id="Picture 3" src="image003.png"
+alt="https://1.bp.blogspot.com/-OhBv5VThugI/WK7nh83Do6I/AAAAAAAAAIo/Y5w4xD1HKIM9jeSBExB2FjTfULpyeuwsgCLcB/s640/db2.PNG"></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;line-height:normal'><b>Step 2:-
+Inserting Values In Table:-</b></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;line-height:normal'><img width=639
+height=124 src="image004.jpg"
+alt="https://1.bp.blogspot.com/-R-QooRiAzJ4/WK7mi_XpEJI/AAAAAAAAAIg/WAqvGAormZcaFQzdcHtmHc1gGIxEj02yACLcB/s640/db1.PNG"><br
+clear=ALL>
+<b>Step3:- Generate a Select Query Statment:-</b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'>Select * from t1 where Prorammes = 'MCA' And Execute it.</p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt;line-height:normal'><b>Step 4:-&nbsp;</b></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><b>NameofStudyCenter</b></p>
+  </td>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><b>CodeOfStudyCenter</b></p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><b>Prorammes</b></p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'><b>NumberOfStudent</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>BHU</p>
+  </td>
+  <td width=180 valign=top style='width:134.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>27109</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>MCA</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>45</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>MCMT</p>
+  </td>
+  <td width=180 valign=top style='width:134.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>48012</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>MCA</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>10</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>BHUKamachha</p>
+  </td>
+  <td width=180 valign=top style='width:134.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>48003</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>MCA</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>15</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=180 valign=top style='width:134.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>AryaMahila</p>
+  </td>
+  <td width=180 valign=top style='width:134.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>48022</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>MCA</p>
+  </td>
+  <td width=180 valign=top style='width:134.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>20</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:normal'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:center;line-height:normal;text-autospace:none'><b><span
+style='font-size:11.5pt;font-family:"Times New Roman",serif;color:black'>PART-4:
+MCS-024</span></b></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=Default><b>1. </b><b><span style='font-size:11.5pt'>Write a program in
+Java for the addition of two matrices. </span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Ans:</b></p>
+
+<p class=MsoNormal><b>A</b>rray equal to the number of rows of the matrix and
+the length of the sub arrays equal to the number of columns of the matrix. For
+example, a matrix of order 3*7 will be represented as a 2D array matrix[3][7].
+A two level nested for loop will be used to read the input matrices from the
+keyboard. The outer loop counter, i ranges from 0 to the number of rows of the
+matrix while the inner loop counter, j ranges from 0 to the number of columns
+of the matrix. Within the inner loop, the input integers will be read using
+nextInt() method of the scanner class and stored at position [i][j] of the
+array.&nbsp;</p>
+
+<pre style='background:#F8F8F8'><b><span style='color:green'>import</span></b> <b><span
+style='color:blue'>java.util.Scanner</span></b>;</pre><pre style='background:
+#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>public <b><span
+style='color:green'>class</span></b> <b><span style='color:blue'>MatrixAddition</span></b> {</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>  public static void main(String[] args) {</pre><pre
+style='background:#F8F8F8'>    Scanner s <span style='color:#666666'>=</span> new Scanner(System<span
+style='color:#666666'>.</span><b><span style='color:#AA22FF'>in</span></b>);</pre><pre
+style='background:#F8F8F8'>    System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span><b><span style='color:green'>print</span></b>(<span
+style='color:#BA2121'>&quot;Enter number of rows: &quot;</span>);</pre><pre
+style='background:#F8F8F8'>    <span style='color:green'>int</span> rows <span
+style='color:#666666'>=</span> s<span style='color:#666666'>.</span>nextInt();</pre><pre
+style='background:#F8F8F8'>    System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span><b><span style='color:green'>print</span></b>(<span
+style='color:#BA2121'>&quot;Enter number of columns: &quot;</span>);</pre><pre
+style='background:#F8F8F8'>    <span style='color:green'>int</span> columns <span
+style='color:#666666'>=</span> s<span style='color:#666666'>.</span>nextInt();</pre><pre
+style='background:#F8F8F8'>    <span style='color:green'>int</span>[][] a <span
+style='color:#666666'>=</span> new <span style='color:green'>int</span>[rows][columns];</pre><pre
+style='background:#F8F8F8'>    <span style='color:green'>int</span>[][] b <span
+style='color:#666666'>=</span> new <span style='color:green'>int</span>[rows][columns];</pre><pre
+style='background:#F8F8F8'>    System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;Enter the first matrix&quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (<span style='color:green'>int</span> i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i <span
+style='color:#666666'>&lt;</span> rows; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>      <b><span style='color:green'>for</span></b> (<span
+style='color:green'>int</span> j <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>; j <span style='color:#666666'>&lt;</span> columns; j<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        a[i][j] <span
+style='color:#666666'>=</span> s<span style='color:#666666'>.</span>nextInt();</pre><pre
+style='background:#F8F8F8'>      }</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>    System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;Enter the second matrix&quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (<span style='color:green'>int</span> i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i <span
+style='color:#666666'>&lt;</span> rows; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>      <b><span style='color:green'>for</span></b> (<span
+style='color:green'>int</span> j <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>; j <span style='color:#666666'>&lt;</span> columns; j<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        b[i][j] <span
+style='color:#666666'>=</span> s<span style='color:#666666'>.</span>nextInt();</pre><pre
+style='background:#F8F8F8'>      }</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>    <span style='color:green'>int</span>[][] c <span
+style='color:#666666'>=</span> new <span style='color:green'>int</span>[rows][columns];</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (<span style='color:green'>int</span> i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i <span
+style='color:#666666'>&lt;</span> rows; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>      <b><span style='color:green'>for</span></b> (<span
+style='color:green'>int</span> j <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>; j <span style='color:#666666'>&lt;</span> columns; j<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        c[i][j] <span
+style='color:#666666'>=</span> a[i][j] <span style='color:#666666'>+</span> b[i][j];</pre><pre
+style='background:#F8F8F8'>      }</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>    System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;The sum of the two matrices is&quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>    <b><span
+style='color:green'>for</span></b> (<span style='color:green'>int</span> i <span
+style='color:#666666'>=</span> <span style='color:#666666'>0</span>; i <span
+style='color:#666666'>&lt;</span> rows; i<span style='color:#666666'>++</span>) {</pre><pre
+style='background:#F8F8F8'>      <b><span style='color:green'>for</span></b> (<span
+style='color:green'>int</span> j <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>; j <span style='color:#666666'>&lt;</span> columns; j<span
+style='color:#666666'>++</span>) {</pre><pre style='background:#F8F8F8'>        System<span
+style='color:#666666'>.</span>out<span style='color:#666666'>.</span><b><span
+style='color:green'>print</span></b>(c[i][j] <span style='color:#666666'>+</span> <span
+style='color:#BA2121'>&quot; &quot;</span>);</pre><pre style='background:#F8F8F8'>      }</pre><pre
+style='background:#F8F8F8'>      System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println();</pre><pre style='background:#F8F8F8'>    }</pre><pre
+style='background:#F8F8F8'>  }</pre><pre style='background:#F8F8F8'>}</pre>
+
+<p class=MsoNormal><b>Here is a sample execution.&nbsp;</b></p>
+
+<p class=MsoNormal>Enter number of rows: 2<br>
+Enter number of columns: 3<br>
+Enter the first matrix<br>
+3 4 7<br>
+1 8 4<br>
+Enter the second matrix<br>
+3 2 1<br>
+1 0 4<br>
+The sum of the two matrices is<br>
+6 6 8<br>
+2 8 8</p>
+
+<p class=Default><b>2. Write a program in Java that connects to a database and
+generates a report consisting of the Programmes study center wise where the
+student enrollment is less than 50. Make assumptions wherever necessary. </b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><b>Ans:</b></p>
+
+<pre style='background:#F8F8F8'><b><span style='color:green'>import</span></b> <b><span
+style='color:blue'>java.sql.</span></b><span style='color:#666666'>*</span>;       <span
+style='color:#666666'>//</span> Use classes <b><span style='color:#AA22FF'>in</span></b> java<span
+style='color:#666666'>.</span>sql package</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'><span style='color:#666666'>//</span> JDK <span
+style='color:#666666'>7</span> <b><span style='color:#AA22FF'>and</span></b> above</pre><pre
+style='background:#F8F8F8'>public <b><span style='color:green'>class</span></b> <b><span
+style='color:blue'>JdbcSelectTest</span></b> { <span style='color:#666666'>//</span> Save <b><span
+style='color:green'>as</span></b> <span style='color:#BA2121'>&quot;JdbcSelectTest.java&quot;</span></pre><pre
+style='background:#F8F8F8'>  public static void main(String[] args) {</pre><pre
+style='background:#F8F8F8'>    <b><span style='color:green'>try</span></b> {</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> Step <span
+style='color:#666666'>1</span>: Allocate a database <span style='color:#BA2121'>&quot;Connection&quot;</span> <span
+style='color:green'>object</span> </pre><pre style='background:#F8F8F8'>      Connection conn <span
+style='color:#666666'>=</span> DriverManager<span style='color:#666666'>.</span>getConnection(<span
+style='color:#BA2121'>&quot;jdbc:mysql://localhost:8888/ebookshop&quot;</span>, <span
+style='color:#BA2121'>&quot;myuser&quot;</span>, <span style='color:#BA2121'>&quot;xxxx&quot;</span>); <span
+style='color:#666666'>//</span> MySQL</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> Connection conn <span
+style='color:#666666'>=</span> DriverManager<span style='color:#666666'>.</span>getConnection(</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> <span
+style='color:#BA2121'>&quot;jdbc:odbc:ebookshopODBC&quot;</span>); <span
+style='color:#666666'>//</span> Access</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> Step <span
+style='color:#666666'>2</span>: Allocate a <span style='color:#BA2121'>&quot;Statement&quot;</span> <span
+style='color:green'>object</span> <b><span style='color:#AA22FF'>in</span></b> the Connection</pre><pre
+style='background:#F8F8F8'>      Statement stmt <span style='color:#666666'>=</span> conn<span
+style='color:#666666'>.</span>createStatement();</pre><pre style='background:
+#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>      <span
+style='color:#666666'>//</span> Step <span style='color:#666666'>3</span>: Execute a SQL SELECT query, the query result</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> <b><span
+style='color:#AA22FF'>is</span></b> returned <b><span style='color:#AA22FF'>in</span></b> a <span
+style='color:#BA2121'>&quot;ResultSet&quot;</span> <span style='color:green'>object</span><span
+style='color:#666666'>.</span></pre><pre style='background:#F8F8F8'>      String strSelect <span
+style='color:#666666'>=</span> <span style='color:#BA2121'>&quot;select title, price, qty from books&quot;</span>;</pre><pre
+style='background:#F8F8F8'>      System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;The SQL query is: &quot;</span> <span
+style='color:#666666'>+</span> strSelect); <span style='color:#666666'>//</span> Echo For debugging</pre><pre
+style='background:#F8F8F8'>      System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println();</pre><pre style='background:#F8F8F8'>&nbsp;</pre><pre
+style='background:#F8F8F8'>      ResultSet rset <span style='color:#666666'>=</span> stmt<span
+style='color:#666666'>.</span>executeQuery(strSelect);</pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> Step <span
+style='color:#666666'>4</span>: Process the ResultSet by scrolling the cursor forward via <span
+style='color:green'>next</span>()<span style='color:#666666'>.</span></pre><pre
+style='background:#F8F8F8'>      <span style='color:#666666'>//</span> For each row, retrieve the contents of the cells <b><span
+style='color:green'>with</span></b> getXxx(columnName)<span style='color:#666666'>.</span></pre><pre
+style='background:#F8F8F8'>      System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;The records selected are:&quot;</span>);</pre><pre
+style='background:#F8F8F8'>&nbsp;</pre><pre style='background:#F8F8F8'>      <span
+style='color:green'>int</span> rowCount <span style='color:#666666'>=</span> <span
+style='color:#666666'>0</span>;</pre><pre style='background:#F8F8F8'>      <b><span
+style='color:green'>while</span></b>(rset<span style='color:#666666'>.</span>next()) { <span
+style='color:#666666'>//</span> Move the cursor to the <span style='color:green'>next</span> row}</pre><pre
+style='background:#F8F8F8'>        String title <span style='color:#666666'>=</span> rset<span
+style='color:#666666'>.</span>getString(<span style='color:#BA2121'>&quot;title&quot;</span>);</pre><pre
+style='background:#F8F8F8'>        double price <span style='color:#666666'>=</span> rset<span
+style='color:#666666'>.</span>getDouble(<span style='color:#BA2121'>&quot;price&quot;</span>);</pre><pre
+style='background:#F8F8F8'>        <span style='color:green'>int</span> qty <span
+style='color:#666666'>=</span> rset<span style='color:#666666'>.</span>getInt(<span
+style='color:#BA2121'>&quot;qty&quot;</span>);</pre><pre style='background:
+#F8F8F8'>        System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(title <span style='color:#666666'>+</span> <span
+style='color:#BA2121'>&quot;, &quot;</span> <span style='color:#666666'>+</span> price <span
+style='color:#666666'>+</span> <span style='color:#BA2121'>&quot;, &quot;</span> <span
+style='color:#666666'>+</span> qty);</pre><pre style='background:#F8F8F8'>        <span
+style='color:#666666'>++</span>rowCount;</pre><pre style='background:#F8F8F8'>      }</pre><pre
+style='background:#F8F8F8'>      System<span style='color:#666666'>.</span>out<span
+style='color:#666666'>.</span>println(<span style='color:#BA2121'>&quot;Total number of records = &quot;</span> <span
+style='color:#666666'>+</span> rowCount);</pre><pre style='background:#F8F8F8'>    } catch(SQLException ex) {</pre><pre
+style='background:#F8F8F8'>      ex<span style='color:#666666'>.</span>printStackTrace();</pre><pre
+style='background:#F8F8F8'>    }</pre><pre style='background:#F8F8F8'>  }</pre><pre
+style='background:#F8F8F8'>}</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</div>
+</html>
