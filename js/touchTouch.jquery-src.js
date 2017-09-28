@@ -20,7 +20,7 @@
 	/* Creating the plugin */
 	
 	$.fn.touchTouch = function(){
-		
+		slider.empty();
 		var placeholders = $([]),
 			index = 0,
 			items = this;
@@ -29,6 +29,7 @@
 		overlay.hide().appendTo('body');
 		slider.appendTo(overlay);
 		
+		console.log(placeholders);
 		// Creating a placeholder for each image
 		items.each(function(){
 			placeholders = placeholders.add($('<div class="placeholder">'));
