@@ -182,7 +182,38 @@ ecdApp.controller('processController', ['$scope', function($scope){
   console.log('process-controller');
 }]);
 
-ecdApp.controller('contactController', ['$scope', function($scope){
-  console.log('#contact-form');
+ecdApp.controller('contactController', ['$scope', '$http', function($scope, $http){
+  
+  $scope.contactFormSubmit = function(){
+    console.log('submited', $scope.name, $scope.telephone, $scope.email, $scope.message);
+    var data = {
+      name : $scope.name,
+      telephone : $scope.telephone,
+      email : $scope.email,
+      message: $scope.message
+    }
+
+    $http({
+      method: 'POST',
+      data: data,
+      url: "https://formspree.io/ssorabh.ssharma@hotmail.com"
+    }).then(function successCallback(res) {
+      console.log('success', res);
+    }, function errorCallback(err) {
+      console.error('error', err);
+    });
+    return;
+
+    $.ajax({
+        type:"JSONP",
+        url : "https://formspree.io/ssorabh.ssharma@hotmail.com",
+        data : data,
+        dataType: "json"
+    }).done(function(r){
+        console.log('sucess',r);
+    }).error(function(){
+        console.error('error');
+    });
+  }
 
 }]);
