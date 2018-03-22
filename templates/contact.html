@@ -9,20 +9,39 @@
             <div class="success"> Your message has been sent succesfuly!<strong> We will be in touch soon.</strong> </div> 
             <fieldset> 
               <div> 
-                <label class="name"> <input type="text" value="Your name"> <br> <span class="error">*This is not a valid name.</span> <span class="empty">*This field is required.</span> </label> 
+                <label class="name"> 
+                  <input type="text" name="name" placeholder="Your name"> 
+                  <br> <span class="error">*This is not a valid name.</span> 
+                  <span class="empty">*This field is required.</span> 
+                </label> 
               </div> 
               <div> 
                 <label class="phone"> 
-                  <input type="tel" value="Telephone"> <br> <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span> </label> 
+                  <input type="tel" name="telephone" placeholder="Telephone"> 
+                  <br> 
+                  <span class="error">*This is not a valid phone number.</span> 
+                  <span class="empty">*This field is required.</span> 
+                </label> 
               </div> 
               <div> 
-                <label class="email"> <input type="email" value="Email"> <br> <span class="error">*This is not a valid email address.</span> <span class="empty">*This field is required.</span> </label> 
+                <label class="email"> 
+                  <input type="email" name="email" placeholder="Email"> 
+                  <br> 
+                  <span class="error">*This is not a valid email address.</span> 
+                  <span class="empty">*This field is required.</span> 
+                </label> 
               </div> 
               <div> 
-                <label class="message"> <textarea>Message</textarea> <br> <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span> </label> 
+                <label class="message"> 
+                  <textarea name="message" placeholder="Message"></textarea> 
+                  <br> 
+                  <span class="error">*The message is too short.</span> 
+                  <span class="empty">*This field is required.</span> 
+                </label> 
               </div> 
               <div class="buttons-wrapper"> 
-                <a class="btn btn-1" data-type="reset">Clear</a> <a class="btn btn-1" data-type="submit">Send</a>
+                <a class="btn btn-1" data-type="reset">Clear</a> 
+                <button class="btn btn-1" type="submit">Send</button>
               </div> 
             </fieldset> 
           </form>
