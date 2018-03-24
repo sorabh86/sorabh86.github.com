@@ -194,7 +194,7 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
       dataType: "jsonp"
     }).then(function successCallback(res) {
       alert('Your message submitted, We will contact you within 24 Hours.');
-      $scope = {};
+      $scope.contact = {};
       console.log('success', res);
     }, function errorCallback(err) {
       alert('Error, Something is not right, Please try later');
