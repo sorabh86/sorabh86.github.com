@@ -185,18 +185,12 @@ ecdApp.controller('processController', ['$scope', function($scope){
 ecdApp.controller('contactController', ['$scope', '$http', function($scope, $http){
   
   $scope.contactFormSubmit = function(){
-    console.log('submited', $scope.name, $scope.telephone, $scope.email, $scope.message);
-    var data = {
-      name : $scope.name,
-      telephone : $scope.telephone,
-      email : $scope.email,
-      message: $scope.message
-    }
-
+    console.log('submited', $scope.contact);
+    
     $http({
       method: 'POST',
       url: "https://formspree.io/ssorabh.ssharma@hotmail.com",
-      data: data,
+      data: $scope.contact,
       dataType: "jsonp"
     }).then(function successCallback(res) {
       console.log('success', res);
