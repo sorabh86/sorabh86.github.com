@@ -195,8 +195,9 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
 
     $http({
       method: 'POST',
+      url: "https://formspree.io/ssorabh.ssharma@hotmail.com",
       data: data,
-      url: "https://formspree.io/ssorabh.ssharma@hotmail.com"
+      dataType: "jsonp"
     }).then(function successCallback(res) {
       console.log('success', res);
     }, function errorCallback(err) {
