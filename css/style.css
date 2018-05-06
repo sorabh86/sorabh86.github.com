@@ -1347,3 +1347,7 @@ iframe #kform input[type=text],
 iframe #kform textarea {
   width: 100%;
 }
+
+.flexslider .slides {
+  transition: all 1s;
+}
