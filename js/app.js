@@ -187,8 +187,8 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
   $scope.contactFormSubmit = function(){
     console.log('submited', $scope.contact);
     $('.spinner').css({
-      opacity: 1;
-      display: block;
+      opacity: 1,
+      display: block
     });
 
     $http({
@@ -200,8 +200,8 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
       alert('Your message submitted, We will contact you within 24 Hours.');
       $scope.contact = {};
       $('.spinner').css({
-        opacity: 0;
-        display: none;
+        opacity: 0,
+        display: none
       });
       console.log('success', res);
     }, function errorCallback(err) {
