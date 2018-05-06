@@ -188,7 +188,7 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
     console.log('submited', $scope.contact);
     $('.spinner').css({
       opacity: 1,
-      display: block
+      display: "block"
     });
 
     $http({
@@ -201,13 +201,13 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
       $scope.contact = {};
       $('.spinner').css({
         opacity: 0,
-        display: none
+        display: "none"
       });
       console.log('success', res);
     }, function errorCallback(err) {
       $('.spinner').css({
         opacity: 0,
-        display: none
+        display: "none"
       });
       alert('Error, Something is not right, Please try later');
       console.error('error', err);
