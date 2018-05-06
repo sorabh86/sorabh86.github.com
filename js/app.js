@@ -205,6 +205,10 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
       });
       console.log('success', res);
     }, function errorCallback(err) {
+      $('.spinner').css({
+        opacity: 0,
+        display: none
+      });
       alert('Error, Something is not right, Please try later');
       console.error('error', err);
     });
