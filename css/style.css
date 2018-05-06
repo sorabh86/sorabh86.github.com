@@ -207,7 +207,8 @@ header {
   float: left;
   font-size: 0;
   line-height: 0;
-  padding: 12px 0 0 4px;
+  /* padding: 12px 0 0 4px; */
+  padding: 9px 0;
   margin: 0;
 }
 .navbar_ .brand_ h1 {
@@ -1006,15 +1007,15 @@ footer {
     padding-right: 0;
   }
   .navbar_ .nav-collapse_ {
-    position: absolute;
+    /* position: absolute;
     left: auto;
     top: 62px;
-    right: 0;
+    right: 0; */
+    width: 100%;
   }
   .navbar_ .btn {
     display: inline-block;
-    float: right;
-    background: #2B46CA;
+    background: transparent;
     padding: 18px 0 20px;
     text-decoration: none;
     margin: 0;
@@ -1057,10 +1058,11 @@ footer {
     position: relative;
     zoom: 1;
     z-index: 999;
-    width: 113px;
+    /* width: 113px; */
     background:url("../img/bg-content.jpg") repeat scroll 50% 50% transparent;
-    padding: 12px 0;
+    padding: 0;
     margin: 0;
+    margin-bottom: 20px;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -1110,7 +1112,7 @@ footer {
     list-style: none;
     zoom: 1;
     z-index: 9;
-    background: #ccc;
+    /* background: #ccc; */
     padding: 0;
     margin: 0;
     left: 0;
