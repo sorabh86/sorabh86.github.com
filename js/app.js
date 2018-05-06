@@ -122,11 +122,15 @@ function Gallery(){
 }
 var Main=Main||{};
 jQuery(window).load(function(){
-  window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
-  Main.gallery=new Gallery,
-  jQuery(window).resize(function(){
-    Main.gallery.update()
-  });
+  
+});
+
+$(function(){
+  window.responsiveFlag = jQuery("#responsiveFlag").css("display"),
+    Main.gallery = new Gallery,
+    jQuery(window).resize(function () {
+      Main.gallery.update()
+    });
 });
 /*-----------------*/
 
