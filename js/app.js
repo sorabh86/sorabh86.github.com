@@ -123,10 +123,10 @@ function Gallery(){
 var Main=Main||{};
 jQuery(window).load(function(){
   window.responsiveFlag = jQuery("#responsiveFlag").css("display");
-    setTimeout(function(){Main.gallery = new Gallery;},400);
-    jQuery(window).resize(function () {
-      Main.gallery.update()
-    });
+  /* setTimeout(function(){Main.gallery = new Gallery;},1000);
+  jQuery(window).resize(function () {
+    Main.gallery.update()
+  }); */
 });
 /*-----------------*/
 
