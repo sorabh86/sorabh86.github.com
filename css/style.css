@@ -434,6 +434,9 @@ p {
   padding-left: 10px;
   padding-bottom: 10px;
 }
+.list li strong {
+  color:#E85356;
+}
 .list li.last {
   padding-bottom: 0;
 }
