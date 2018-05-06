@@ -90,9 +90,9 @@
 }
 
 #panel .dropdown-menu {
-    position: absolute;
+   /*  position: absolute;
     top: 100%;
-    left: 0;
+    left: 0; */
     z-index: 1000;
     display: none;
     float: left;
