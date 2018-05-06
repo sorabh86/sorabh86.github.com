@@ -126,7 +126,8 @@ jQuery(window).load(function(){
   Main.gallery=new Gallery,
   jQuery(window).resize(function(){
     Main.gallery.update()
-  })
+  });
+  setTimeout(Main.gallery.update,500);
 });
 /*-----------------*/
 
