@@ -122,8 +122,8 @@ function Gallery(){
 }
 var Main=Main||{};
 jQuery(window).load(function(){
-  window.responsiveFlag = jQuery("#responsiveFlag").css("display"),
-    Main.gallery = new Gallery,
+  window.responsiveFlag = jQuery("#responsiveFlag").css("display");
+    setTimeout(function(){Main.gallery = new Gallery;},400);
     jQuery(window).resize(function () {
       Main.gallery.update()
     });
