@@ -409,6 +409,9 @@ p {
 }
 /*------ lists ------- */
 /*------ list ------- */
+.list-unstyled {
+  list-style: none;
+}
 .list.extra {
   width: 100%;
   margin: 0;
@@ -847,12 +850,41 @@ footer {
 }
 .list-social {
   list-style: none outside none;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0;
 }
-.list-social a {
-  width: 30px;
-  height: 30px;
+.list-social li {
+  display: inline-block;
+  padding-right: 20px;
+}
+.list-social li:last-child {
+  padding-right: 0px;
+}
+.list-social li a {
+  text-decoration: none;
+  color:#E85356;
+  transition: 1s all;
+}
+.list-social li a:hover {
+  text-decoration: none;
+  color: #000;
+}
+.list-social li a i{
+  display: inline-block;
+  background:#E85356;
+  color:#fff;
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+.list-social li a:hover i {
+  background:rgb(206, 206, 206);
+  color: #E85356;
+}
+/*.list-social a {
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -860,7 +892,7 @@ footer {
   background-position: 0 0;
   background-repeat: no-repeat;
 }
-.list-social a.icon-fa {
+ .list-social a.icon-fa {
   background-image: url(../img/soc-icon-fa.png);
 }
 .list-social a.icon-in {
@@ -874,7 +906,7 @@ footer {
 }
 .list-social a.icon-5 {
   background-image: url(../img/soc-icon-5.png);
-}
+} 
 .list-social li {
   float: left;
   margin-left: 5px;
@@ -882,6 +914,8 @@ footer {
 .list-social a:hover {
   background-position: 0 bottom;
 }
+*/
+
 /*--- footer end ------*/
 @media (min-width: 1300px) {
   .box-404 {
