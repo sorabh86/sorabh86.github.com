@@ -127,7 +127,6 @@ jQuery(window).load(function(){
   jQuery(window).resize(function(){
     Main.gallery.update()
   });
-  setTimeout(Main.gallery.update,500);
 });
 /*-----------------*/
 
@@ -187,7 +186,11 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
   
   $scope.contactFormSubmit = function(){
     console.log('submited', $scope.contact);
-    
+    $('.spinner').css({
+      opacity: 1;
+      display: block;
+    });
+
     $http({
       method: 'POST',
       url: "https://formspree.io/ssorabh.ssharma@hotmail.com",
@@ -196,6 +199,10 @@ ecdApp.controller('contactController', ['$scope', '$http', function($scope, $htt
     }).then(function successCallback(res) {
       alert('Your message submitted, We will contact you within 24 Hours.');
       $scope.contact = {};
+      $('.spinner').css({
+        opacity: 0;
+        display: none;
+      });
       console.log('success', res);
     }, function errorCallback(err) {
       alert('Error, Something is not right, Please try later');
