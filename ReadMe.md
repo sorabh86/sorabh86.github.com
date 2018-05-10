@@ -48,9 +48,8 @@ WEB DEVELOPMENT
 * Node.js & MongoDB
 
 ## Contact Us
-SKYPE : ssorabh.ssharma      
+SKYPE : [ssorabh.ssharma](skype:ssorabh.ssharma?call)      
 email : ssorabh.ssharma@hotmail.com        
-github : https://github.com/sorabh86
 website : http://expertcodedesign.com
 
 ---------
