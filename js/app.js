@@ -151,6 +151,8 @@ ecdApp.config(function($routeProvider){
   }).when('/contact', {
     templateUrl:'templates/contact.html',
     controller:'contactController'
+  }).when('/underconstruction', {
+    templateUrl:'templates/underconstruction.html'
   }) ;
 });
 
