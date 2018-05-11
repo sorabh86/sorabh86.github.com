@@ -1351,3 +1351,8 @@ iframe #kform textarea {
 .flexslider .slides {
   transition: all 1s;
 }
+
+.google-auto-placed {
+    position:absolute;
+    width:200px!important;
+}
