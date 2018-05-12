@@ -121,14 +121,14 @@ function Gallery(){
   this.init()
 }
 var Main=Main||{};
-jQuery(window).load(function(){
+/*jQuery(window).load(function(){
   window.responsiveFlag = jQuery("#responsiveFlag").css("display");
 
   setTimeout(function(){Main.gallery = new Gallery;},2000);
   jQuery(window).resize(function () {
     Main.gallery.update()
   });
-});
+});*/
 /*-----------------*/
 
 // MODULES
@@ -166,7 +166,8 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
 
 ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
-  Main.gallery = new Gallery,
+  
+  setTimeout(function(){Main.gallery = new Gallery;},2000);
   jQuery(window).resize(function(){
     Main.gallery.update()
   });
