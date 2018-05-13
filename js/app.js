@@ -167,7 +167,7 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
 ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
   
-  setTimeout(function(){Main.gallery = new Gallery;},1000);
+  setTimeout(function(){Main.gallery = new Gallery;},300);
   jQuery(window).resize(function(){
     Main.gallery.update()
   });
