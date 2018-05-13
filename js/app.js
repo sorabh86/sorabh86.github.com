@@ -138,7 +138,7 @@ var ecdApp = angular.module('ecdApp', ['ngRoute']);
 ecdApp.config(function($routeProvider){
   $routeProvider.when('/', {
     templateUrl:'templates/main.html',
-    controller:'mainController'
+    controller:'mainController',
   }).when('/work',{
     templateUrl:'templates/work.html',
     controller:'workController'
@@ -166,6 +166,8 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
 
 ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
+    
+  console.log($scope);
   
   setTimeout(function(){Main.gallery = new Gallery;},300);
   jQuery(window).resize(function(){
