@@ -164,12 +164,13 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
   });
 }]);
 
-ecdApp.controller('mainController', ['$scope', '$location', '$timeout' function($scope, $location){
+ecdApp.controller('mainController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
   
-  $timeout(function(){Main.gallery = new Gallery;
+  $timeout(function(){
+    Main.gallery = new Gallery;
     jQuery(window).resize(function(){
-      Main.gallery.update()
+      Main.gallery.update();
     });
     jQuery('.magnifier').touchTouch();
   },50);
