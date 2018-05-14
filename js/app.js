@@ -164,17 +164,15 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
   });
 }]);
 
-ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
+ecdApp.controller('mainController', ['$scope', '$location', '$timeout' function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
-    
-  console.log($scope);
   
-  setTimeout(function(){Main.gallery = new Gallery;},300);
-  jQuery(window).resize(function(){
-    Main.gallery.update()
-  });
-  jQuery('.magnifier').touchTouch();
-  console.log($location.path());
+  $timeout(function(){Main.gallery = new Gallery;
+    jQuery(window).resize(function(){
+      Main.gallery.update()
+    });
+    jQuery('.magnifier').touchTouch();
+  },50);
 }]);
 
 ecdApp.controller('workController', ['$scope', function($scope){
