@@ -164,16 +164,28 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
   });
 }]);
 
-ecdApp.controller('mainController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout){
+ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
   
-  $timeout(function(){
-    Main.gallery = new Gallery;
-    jQuery(window).resize(function(){
-      Main.gallery.update();
-    });
-    jQuery('.magnifier').touchTouch();
-  },50);
+  $scope.imgss = angular.element.find('.flexslider img');
+  $scope.ind = $scope.imgss.length;
+
+  $scope.initflexslider = function(){
+    $scope.ind--;
+    if($scope.ind<=0) {
+      Main.gallery = new Gallery;
+      jQuery(window).resize(function(){
+        Main.gallery.update();
+      });
+      jQuery('.magnifier').touchTouch();
+    }
+  };
+
+  for(var str in $scope.imgss) {
+    $scope.imgss[str].onload = function(){
+      $scope.initflexslider();
+    };
+  }
 }]);
 
 ecdApp.controller('workController', ['$scope', function($scope){
