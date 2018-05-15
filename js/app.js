@@ -156,6 +156,17 @@ ecdApp.config(function($routeProvider){
   }) ;
 });
 
+// head section 
+ecdApp.controller('headController', ['$scope', '$location', function($scope, $location){
+  var path = ($location.path()=='' || $location.path()=='/')?'HOME':$location.path().replace('/','').toUpperCase();
+
+  $scope.pageTitle = path;
+  $scope.$on('$locationChangeSuccess', function() {
+    var path = ($location.path()=='' || $location.path()=='/')?'HOME':$location.path().replace('/','').toUpperCase();
+    $scope.pageTitle = path;
+  });
+}]);
+
 // CONTROLLERS
 ecdApp.controller('navController', ['$scope', '$location', function($scope, $location){
   $scope.page = $location.path();
@@ -164,6 +175,8 @@ ecdApp.controller('navController', ['$scope', '$location', function($scope, $loc
   });
 }]);
 
+
+// home page
 ecdApp.controller('mainController', ['$scope', '$location', function($scope, $location){
   window.responsiveFlag=jQuery("#responsiveFlag").css("display"),
   
@@ -200,7 +213,6 @@ ecdApp.controller('processController', ['$scope', function($scope){
 }]);
 
 ecdApp.controller('contactController', ['$scope', '$http', function($scope, $http){
-  
   $scope.contactFormSubmit = function(){
     console.log('submited', $scope.contact);
     $('.spinner').css({
