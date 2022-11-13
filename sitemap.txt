@@ -1,0 +1,12 @@
+https://sorabh86.github.io/
+https://sorabh86.github.io/?/about
+https://sorabh86.github.io/?/work
+https://sorabh86.github.io/?/blog
+https://sorabh86.github.io/?/process
+https://sorabh86.github.io/?/process/web
+https://sorabh86.github.io/?/process/cms
+https://sorabh86.github.io/?/process/logo
+https://sorabh86.github.io/?/contact
+
+https://sorabh86.github.io/?/login
+https://sorabh86.github.io/?/signup
