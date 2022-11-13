@@ -8,12 +8,9 @@ import Blog from "../Pages/Blog"
 import Process from "../Pages/Process"
 import Contact from "../Pages/Contact"
 import Dashboard from "./Dashboard"
-import Login from "./Login"
-import Signup from "./Signup"
+import Login from "../Pages/Login"
+import Signup from "../Pages/Signup"
 import "font-awesome/css/font-awesome.min.css"
-
-import SNabbar from "./Header"
-import Footer from "./footer/Footer"
 import AboutMe from "../Pages/AboutMe"
 
 function App() {

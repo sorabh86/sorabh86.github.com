@@ -14,27 +14,30 @@ export default function Welcome() {
       <OurWork />
       <div className="about-me container">
         <div className="row">
-          <article className="col-xl-6 p-5 bg-dark text-light">
-            <h3 className='sos-heading sos-o-text text-center pt-0 mb-2'>About Me</h3>
+          <article className="col-xl-7 p-4 rounded-3 mt-3 mb-3 pt-5 pb-5 bg-dark text-light">
+            <h2 className='sos-heading sos-o-text text-center pt-0 mb-2'>About Me</h2>
             <div className="d-flex gap-4">
               <figure className="profile">
                 <img className="img-responsive" src="img/sorabh-profile.jpg " alt="Sorabh" />
               </figure>
-              <div className="inner-1">
-                <h5><a className='sos-o-text' href="http://sorabh86.github.io"><span className="fa fa-github"></span> sorabh86</a></h5>
-                <div className="txt-1"><b>At your service,</b><br/> Professional Software Engineers!!!<br/> We help our client to understand full System Development Life Cycle (SDLC), and they contribute and guide us on features.</div>
-                  <p>Days of Building Simple Websites are gone, clients are demanding more, they are expecting better and best, Here our roles
+              <div className="inner-1 d-flex flex-column justify-content-center">
+                <h5 className='pb-3'><a className='sos-o-text text-sm fs-4' href="http://sorabh86.github.io"><span className="fa fa-github"></span> sorabh86</a></h5>
+                <div className="txt-1 pb-3"><b>At your service,</b><br/> Professional Software Engineers!!!<br/> We help our client to understand full System Development Life Cycle (SDLC), and they contribute and guide us on features.</div>
+                  <p className='pb-3'>Days of Building Simple Websites are gone, clients are demanding more, they are expecting better and best, Here our roles
       starts, we create unforgettable brand experiences. Our passion is helping design and build solutions that strike to the perfect
       balance between users, business, and technology..</p>
-                <Link className='btn btn-warning text-bold' to="/about">Read More...</Link>
+                <div>
+                  <Link className='btn sos-o-bg text-white text-bold' to="/about">Read More...</Link>
+                </div>
               </div>
             </div>
           </article>
-          <article className="col-xl-6">
-            <h3 className='sos-heading sos-text pt-0 mb-2 text-center'>Expertise</h3>
-            <div className="d-flex justify-content-around">
+          <article className="col-xl-5 pt-5 pb-5">
+            <h2 className='sos-heading sos-text pt-0 mb-2 text-center'>Expertise</h2>
+            <div className="d-flex justify-content-between ps-3">
               <div className="sos-expertise">
                 <strong className='sos-text'>DESIGN</strong>
+                <a href="#">Vector</a>
                 <a href="#">Banner</a>
                 <a href="#">LOGO</a>
                 <a href="#">Mockup2PSD</a>
@@ -56,6 +59,9 @@ export default function Welcome() {
                 <a href="#">Hospital</a>
                 <a href="#">Real Estate</a>
                 <a href="#">Society</a>
+                <a href="#">Micro Services</a>
+                <a href="#">REST API</a>
+                <a href="#">Docker</a>
               </div>
               <div className="sos-expertise">
                 <strong className='sos-text'>LANGUAGES</strong>

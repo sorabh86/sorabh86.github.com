@@ -6,7 +6,7 @@ export default function OurWork() {
   return (
     <>
         <Container className='our-work mt-5 mb-5'>
-            <h4 className="sos-heading sos-text mb-5 text-center">Our Work</h4>
+            <h2 className="sos-heading sos-text mb-5 text-center">Our Work</h2>
             <ul className="portfolio">           
                 <li className="box">
                     <a href="img/image-blank.png" className="magnifier" ><img alt="" src="img/work/1.jpg" /></a>
@@ -40,59 +40,60 @@ export default function OurWork() {
                 <h4 className='text-center pb-4'><i>Please send us your business requirements, consultancy meetings is totally free.</i></h4>
                 <div className="solution-cards">
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <span className="sos-icons fa fa-shopping-cart"></span>
-                            <h5 className='sos-text text-center'>E commerce</h5>
+                            <h5 className='sos-text'>E commerce</h5>
                             <p>Those who wanted to sell there range of selected products on web.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <span className="sos-icons fa fa-address-card"></span>
-                            <h5 className='sos-text text-center'>Professional Portfolio</h5>
+                            <h5 className='sos-text'>Professional Portfolio</h5>
                             <p>Professional Portfolio with custom features addon i.e Followers, Subscribers, Testominals, Bulk Email, Event Organizer.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <span className="sos-icons fa fa-comments"></span>
-                            <h5 className='sos-text text-center'>Blog Post</h5>
+                            <h5 className='sos-text'>Blog Post</h5>
                             <p>Peoples interested to make community and being touch with there updates.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <i className="sos-icons fa fa-newspaper-o"></i>
-                            <h5 className='sos-text text-center'>News</h5>
+                            <h5 className='sos-text'>News</h5>
                             <p>Website that gives you news updates, daily news notifications etc.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <i className="sos-icons fa fa-hospital-o"></i>
-                            <h5 className='sos-text text-center'>Hospital Management</h5>
+                            <h5 className='sos-text'>Hospital Management</h5>
                             <p>Staff, Appointment Management.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <i className="sos-icons fa fa-home"></i>
-                            <h5 className='sos-text text-center'>Real Estate</h5>
+                            <h5 className='sos-text'>Real Estate</h5>
                             <p>Management System.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <i className="sos-icons fa fa-bank"></i>
-                            <h5 className='sos-text text-center'>Banking</h5>
+                            <h5 className='sos-text'>Banking</h5>
                             <p>Banking System, Transaction Management System.</p>
                         </div>
                     </div>
                     <div className='card'>
-                        <div className="card-body">
+                        <div className="card-body justify-content-evenly">
                             <h4 className='text-center'><i>and many more based on your business.</i></h4>
                             <div className="text-center">
-                                <a href="mailto:ssorabh.ssharma@hotmail.com" className="btn btn-primary sos-bg">Email US</a>
+                                <a href="mailto:ssorabh.ssharma@hotmail.com" className="btn btn-primary sos-bg rounded-pill ps-4 pe-4">
+                                    <span className="fa fa-envelope"></span> Email US</a>
                             </div>
                         </div>
                     </div>

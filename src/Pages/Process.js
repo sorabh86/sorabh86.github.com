@@ -1,21 +1,37 @@
 import React from 'react'
 import { Container } from 'react-bootstrap';
-import { Outlet, useParams } from 'react-router-dom'
+import { Link, Outlet, useParams } from 'react-router-dom'
 import Footer from '../Components/footer/Footer';
 import SNabbar from "../Components/Header"
 
 export default function Process() {
-    const params = useParams("name");
+    const params = useParams()['*'];
   return (
-    <>
+    <div className='process-page'>
         <SNabbar active="process"/>
-        <div className="bg-dark">
+        {params==='' && <div className="bg-light pb-5">
             <Container>
                 <h1 className="sos-heading sos-text">Process</h1>
-                <Outlet />
+                <div className='row'>
+                    <Link className='col-lg-4 text-center' to='/process/web'>
+                          <h2><i className="fa fa-sitemap sos-o-text"></i></h2>
+                          <h6 className="sos-o-text"> Web Application Development</h6>
+                    </Link>
+                    <Link className='col-lg-4 text-center' to='/process/cms'>
+                        <h2><i className="fa fa-gear sos-o-text bg-white p-1 rounded-circle"></i></h2>
+                        <h6 className="sos-o-text">CMS Development</h6>
+                    </Link>
+                    <Link className='col-lg-4 text-center' to='/process/logo'>
+                          <h2><i className="fa fa-heart sos-o-text"></i></h2>
+                          <h6 className="sos-o-text">Logo Development</h6>
+                    </Link>
+                </div>  
             </Container>
-        </div>
+        </div>}
+        <Container className='mt-5 mb-5'>
+          <Outlet className="m-0" />
+        </Container>
         <Footer />
-    </>
+    </div>
   )
 }

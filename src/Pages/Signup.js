@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../Contexts/AuthContext'
-import Footer from './footer/Footer'
-import Header from "./Header"
+import Footer from '../Components/footer/Footer'
+import Header from "../Components/Header"
 
 
 export default function Signup() {

@@ -23,27 +23,39 @@ html, body {
     padding: 23px 16px;
     border-color: transparent;
 }
+.main-navbar .nav-link:hover {
+    background: #f60!important;
+}
+.main-navbar .dropdown {
+    position: relative;
+}
 .main-navbar .dropdown-menu {
-    background:  #333;
-    padding: 6px;
+    background: transparent;
+    top: 100%;
+    border: 4px solid #f60;
+    margin: 0;
+    padding: 0;
 }
 .main-navbar .dropdown-menu::before {
     content: "";
     position: absolute;
-    left: 50px;
-    top: 2px;
-    transform: translate(-50%, -100%);
-    border: 20px solid transparent;
-    border-bottom: 20px solid #333;
+    background: #333;
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f60;
+    z-index: -999;
+    transform:rotate(45deg) translateY(-50%);
+}
+.main-navbar .dropdown:hover .dropdown-menu {
+    display: block;
 }
 .main-navbar .dropdown-menu .dropdown-item {
     color: #ccc;
-    background: transparent;
-    border-radius: 5px;
+    background:  #333;
     padding: 15px;
 }
 .main-navbar .dropdown-menu .dropdown-item:hover {
-    background:#2B46CA!important;
+    background:#f60!important;
 }
 .navbar.sub-navbar a:hover {
     background: #d40000;
@@ -66,12 +78,13 @@ html, body {
     padding-left: 20px!important;
     padding-right: 20px!important;
 }
-a.nav-link.sos-join {
+.sos-join {
     padding: 10px;
     background: #ff6600;
-    font-weight: bold;
+    font-weight: bold!important;
+    text-shadow: 0px 0px 2px #333;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: #fff;
 }
 .loading {
     display: flex;
@@ -108,8 +121,18 @@ a.nav-link.sos-join {
     font-size: 3em;
     font-weight: bold;
     letter-spacing: 1px;
+    text-align: center;
     margin:0;
     padding: 30px 0;
+}
+.sos-heading-2 {
+    font-size: 2em;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin:0;
+    padding: 10px 0;
 }
 .sos-bg {
     background: #2B46CA!important;
@@ -124,7 +147,7 @@ a.nav-link.sos-join {
     color: #f60!important;
 } 
 
-.signup, .login {
+.signup, .login, .work-page, .process-page {
     min-height: calc(100vh);
     display: flex;
     flex-direction: column;
@@ -135,6 +158,9 @@ a.nav-link.sos-join {
     margin: auto;
 }
 
+.about-me .inner-1 {
+    text-align: justify;
+}
 .about-me .sos-expertise a,
 .about-me .sos-expertise strong {
     display: block;
@@ -145,27 +171,65 @@ a.nav-link.sos-join {
 .about-me .sos-expertise strong {
     font-size: large;
 }
-
-.education .certificates {
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px; */
-}
-.education .certificates .degree {
-    text-align: center;
-    border: 1px solid #ccc;
-    padding:30px;
+.aboutme .company {
+    background: #fff;
+    padding: 30px;
     border-radius: 10px;
+    box-shadow: 0 0 18px rgb(0 0 0 / 10%);
+}
+
+.aboutme .certificates .degree {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 18px rgb(0 0 0 / 10%);
+    padding:30px;
+    padding-top: 70px;
+    border-radius: 10px;
+    height:100%;
     position: relative;
 }
-.education .certificates .degree .year {
+.aboutme .certificates .degree .fa-certificate {
+    color: #f60;
+    border-radius: 50%;
     position: absolute;
-    top: calc(0px - 10px);
-    left: 0;
+    top:10px;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 4em;
+}
+.aboutme .certificates .degree .year {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     background:#2B46CA;
     color:#fff;
     font-size: 0.8em;
     padding: 3px 5px;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.process-page a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width:992px) {
+    .main-navbar .dropdown {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .main-navbar .dropdown .dropdown-menu {
+        display: block;
+        border: none;
+    }
+    .dropdown-menu::before {
+        display: none!important;
+    }
+    .main-navbar .dropdown .dropdown-menu .dropdown-item {
+        padding-left: 40px;
+        background: none;
+    }
 }
