@@ -1,6 +1,5 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth';
 import React, { useContext, useEffect, useState, createContext } from 'react';
-import { Spinner } from 'react-bootstrap';
 import {auth} from "../firebase";
 
 const AuthContext = createContext({});
@@ -16,12 +15,20 @@ export function AuthProvider({ children }) {
   function signup(email, pass) {
     return createUserWithEmailAndPassword(auth, email, pass)
   }
+  function sendemailverification(user) {
+    return sendEmailVerification(user)
+  }
 
   function login(email, pass) {
     return signInWithEmailAndPassword(auth, email, pass);
   }
 
+  function logout() {
+    return signOut(auth)
+  }
+  
   useEffect(()=>{
+    // logout();
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
       setLoading(false)
@@ -31,19 +38,18 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    setCurrentUser,
     signup,
     login,
     loading,
-    setLoading
+    setLoading,
+    logout,
+    sendemailverification
   }
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading ? children : <div className='loading'>
-        <div className="inner-loading">
-          <Spinner /> <span>Loading...</span>
-        </div>
-      </div>}
+      {children}
     </AuthContext.Provider>
   )
 }

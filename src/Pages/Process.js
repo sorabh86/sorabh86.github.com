@@ -2,13 +2,13 @@ import React from 'react'
 import { Container } from 'react-bootstrap';
 import { Link, Outlet, useParams } from 'react-router-dom'
 import Footer from '../Components/footer/Footer';
-import SNabbar from "../Components/Header"
+import Header from "../Components/header/Header"
 
 export default function Process() {
     const params = useParams()['*'];
   return (
     <div className='process-page'>
-        <SNabbar active="process"/>
+        <Header active="process"/>
         {params==='' && <div className="bg-light pb-5">
             <Container>
                 <h1 className="sos-heading sos-text">Process</h1>

@@ -166,18 +166,16 @@ html[xmlns] .slides {
 .flex-control-nav {
     display: none
 }
-.slogan h2 {
+.slogan .slogan-heading {
     font-size: 3em;
-    width: 50%!important;
+    padding: 60px;
     text-shadow: -1px -1px 1px #000, 1px 1px 1px #888;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
+    text-align: center;
 }
-.slogan p {
-    text-indent: 2em;
-    text-align: justify;
-}
+
 .slogan-text {
     text-align: left;
 }
@@ -190,12 +188,10 @@ html[xmlns] .slides {
     filter: invert(1);
 }
 
-@media handheld,
-only screen and (min-width:1300px) {
+@media only screen and (min-width:1300px) {
     .flexslider .slides>li {
         display: block
     }
-
     #responsiveFlag {
         display: block
     }
@@ -204,6 +200,10 @@ only screen and (min-width:1300px) {
 @media only screen and (max-width:1299px) {
     .flexslider {
         margin: 0;
+    }
+    .slogan .slogan-heading {
+        padding: 10px !important;
+        padding-top: 40px!important;
     }
     
     .flexslider .slides>li {
@@ -288,8 +288,28 @@ only screen and (min-width:1300px) {
         text-align: center;
     }
 }
+@media only screen and (max-width:777px) {
+    .sos-flexslider.bg-dark {
+        padding: 0!important;
+    }
+    .sos-flexslider .flex-container {
+        margin: 0!important;
+    }
+    .sos-flexslider .flexslider {
+        width:100%;
+    }
+    .sos-flexslider .slogan {
+        text-align: center;
+    }
+    .sos-flexslider .slogan-heading{
+        white-space: nowrap;
+    }
+    .slogan .slogan-text {
+        padding-bottom: 40px!important;
+    }
+}
 
-@media only screen and (max-width:420px) {
+@media only screen and (max-width:500px) {
     .flex-direction-nav {
         margin-top: -20px
     }
@@ -297,6 +317,13 @@ only screen and (min-width:1300px) {
     .flex-direction-nav a {
         width: 40px;
         height: 40px
+    }
+    .slogan .slogan-heading {
+        white-space: normal!important;
+    }
+    .slogan .slogan-text {
+        /* padding-bottom: 40px!important;
+        margin-bottom: 40px!important; */
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Container } from 'react-bootstrap'
 import Footer from '../Components/footer/Footer'
-import SNabbar from "../Components/Header"
+import SNabbar from "../Components/header/Header"
 
 export default function Work() {
   return (

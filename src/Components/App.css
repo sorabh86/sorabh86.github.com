@@ -5,9 +5,23 @@
 html, body {
     min-height:100vh;
 }
+.sos-info .nav-link {
+    border-right: 1px solid rgba(255,255,255,.2);
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+}
+.sos-info .nav-link:last-child {
+    border-right: none;
+}
+.sos-info .fa {
+    padding-right: 10px;
+}
 .main-navbar, .sub-navbar {
     color: #fff;
     padding: 0!important;
+}
+.sub-navbar .nav-link {
+    padding: 10px 20px;
 }
 .main-navbar {
     background: #2B46CA!important;
@@ -27,22 +41,27 @@ html, body {
     background: #f60!important;
 }
 .main-navbar .dropdown {
-    position: relative;
+    position: relative;;
 }
 .main-navbar .dropdown-menu {
     background: transparent;
     top: 100%;
-    border: 4px solid #f60;
+    border-radius: 8px;
+    background: #2B46CA;
+    /* overflow: hidden; */
+    /* border: 4px solid #f60; */
     margin: 0;
-    padding: 0;
+    padding: 5px;
+    box-shadow: 0 -10px 26px rgba(0,0,0,0.5);
 }
 .main-navbar .dropdown-menu::before {
     content: "";
     position: absolute;
-    background: #333;
-    width: 50px;
-    height: 50px;
-    border: 4px solid #f60;
+    background: #2B46CA;
+    /* background: #333; */
+    width: 40px;
+    height: 40px;
+    /* border: 4px solid #f60; */
     z-index: -999;
     transform:rotate(45deg) translateY(-50%);
 }
@@ -51,7 +70,7 @@ html, body {
 }
 .main-navbar .dropdown-menu .dropdown-item {
     color: #ccc;
-    background:  #333;
+    /* background:  #333; */
     padding: 15px;
 }
 .main-navbar .dropdown-menu .dropdown-item:hover {
@@ -72,20 +91,38 @@ html, body {
 .main-navbar .nav-link:hover,
 .main-navbar .nav-link.active,
 .main-navbar .dropdown.active .nav- {
-    background: #343a40;
+    background: #212529;
 }
 .sos-join,.sos-members {
-    padding-left: 20px!important;
-    padding-right: 20px!important;
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+    border-radius: 20px;
 }
 .sos-join {
-    padding: 10px;
+    padding: 10px 20px;
     background: #ff6600;
     font-weight: bold!important;
     text-shadow: 0px 0px 2px #333;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
+.bg-orange {
+    background: #f60;
+}
+.bg-blue {
+    background: #2B46CA;
+}
+.text-orange {
+    color:#f60;
+}
+.text-blue {
+    color:#2B46CA;
+}
+.sos-members {
+    border: 1px solid #ccc;
+    margin-right: 8px;
+}
+
 .loading {
     display: flex;
     justify-content: center;
@@ -214,6 +251,19 @@ html, body {
 .process-page a {
     text-decoration: none;
 }
+.donate-btn {
+    border-radius: 50px;
+    align-self: center;
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+}
+.donate-btn:hover {
+    color:#fff;
+    background:#d40000;
+}
+.donate-btn .fa {
+    font-size: 1.3em;
+}
 
 @media only screen and (max-width:992px) {
     .main-navbar .dropdown {
@@ -232,4 +282,64 @@ html, body {
         padding-left: 40px;
         background: none;
     }
+}
+
+@media only screen and (max-width:777px) {
+    .sub-navbar .nav-link {
+        font-size: 0.9em;
+        padding: 20px 0px;
+    }
+    .sub-navbar .container {
+        text-align: center;
+    }
+    .sub-navbar .sos-info {
+        padding: 0;
+    }
+    .about-me {
+        margin: 0;
+        padding: 0;
+    }
+    .about-me article {
+        display: block;
+        margin: 0!important;
+        width: 100vw!important;
+        padding: 30px;
+    }
+    .sos-profile img {
+        width: 100%;
+    }
+    .sos-profile .d-flex {
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    
+}
+
+@media only screen and (max-width:500px) {
+    .sub-navbar .row {
+        margin: auto;
+    }
+    .sub-navbar .sos-info {
+        display: block;
+        flex-direction: row;
+    }
+    .sub-navbar .nav-link {
+        margin-bottom: 10px;
+        border: none;
+        padding:16px;
+    }
+    .sos-members,
+    .sos-join {
+        flex-grow: 1;
+        margin: auto;
+    }
+    .sos-members {
+        margin-right: 10px;
+        border:1px solid rgba(255,255,255,.2)!important;
+    }
+    .sos-expertise .d-flex {
+        flex-wrap: wrap;
+    }
+
 }

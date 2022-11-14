@@ -1,6 +1,6 @@
 import React from 'react'
 import "bootstrap";
-import Navbar from "../Components/Header"
+import Header from "../Components/header/Header"
 import FlexSlider from '../Components/flexslider/FlexSlider';
 import OurWork from '../Components/ourwork/OurWork';
 import Footer from '../Components/footer/Footer';
@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 export default function Welcome() {
   return (
     <>
-      <Navbar active="home"/>
+      <Header active="home"/>
       <FlexSlider />
       <OurWork />
       <div className="about-me container">
         <div className="row">
-          <article className="col-xl-7 p-4 rounded-3 mt-3 mb-3 pt-5 pb-5 bg-dark text-light">
+          <article className="sos-profile col-xl-7 p-4 rounded-3 mt-3 mb-3 pt-5 pb-5 bg-dark text-light">
             <h2 className='sos-heading sos-o-text text-center pt-0 mb-2'>About Me</h2>
             <div className="d-flex gap-4">
               <figure className="profile">
@@ -32,7 +32,7 @@ export default function Welcome() {
               </div>
             </div>
           </article>
-          <article className="col-xl-5 pt-5 pb-5">
+          <article className="sos-expertise col-xl-5 pt-5 pb-5">
             <h2 className='sos-heading sos-text pt-0 mb-2 text-center'>Expertise</h2>
             <div className="d-flex justify-content-between ps-3">
               <div className="sos-expertise">

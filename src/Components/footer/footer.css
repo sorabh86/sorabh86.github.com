@@ -8,6 +8,7 @@ footer {
 }
 .list-social li {
     display: inline-block;
+    align-self: center;
 }
 .list-social .icons {
     font-weight: bold;

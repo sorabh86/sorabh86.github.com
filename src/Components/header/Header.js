@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import jQuery from 'jquery';
 
-import Logo from "../Assets/images/logo.png"
+import Logo from "../../Assets/images/logo.png"
 
 export default function Nabbar(props) {
     const $ = jQuery;
@@ -29,22 +29,24 @@ export default function Nabbar(props) {
   return (
     <div className='sos-navbar'>
         <Navbar bg='dark' className='w-100 sub-navbar'>
-            <Container>
-                <Nav>
-                    <a className='nav-link' href="mailto:ssorabh.ssharma@hotmail.com">
-                        <i className="fa fa-envelope"></i> Sorabh86
-                    </a>
-                    <a className='nav-link' href="skype:ssorabh.ssharma?call">
-                        <i className="fa fa-skype"></i> ssorabh.ssharma
-                    </a>
-                    <a className='nav-link' href="tel:919891464750">
-                        <i className="fa fas-phone-square"></i> +919891-464-750
-                    </a>
-                </Nav>
-                <Nav className="nav ms-auto">
-                    <Link className='nav-link sos-members' to="/login" >Members</Link>
-                    <Link className='nav-link sos-join text-white' to="/signup" >Join Us</Link>
-                </Nav>
+            <Container className='p-2'>
+                <Row className='w-100'>
+                    <Nav className='sos-info col-lg-8 justify-content-center'>
+                        <a className='nav-link' href="mailto:ssorabh.ssharma@hotmail.com">
+                            <i className="fa fa-envelope"></i> Sorabh86
+                        </a>
+                        <a className='nav-link' href="skype:ssorabh.ssharma?call">
+                            <i className="fa fa-skype"></i> ssorabh.ssharma
+                        </a>
+                        <a className='nav-link' href="tel:919891464750">
+                            <i className="fa fas-phone-square"></i>+91 9891-464-750
+                        </a>
+                    </Nav>
+                    <Nav className="nav ms-auto col-lg-4 justify-content-end">
+                        <Link className='nav-link sos-members' to="/login" >Members</Link>
+                        <Link className='nav-link sos-join text-white' to="/signup" >Join Us</Link>
+                    </Nav>
+                </Row>
             </Container>
         </Navbar>
         <Navbar expand="lg" className='w-100 main-navbar navbar'>

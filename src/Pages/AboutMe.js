@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Footer from '../Components/footer/Footer'
-import Header from "../Components/Header"
+import Header from "../Components/header/Header"
 
 export default function AboutMe() {
   return (
