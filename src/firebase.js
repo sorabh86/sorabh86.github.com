@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app"
-import { getAuth } from "firebase/auth";
-import { getDatabase } from 'firebase/database';
+import { getAuth } from "firebase/auth"
+import { collection, getFirestore } from "firebase/firestore"
 
-const app = initializeApp({
+const sosApp = initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
@@ -11,7 +11,10 @@ const app = initializeApp({
     appId: process.env.REACT_APP_FIREBASE_APP_ID     
 })
 
-export const auth = getAuth(app)
-export const db = getDatabase(app)
-// console.log(auth, db);
-export default app;
+//auth
+export const auth = getAuth(sosApp)
+
+//firestore
+export const database = getFirestore(sosApp)
+export const postsRef = collection(database, 'posts');
+

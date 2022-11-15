@@ -2,7 +2,7 @@ import './flexslider.css'
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from "react-router-dom"
-import jQuery from "jquery/dist/jquery.slim"
+import $ from "jquery/dist/jquery.slim"
 
 // import '../../Assets/js/touchTouch.jquery-src.js'
 // import '../../Assets/js/jquery.flexslider.js'
@@ -15,20 +15,19 @@ import Slide5 from "../../Assets/banner/slide-5.jpg"
 
 
 export default function FlexSlider() {
-    const $ = jQuery;
     const $window = $(window);
     
     function handleOver(e) {
         const $this = $(e.target);
+        const offset = $this.offset();
         const $parent = $this.parent();
-        var imgWidth = $this.outerWidth();
-        $parent.addClass('active').width(imgWidth*3);
+        console.log($window.width(), offset.top+$this.width());
+        $parent.addClass('active');
         return false;
     }
     function handleOut(e) {
         var $elements =$(".flexslider .slides li");
         $elements.removeClass('active')
-        $elements.removeAttr('style')
         return false;
     }
     function prevHandle(e) {
@@ -101,7 +100,7 @@ export default function FlexSlider() {
             </ul>
         </div>
         <div className="slogan d-flex">
-            <h2 className="slogan-heading sos-text">Website Developer</h2>
+            <h2 className="slogan-heading sos-text">Full Stack Developer</h2>
             <div className='slogan-text p-4 pb-1'>
                 <p>Web design process always begins with the team's involvement in scoping and prioritizing elements of the project. The designer is also responsible for bringing the pages to life using the wireframes created to mock up each page.  Content is such an important part of your website, but it doesn’t always get the attention that it deserves. This template is designed and developed over the Bootstrap frontend framework. Which is a free front-end framework for designers. Template is fully <i>responsive</i> and <i>compatible</i> with all the major browsers.</p>
                 <Link to="/contact" className="mt-3 btn btn-primary sos-bg">Contact Us</Link>

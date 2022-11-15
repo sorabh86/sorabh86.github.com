@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap'
+import { Alert, Button, Card, Form} from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Contexts/AuthContext';
 import Logo from "../Assets/images/logo.png"
@@ -9,7 +9,7 @@ export default function Login() {
     const emailRef = useRef();
     const passRef = useRef();
 
-    const {login, loading, setLoading, setCurrentUser} = useAuth()
+    const {addLoading, removeLoading, LOADING_STATES} = useAuth()
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -18,8 +18,7 @@ export default function Login() {
 
       try {
         setError('');
-        setLoading(true);
-        setCurrentUser(await login(emailRef.current.value, passRef.current.value))
+        addLoading(LOADING_STATES.LOGIN);
           
         navigate("/dashboard");
       } catch(ex) {
@@ -28,7 +27,7 @@ export default function Login() {
         console.log(ex);
       }
       
-      setLoading(false);
+      removeLoading(LOADING_STATES.LOGIN);
     }
 
   return (
@@ -51,9 +50,8 @@ export default function Login() {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" ref={passRef}  />
                     </Form.Group>
-                    <Button disabled={loading} className='btn btn-primary m-auto d-block mt-4 ps-5 pe-5' type="submit">
-                        {loading && <Spinner as="span" size="sm" role="status"
-                            aria-hidden="true"/>} Login
+                    <Button className='btn btn-primary m-auto d-block mt-4 ps-5 pe-5' type="submit">
+                        Login
                     </Button>
                 </Form>
             </Card.Body>

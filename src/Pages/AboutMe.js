@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import Footer from '../Components/footer/Footer'
 import Header from "../Components/header/Header"
 
@@ -8,7 +7,7 @@ export default function AboutMe() {
   return (
     <div className='aboutme'>
       <Header active='about'/>
-      <div className='bg-dark text-light'>
+      <div className='aboutme-info bg-dark text-light'>
         <Container className='p-5'>
           <h2 className='sos-heading sos-o-text text-center pt-0 mb-3'><span className="fa fa-id-badge"></span> About Me</h2>
           <div className="row">
@@ -25,11 +24,11 @@ export default function AboutMe() {
                 <li>Software Developer with over 10 years of experience.</li>
                 <li>Have interest in designing and crafting efficient modern software's, and learning new technologies and tools if need arises.</li>
               </ul>
-              <div className="d-flex gap-4">
-                <a className="nav-link sos-o-text" href="tel:919891464750"><i className="fa fa-phone-square"></i> 9891464750</a>
-                <a className="nav-link sos-o-text" href="tel:919891464750"><i className="fa fa-phone-square"></i> 7838138004</a>
-                <a className="nav-link sos-o-text" href="skype:ssorabh.ssharma?call"><i className="fa fa-skype"></i> Talk on Skype</a>
-                <a className="nav-link sos-o-text" href="mailto:ssorabh.ssharma@hotmail.com"><i className="fa fa-envelope"></i> Send Email</a>
+              <div className="info-more d-flex gap-4">
+                <a className="nav-link sos-o-text" href="tel:919891464750"><span><i className="fa fa-phone-square"></i> 9891464750</span></a>
+                <a className="nav-link sos-o-text" href="tel:919891464750"><span><i className="fa fa-phone-square"></i> 7838138004</span></a>
+                <a className="nav-link sos-o-text" href="skype:ssorabh.ssharma?call"><span><i className="fa fa-skype"></i> Talk on Skype</span></a>
+                <a className="nav-link sos-o-text" href="mailto:ssorabh.ssharma@hotmail.com"><span><i className="fa fa-envelope"></i> Send Email</span></a>
               </div>
             </div>
           </div>

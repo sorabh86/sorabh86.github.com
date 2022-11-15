@@ -76,6 +76,9 @@ html, body {
 .main-navbar .dropdown-menu .dropdown-item:hover {
     background:#f60!important;
 }
+.main-navbar .dropdown-menu .dropdown-item:focus {
+    background: transparent!important;
+}
 .navbar.sub-navbar a:hover {
     background: #d40000;
 }
@@ -107,10 +110,10 @@ html, body {
     text-transform: uppercase;
 }
 .bg-orange {
-    background: #f60;
+    background: #f60!important;
 }
 .bg-blue {
-    background: #2B46CA;
+    background: #2B46CA!important;
 }
 .text-orange {
     color:#f60;
@@ -144,8 +147,17 @@ html, body {
     border-radius: 10px;
     box-shadow: 0 0 18px #444;
 }
-.loading .inner-loading span{
-    margin-left: 20px;
+.loading img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.loading .spinner-border {
+    margin-bottom: 10px;
+}
+.loading .inner-loading ul{
+    padding: 0;
+    margin: 0;
+    list-style: devanagari;
 }
 .navbar-sub-nav {
     flex-direction: column !important;
@@ -184,7 +196,7 @@ html, body {
     color: #f60!important;
 } 
 
-.signup, .login, .work-page, .process-page {
+.signup, .login, .work-page, .process-page, .contact-page {
     min-height: calc(100vh);
     display: flex;
     flex-direction: column;
@@ -194,25 +206,120 @@ html, body {
     width: 400px;
     margin: auto;
 }
-
-.about-me .inner-1 {
-    text-align: justify;
+.btn.bg-orange,
+.btn.sos-o-bg,
+.btn.bg-blue {
+    transition: 500ms all ;
 }
-.about-me .sos-expertise a,
-.about-me .sos-expertise strong {
-    display: block;
+.btn.bg-orange:hover,
+.btn.sos-o-bg:hover,
+.btn.bg-blue:hover {
+    background: #d40000!important;
+}
+.sos-expertise .expertise-item {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+}
+.sos-expertise .expertise-item .sos-text {
+    font-size: 1.2em;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    border-top: 1px solid #f60;
+    border-bottom: 1px solid #f60;
+}
+.sos-expertise .expertise-item a {
+    position: relative;
     text-decoration: none;
-    color:#444;
-    line-height: 2em;
+    padding: 4px 10px;
+    transition: 200ms all ease-in-out;
+    text-align: left;
 }
-.about-me .sos-expertise strong {
-    font-size: large;
+.sos-expertise .expertise-item a:hover {
+    background: #d40000;
+    color: #fff;
+    border-radius: 10px;
 }
+.sos-expertise .expertise-item a span {
+    display: inline-block;
+    position: relative;
+    left:0;
+    transition: 300ms all ease-in-out;
+}
+.sos-expertise .expertise-item a:hover span {
+    color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.aboutme .info-more .nav-link {
+    position: relative;
+    padding: 2px 6px;
+    transition: 300ms all ease-in-out;
+    z-index: 0;
+}
+.aboutme .info-more .nav-link:hover {
+    border-radius: 10px;
+    background-color: #d40000;
+    color: #ccc!important;
+}
+.aboutme .info-more .nav-link i.fa {
+    position: relative;
+    display: inline-block;
+    transition: 300ms all ease-in-out;
+    z-index: 1;
+}
+.aboutme .info-more .nav-link:hover i.fa {
+    border-radius: 10px;
+    background-color: #d40000;
+    color: #ccc!important;
+    transform: scale(3);
+}
+
 .aboutme .company {
-    background: #fff;
+    background: #fff; 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 18px rgb(0 0 0 / 10%);
+    position: relative;
+    z-index: 0;
+}
+.aboutme .company .sos-text {
+    text-align: center;
+    padding: 30px 5px;
+    margin: 0 10px;
+    transition: 200ms all ease-in-out;
+}
+.aboutme .company .sos-text small {
+    display: block;
+}
+.aboutme .company:hover .sos-text {
+    position: relative;
+    transform: scale(1.2) translateY(50%);
+    background-color: #212529;
+    color: #fff!important;
+    margin: 0;
+    z-index: 999;
+    border-radius: 30px;
+}
+.aboutme .company:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,144,00,.3);
+    transition: 200ms all ease-in-out;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.aboutme .company:hover:before {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .aboutme .certificates .degree {
@@ -235,6 +342,17 @@ html, body {
     left:50%;
     transform: translateX(-50%);
     font-size: 4em;
+    transition: 200ms all ease-in-out;
+}
+.aboutme .degree:hover .fa-certificate {
+    top:50%;
+    transform: translate(-50%, -120%);
+    color: #2B46CA!important;
+    text-shadow: 2px 2px 2px #fff,
+        -2px -2px 2px #fff,
+        2px -2px 2px #fff,
+        2px -2px 2px #fff;
+    z-index: 99;
 }
 .aboutme .certificates .degree .year {
     position: absolute;
@@ -247,23 +365,77 @@ html, body {
     border-radius: 5px;
     font-weight: bold;
 }
+.aboutme .degree strong {
+    padding: 15px;
+    transition: 200ms all ease-in-out;
+}
+.aboutme .degree:hover strong {
+    position: relative;
+    transform: scale(1.2) translateY(50%);
+    background-color: #212529;
+    color: #fff!important;
+    margin: 0;
+    z-index: 9;
+    border-radius: 30px;
+}
+.aboutme .degree:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,144,00,.3);
+    transition: 200ms all ease-in-out;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.aboutme .degree:hover:before {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
 
 .process-page a {
     text-decoration: none;
 }
 .donate-btn {
-    border-radius: 50px;
+    border-radius: 50px!important;
     align-self: center;
     padding-left: 30px!important;
     padding-right: 30px!important;
 }
-.donate-btn:hover {
-    color:#fff;
-    background:#d40000;
-}
 .donate-btn .fa {
     font-size: 1.3em;
 }
+
+.contact-page form input,
+.contact-page form textarea {
+    padding: 10px 20px;
+    border-color: #777;
+    color: #fff;
+    background: transparent;
+    transition: 300ms all ease-in-out;
+}
+.contact-page .btn.btn-primary {
+    display: block;
+    padding: 10px 40px;
+    margin: auto;
+    position: relative;
+}
+/* .contact-page .btn.btn-primary:before {
+    content: '';
+    background: red;
+    width: 50px;
+    height: 50px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    position: absolute;
+    transform: scaleX(0.5) rotate(45deg);
+} */
 
 @media only screen and (max-width:992px) {
     .main-navbar .dropdown {
@@ -271,9 +443,10 @@ html, body {
         flex-direction: column;
         width: 100%;
     }
-    .main-navbar .dropdown .dropdown-menu {
+    .main-navbar .dropdown-menu {
         display: block;
         border: none;
+        box-shadow: none!important;
     }
     .dropdown-menu::before {
         display: none!important;
@@ -295,11 +468,11 @@ html, body {
     .sub-navbar .sos-info {
         padding: 0;
     }
-    .about-me {
+    .aboutme {
         margin: 0;
         padding: 0;
     }
-    .about-me article {
+    .aboutme article {
         display: block;
         margin: 0!important;
         width: 100vw!important;
@@ -312,8 +485,28 @@ html, body {
         flex-direction: column;
         text-align: left;
     }
-    
-    
+    .aboutme .info-more {
+        display: block!important;
+        flex-direction: row;
+        gap: 0;
+    }
+    .aboutme .info-more .nav-link {
+        padding: 10px 20px;
+    }
+    .aboutme .info-more .nav-link span {
+        position: relative;
+        display: inline-block;
+        transition: 300ms all ease-in-out;
+        left:0
+    }
+    .aboutme .info-more .nav-link:hover span {
+        left:50%;
+        transform: translateX(-50%);
+    }
+    .aboutme .info-more .nav-link:hover i.fa {
+        margin-right:20px;
+        transform: scale(2);
+    }
 }
 
 @media only screen and (max-width:500px) {
@@ -321,13 +514,16 @@ html, body {
         margin: auto;
     }
     .sub-navbar .sos-info {
-        display: block;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .sub-navbar .nav-link {
+        display: inline-block;
         margin-bottom: 10px;
-        border: none;
-        padding:16px;
+        flex-grow: 1;
+    }
+    .sub-navbar .nav-link .smdt {
+        display: none;
     }
     .sos-members,
     .sos-join {
@@ -339,7 +535,23 @@ html, body {
         border:1px solid rgba(255,255,255,.2)!important;
     }
     .sos-expertise .d-flex {
-        flex-wrap: wrap;
+        justify-content: space-around!important;
+    }
+    .sos-expertise .expertise-item {
+        display: flex;
+        width: 40%;
     }
 
+    .aboutme-info .container,
+    .expertise .container,
+    .experience .container,
+    .education .container {
+        padding:30px 20px!important;
+    }
+    .sos-expertise .d-flex {
+        flex-wrap: wrap;
+    }
+    .aboutme .nav-link.sos-o-text {
+        flex-grow: 1;
+    }
 }

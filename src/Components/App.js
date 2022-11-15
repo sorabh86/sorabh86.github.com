@@ -12,7 +12,6 @@ import Login from "../Pages/Login"
 import Signup from "../Pages/Signup"
 import "font-awesome/css/font-awesome.min.css"
 import AboutMe from "../Pages/AboutMe"
-import { Spinner } from "react-bootstrap"
 import Loader from "./Loader"
 
 function App() {

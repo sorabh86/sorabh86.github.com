@@ -11,7 +11,8 @@ export default function Process() {
         <Header active="process"/>
         {params==='' && <div className="bg-light pb-5">
             <Container>
-                <h1 className="sos-heading sos-text">Process</h1>
+                <h1 className="sos-heading sos-text">Services</h1>
+                <p className='alert alert-info text-center'>Design & Development in progress...</p>
                 <div className='row'>
                     <Link className='col-lg-4 text-center' to='/process/web'>
                           <h2><i className="fa fa-sitemap sos-o-text"></i></h2>

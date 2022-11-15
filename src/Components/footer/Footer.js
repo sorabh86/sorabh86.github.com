@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './footer.css'
 import Ecd from '../../Assets/images/ecd-logo.png'
+import Upi from '../../Assets/images/donate-sorabh86-QR.jpg'
 
 export default function Footer() {
-  return (
+    const [upi, setUpi] = useState(false);
+  
+    function donateHandle(e) {
+        e.preventDefault();
+        setUpi(!upi);
+    }
+
+    return (
     <footer className='w-100 bg-dark text-light mt-auto'>
-        <div className="container">
+        <div className="container pb-3">
             <div className="row d-flex justify-content-between">
                 <ul className="list-social text-center col-xl-6  d-xl-flex justify-content-start">
                     <li><a className="icons" href="#/">
@@ -23,11 +31,17 @@ export default function Footer() {
                 </ul>
                 <div className="privacy text-center col-xl-6 d-xl-flex justify-content-end">
                     <img className='pe-3' src={Ecd} alt="Expert Code Design Logo" />
-                    <a className='donate-btn bg-orange' href="#">Donate for <span className="fa fa-coffee"></span></a>
+                    <a className='btn donate-btn bg-orange' href='#' onClick={donateHandle}>Donate for <span className="fa fa-coffee"></span></a>
                 </div>
-                <p className="text-center pt-3 border-top border-warning">© Copyright to Sorabh86, 2022 </p>
             </div>
         </div>
+        <p className="text-center pt-3 mb-0 border-top border-warning">© Copyright to Sorabh86, 2022 </p>
+        {<div className={upi?'upi active':'upi'}>
+            <div className="upi-inner">
+                <a className='btn fs-2' href="#" onClick={donateHandle}>&times; <small>(close)</small></a>
+                <img src={Upi} />
+            </div>
+        </div>}
     </footer>
   )
 }

@@ -22,12 +22,6 @@
     position: relative
 }
 
-.flexslider {
-    margin: 40px 0 55px;
-    padding: 0;
-    background: #000
-}
-
 .flexslider .slides img {
     max-width: 100%;
     display: block
@@ -85,7 +79,11 @@ html[xmlns] .slides {
 }
 
 .flexslider {
-    zoom: 1
+    overflow: hidden;
+    zoom: 1;
+    padding: 56px 0;
+    background: #212529;
+    margin: 0;
 }
 
 .flexslider .slides {
@@ -141,11 +139,17 @@ html[xmlns] .slides {
 
 .flexslider .slides>li.active {
     opacity: 1;
-    max-width: max-content;
-    width: 100%;
     z-index: 1;
     transform: scale(1.2);
-    box-shadow: 0 0 20px white;
+    /* box-shadow: 0 0 20px white; */
+    width: fit-content;
+    overflow: visible;
+}
+.flexslider .slides>li.active:first-child {
+    transform-origin: 0;
+}
+.flexslider .slides>li.active:last-child {
+    transform-origin: 100%;
 }
 
 .flexslider .slides img {
@@ -167,6 +171,7 @@ html[xmlns] .slides {
     display: none
 }
 .slogan .slogan-heading {
+    width: 40%;
     font-size: 3em;
     padding: 60px;
     text-shadow: -1px -1px 1px #000, 1px 1px 1px #888;
@@ -177,6 +182,7 @@ html[xmlns] .slides {
 }
 
 .slogan-text {
+    width: 60%;
     text-align: left;
 }
 .slogan a.btn {
@@ -202,8 +208,11 @@ html[xmlns] .slides {
         margin: 0;
     }
     .slogan .slogan-heading {
+        width: 100%;
         padding: 10px !important;
-        padding-top: 40px!important;
+    }
+    .slogan .slogan-text {
+        width: 100%;
     }
     
     .flexslider .slides>li {
@@ -304,6 +313,9 @@ html[xmlns] .slides {
     .sos-flexslider .slogan-heading{
         white-space: nowrap;
     }
+    .slogan .slogan-heading {
+        padding-top: 0px!important;
+    }
     .slogan .slogan-text {
         padding-bottom: 40px!important;
     }
@@ -320,10 +332,6 @@ html[xmlns] .slides {
     }
     .slogan .slogan-heading {
         white-space: normal!important;
-    }
-    .slogan .slogan-text {
-        /* padding-bottom: 40px!important;
-        margin-bottom: 40px!important; */
     }
 }
 
