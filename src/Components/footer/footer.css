@@ -77,5 +77,6 @@ footer {
     color: #fff;
 }
 .upi-inner img {
-    height: calc(100vh - 80px);
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 80px);
 }

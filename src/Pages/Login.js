@@ -9,7 +9,7 @@ export default function Login() {
     const emailRef = useRef();
     const passRef = useRef();
 
-    const {addLoading, removeLoading, LOADING_STATES} = useAuth()
+    const {loading, addLoading, removeLoading, LOADING_STATES} = useAuth()
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -44,13 +44,13 @@ export default function Login() {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className='mb-2'>
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" ref={emailRef}  />
+                        <Form.Control type="email" ref={emailRef} required />
                     </Form.Group>
                     <Form.Group className='mb-2'>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" ref={passRef}  />
+                        <Form.Control type="password" ref={passRef} required />
                     </Form.Group>
-                    <Button className='btn btn-primary m-auto d-block mt-4 ps-5 pe-5' type="submit">
+                    <Button disabled={loading.length>0} className='btn btn-primary m-auto d-block mt-4 ps-5 pe-5' type="submit">
                         Login
                     </Button>
                 </Form>

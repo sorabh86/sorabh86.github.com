@@ -15,7 +15,7 @@ export default function AboutMe() {
               <img className="img-responsive w-100" src="img/sorabh-profile.jpg " alt="Sorabh" />
             </figure>
             <div className="inner-1 col-lg-8">
-              <h3 className='pb-3'><a className='sos-o-text' href="http://sorabh86.github.io"><span className="fa fa-github"></span> sorabh86</a></h3>
+              <h3 className='pb-3'><a className='sos-o-text' href="https://github.com/sorabh86"><span className="fa fa-github"></span> sorabh86</a></h3>
               <div className="txt-1"><b>At your service,</b><br /> Professional Software Engineers!!!<br /> We help our client to understand full System Development Life Cycle (SDLC), and they contribute and guide us on features.</div>
               <p>Days of Building Simple Websites are gone, clients are demanding more, they are expecting better and best, Here our roles
                 starts, we create unforgettable brand experiences. Our passion is helping design and build solutions that strike to the perfect

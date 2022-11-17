@@ -3,7 +3,7 @@ import { auth, database, postsRef } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth';
 import { addDoc, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 
-const AuthContext = createContext({});
+const AuthContext = createContext(null);
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -25,12 +25,12 @@ export function AuthProvider({ children }) {
     let arr = loading;
     arr.push(str)
     setLoading(arr)
-    console.log("add loader", loading, loading.length);
+    // console.log("add loader", loading, loading.length);
   }
   function removeLoading(str) {
     let arr = loading;
     var index = arr.indexOf(str)
-    console.log('index', index);
+    // console.log('index', index);
     if (index !== -1) {
       arr.splice(index, 1);
       setLoading(arr);
@@ -46,18 +46,23 @@ export function AuthProvider({ children }) {
   }
 
   function login(email, pass) {
-    return signInWithEmailAndPassword(auth, email, pass);
+    addLoading()
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(userCredential => {
+        currentUser = userCredential.user;
+      });
+
   }
 
-  function logout() {
-    return signOut(auth)
+  async function logout() {
+    await signOut(auth)
   }
 
-  function createPost(title, content, author) {
+  async function createPost(title, content, author) {
     const today = new Date();
     const timestamp = today.toUTCString();
-    console.log(timestamp);
-    addDoc(postsRef, {
+    
+    await addDoc(postsRef, {
       title:title,
       content:content,
       author:author,
@@ -107,9 +112,10 @@ export function AuthProvider({ children }) {
     // seting currentUser {authentication status update handler}
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
+      console.log('auth changed: '+user);
     });
 
-    getPosts();
+    // getPosts();
 
     return unsubscribe;
   }, []);
@@ -120,7 +126,6 @@ export function AuthProvider({ children }) {
     removeLoading,
     currentUser,
     posts,
-    setCurrentUser,
     signup,
     login,
     loading,

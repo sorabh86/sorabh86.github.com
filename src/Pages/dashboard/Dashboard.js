@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Contexts/AuthContext';
 import './Dashboard.css';
 
@@ -12,6 +12,11 @@ export default function Dashboard() {
         await logout()
         navigate("/login")
     }
+
+    useEffect(()=>{
+        if(!currentUser)
+            navigate('/login')
+    })
 
   return (
     <div className='dashboard'>
@@ -27,7 +32,7 @@ export default function Dashboard() {
                     </Nav>
                     <Nav className='ms-auto'>
                         <NavDropdown title={<><span className="fa fa-user"></span> User</>} id="user-options" renderMenuOnMount="true">
-                            <NavDropdown.Item as={Link} to="/dashboard/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/dashboard/profile">Post</NavDropdown.Item>
                             <NavDropdown.Item onClick={handleLogout}>Sign Out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
@@ -37,11 +42,13 @@ export default function Dashboard() {
         <Container>
             <Card>
                 <Card.Body>
+                    hello there
                     {currentUser && <p>{currentUser.email} 
                     <button className='btn btn-link' onClick={()=>{sendemailverification(currentUser)}}>verify</button></p>}
                     
                 </Card.Body>
             </Card>
+            <Outlet />
         </Container>
     </div>
   )

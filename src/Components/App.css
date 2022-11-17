@@ -522,6 +522,9 @@ html, body {
         margin-bottom: 10px;
         flex-grow: 1;
     }
+    .sub-navbar .nav-link .fa {
+        font-size: 2em;
+    }
     .sub-navbar .nav-link .smdt {
         display: none;
     }

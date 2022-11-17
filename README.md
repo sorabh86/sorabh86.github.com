@@ -17,5 +17,22 @@ This application based on React ^18(SPA) & firebase ^9.
 6. Go to `Authentication` -> `Settings` -> `Authorized domains` & add your domains where you are goint to connect.
 7. Create your react app using `npx create-react-app <myapp>`
 8. Code your application.
+9. gh-pages module for publish folder in separate branch
+```cmd
+# Install
+npm -i gh-pages --save-dev
+```
+10. Add scripts into package.json file
+```json
+{
+    // some values
+    scripts: {
+        "predeploy" : "npm run build",
+        "deploy" : "gh-pages -d build",
+    }
+    // other values
+}
+```
+11. deploy gh-pages `npm run deploy`
 
 ##

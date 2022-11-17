@@ -21,7 +21,7 @@ export default function Welcome() {
                 <img className="img-responsive" src="img/sorabh-profile.jpg " alt="Sorabh" />
               </figure>
               <div className="inner-1 d-flex flex-column justify-content-center">
-                <h5 className='pb-3'><a className='sos-o-text text-sm fs-4' href="http://sorabh86.github.io"><span className="fa fa-github"></span> sorabh86</a></h5>
+                <h5 className='pb-3'><a className='sos-o-text text-sm fs-4' href="https://github.com/sorabh86"><span className="fa fa-github"></span> sorabh86</a></h5>
                 <div className="txt-1 pb-3"><b>At your service,</b><br/> Professional Software Engineers!!!<br/> We help our client to understand full System Development Life Cycle (SDLC), and they contribute and guide us on features.</div>
                   <p className='pb-3'>Days of Building Simple Websites are gone, clients are demanding more, they are expecting better and best, Here our roles
       starts, we create unforgettable brand experiences. Our passion is helping design and build solutions that strike to the perfect
@@ -59,8 +59,8 @@ export default function Welcome() {
                 <a href="#"><span>Hospital</span></a>
                 <a href="#"><span>Real Estate</span></a>
                 <a href="#"><span>Society</span></a>
-                <a href="#"><span>Micro</span> Services</a>
-                <a href="#"><span>REST</span> API</a>
+                <a href="#"><span>Micro Services</span></a>
+                <a href="#"><span>REST API</span></a>
                 <a href="#"><span>Docker</span></a>
               </div>
               <div className="expertise-item">

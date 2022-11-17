@@ -11,7 +11,7 @@ export default function Signup() {
     const emailRef = useRef();
     const passRef = useRef();
     const cpassRef = useRef();
-    const { signup, loading, setLoading } = useAuth();
+    const { signup, loading, LOADING_STATES, addLoading, removeLoading } = useAuth();
     const [error, setError] = useState('')
 
     async function handleSubmit(e) {
@@ -23,7 +23,7 @@ export default function Signup() {
 
         try {
             setError('')
-            setLoading(true);
+            addLoading(LOADING_STATES.REGISTER)
             await signup(emailRef.current.value, passRef.current.value);
         } catch (e) {
             const message = e.code.split('/').join(' ').split('-').join(' ')
@@ -31,7 +31,7 @@ export default function Signup() {
             console.log(message);
         }
 
-        setLoading(false);
+        removeLoading(LOADING_STATES.REGISTER)
     }
 
     return (
@@ -61,7 +61,7 @@ export default function Signup() {
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control type="password" ref={cpassRef} required />
                             </Form.Group>
-                            <Button disabled={loading} className='btn btn-success m-auto d-block mt-4 ps-5 pe-5' type="submit">Sign Up</Button>
+                            <Button disabled={loading.length>0} className='btn btn-success m-auto d-block mt-4 ps-5 pe-5' type="submit">Sign Up</Button>
                         </Form>
                     </Card.Body>
                     <Card.Footer className='bg-transparent border-0 text-center'>
