@@ -100,9 +100,26 @@ export default function FlexSlider() {
             </ul>
         </div>
         <div className="slogan d-flex">
-            <h2 className="slogan-heading sos-text">Full Stack Developer</h2>
+            <div className='slogan-head'>
+                <h2 className="slogan-heading sos-text">Full Stack Developer</h2>
+            </div>
             <div className='slogan-text p-4 pb-1'>
-                <p>Web design process always begins with the team's involvement in scoping and prioritizing elements of the project. The designer is also responsible for bringing the pages to life using the wireframes created to mock up each page.  Content is such an important part of your website, but it doesn’t always get the attention that it deserves. This template is designed and developed over the Bootstrap frontend framework. Which is a free front-end framework for designers. Template is fully <i>responsive</i> and <i>compatible</i> with all the major browsers.</p>
+                <p className='text-start'>
+                    <b className='text-blue fs-4'>Who is an Fulll Stack Developer?</b> <br />
+                    A Person expertise with both Fronthand & Backhand, He can work on any phase of software development lifecycle. Person who have depth understanding and experience about all Processes(Activities, Events), all those phases of development of system. <br />
+                    Overall process of Software Development Lifecycle(SDLC), there are numerous Process of development Model used in the industry, most commonly used are, Water Fall Model, Prototype Model, Sprial Model, Agile Model, etc. <br /><br />
+                    Here are commonly used stages: 
+                    <ul className='pt-3'>
+                        <li><b className='text-blue'>Requirement Gathering & Analysis:</b> Gathering information about business, then information is converted<i>(Problem Statement's)</i> into Functional Statement's, then define limitations, then generate a Requirement Document.</li>
+                        <li><b className='text-blue'>Design:</b> Take input from SRS document and turn distribute them into different module of functionality using various diagrams(DFD, ER, usecase, class diagrams, etc) and mockups, generate a Software Design(SD) Document</li>
+                        <li><b className='text-blue'>Code:</b> Software Design Document is going to be base of coding functionality.</li>
+                        <li><b className='text-blue'>Testing:</b> Based on Design Document, we wrote different testing cases for unit, integration, system testing.</li>
+                        <li><b className='text-blue'>Deployment:</b> We deliver relative documentation and setup software system on client machine.</li>
+                        <li><b className='text-blue'>Training: </b> <small className='bg-secondary rounded ps-1 pe-1'>(not manditory, as per request)</small> We provide our client training about, How to use our system.</li>
+                        <li><b className='text-blue'>Maintenance: </b> <small className='bg-secondary rounded ps-1 pe-1'>(not manditory, as per request)</small> This include system optimization, bug fixes, etc.</li>
+                    </ul>  
+                </p>
+                {/* <p>Web design process always begins with the team's involvement in scoping and prioritizing elements of the project. The designer is also responsible for bringing the pages to life using the wireframes created to mock up each page.  Content is such an important part of your website, but it doesn’t always get the attention that it deserves. This template is designed and developed over the Bootstrap frontend framework. Which is a free front-end framework for designers. Template is fully <i>responsive</i> and <i>compatible</i> with all the major browsers.</p> */}
                 <Link to="/contact" className="mt-3 btn btn-primary sos-bg">Contact Us</Link>
             </div>
         </div>

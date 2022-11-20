@@ -170,10 +170,18 @@ html[xmlns] .slides {
 .flex-control-nav {
     display: none
 }
+.slogan {
+    color: #ccc;
+}
+.slogan-head {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .slogan .slogan-heading {
-    width: 40%;
     font-size: 3em;
-    padding: 60px;
+    /* padding: 60px; */
     text-shadow: -1px -1px 1px #000, 1px 1px 1px #888;
     text-transform: uppercase;
     font-weight: bold;
@@ -182,7 +190,7 @@ html[xmlns] .slides {
 }
 
 .slogan-text {
-    width: 60%;
+    width: 70%;
     text-align: left;
 }
 .slogan a.btn {
@@ -207,7 +215,7 @@ html[xmlns] .slides {
     .flexslider {
         margin: 0;
     }
-    .slogan .slogan-heading {
+    .slogan .slogan-head {
         width: 100%;
         padding: 10px !important;
     }
