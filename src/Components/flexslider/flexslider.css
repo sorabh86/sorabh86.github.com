@@ -102,8 +102,9 @@ html[xmlns] .slides {
 .flexslider .slides>li {
     width: 20%;
     overflow: hidden;
-    position: relative;
+    /* position: relative; */
     transition: 500ms all;
+    width:20%
 }
 
 .flexslider .slides>li .flex-caption {
@@ -139,11 +140,11 @@ html[xmlns] .slides {
 
 .flexslider .slides>li.active {
     opacity: 1;
-    z-index: 1;
+    overflow: visible;
     transform: scale(1.2);
     /* box-shadow: 0 0 20px white; */
-    width: fit-content;
-    overflow: visible;
+    width: 100%;
+    z-index: 1;
 }
 .flexslider .slides>li.active:first-child {
     transform-origin: 0;

@@ -41,7 +41,7 @@ export default function Signup() {
                 <Card className="mt-2 mb-2">
                     <Card.Header className='bg-transparent border-0'>
                         <h2 className="text-success text-center fs-1 fw-bold">Sign Up</h2>
-                        {error!='' && <Alert variant='danger'>{error}</Alert>}
+                        {error!=='' && <Alert variant='danger'>{error}</Alert>}
                     </Card.Header>
                     <Card.Body>
                         <Form onSubmit={handleSubmit}>

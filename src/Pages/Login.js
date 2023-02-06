@@ -38,7 +38,7 @@ export default function Login() {
         <Card className='mt-5'>
           <Card.Header className='bg-transparent card-header border-0'>
             <h2 className="text-blue text-center fs-1 fw-bold">Login</h2>
-            {error!='' && <Alert variant='danger'>{error}</Alert>}
+            {error!=='' && <Alert variant='danger'>{error}</Alert>}
           </Card.Header>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>

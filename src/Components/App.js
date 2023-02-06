@@ -14,6 +14,7 @@ import "font-awesome/css/font-awesome.min.css"
 import AboutMe from "../Pages/AboutMe"
 import Loader from "./Loader"
 import { DbProvider } from "../Contexts/DbContext"
+import ErrorPage from "../Pages/ErrorPage"
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
           </Route>
           <Route path="/about" element={<AboutMe />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<ErrorPage />} />
+
         </Routes>
       </BrowserRouter>
       <Loader />
