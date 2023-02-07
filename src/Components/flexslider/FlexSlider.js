@@ -80,6 +80,15 @@ export default function FlexSlider() {
         }
         
         console.log($window.outerWidth()+" add events");
+
+        return () => {
+            if($window.outerWidth() < 1300) {
+                $prev.off('click', prevHandle);
+                $next.off('click', nextHandle);
+            } else {
+                $sliderList.off('hover');
+            }
+        }
     }
 
     useEffect(render, []);
@@ -104,7 +113,7 @@ export default function FlexSlider() {
                 <h2 className="slogan-heading sos-text">Full Stack Developer</h2>
             </div>
             <div className='slogan-text p-4 pb-1'>
-                <p className='text-start'>
+                <div className='text-start'>
                     <b className='text-blue fs-4'>Who is an Fulll Stack Developer?</b> <br />
                     A Person expertise with both Fronthand & Backhand, He can work on any phase of software development lifecycle. Person who have depth understanding and experience about all Processes(Activities, Events), all those phases of development of system. <br />
                     Overall process of Software Development Lifecycle(SDLC), there are numerous Process of development Model used in the industry, most commonly used are, Water Fall Model, Prototype Model, Sprial Model, Agile Model, etc. <br /><br />
@@ -118,7 +127,7 @@ export default function FlexSlider() {
                         <li><b className='text-blue'>Training: </b> <small className='bg-secondary rounded ps-1 pe-1'>(not manditory, as per request)</small> We provide our client training about, How to use our system.</li>
                         <li><b className='text-blue'>Maintenance: </b> <small className='bg-secondary rounded ps-1 pe-1'>(not manditory, as per request)</small> This include system optimization, bug fixes, etc.</li>
                     </ul>  
-                </p>
+                </div>
                 {/* <p>Web design process always begins with the team's involvement in scoping and prioritizing elements of the project. The designer is also responsible for bringing the pages to life using the wireframes created to mock up each page.  Content is such an important part of your website, but it doesn’t always get the attention that it deserves. This template is designed and developed over the Bootstrap frontend framework. Which is a free front-end framework for designers. Template is fully <i>responsive</i> and <i>compatible</i> with all the major browsers.</p> */}
                 <Link to="/contact" className="mt-3 btn btn-primary sos-bg">Contact Us</Link>
             </div>

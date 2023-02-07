@@ -34,9 +34,9 @@ function App() {
           <Route path="/work" element={<Work />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/process/*" element={<Process />} >
-            <Route path="web" element={<p>Web Development</p>} />
-            <Route path="cms" element={<p>CMS Development</p>} />
-            <Route path="logo" element={<p>LOGO Development</p>} />
+            <Route path="web" element={<span>Web Development</span>} />
+            <Route path="cms" element={<span>CMS Development</span>} />
+            <Route path="logo" element={<span>LOGO Development</span>} />
           </Route>
           <Route path="/about" element={<AboutMe />} />
           <Route path="/contact" element={<Contact />} />
