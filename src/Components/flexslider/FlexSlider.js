@@ -19,15 +19,20 @@ export default function FlexSlider() {
     
     function handleOver(e) {
         const $this = $(e.target);
-        const offset = $this.offset();
-        const $parent = $this.parent();
-        console.log($window.width(), offset.top+$this.width());
-        $parent.addClass('active');
+        // const offset = $this.offset();
+        if($this.is('img')) {
+            const $parent = $this.parent();
+            $parent.addClass('active');
+            return false;
+        }
+        console.log('over:', $this[0]);
+        $this.addClass('active');
         return false;
     }
     function handleOut(e) {
         var $elements =$(".flexslider .slides li");
         $elements.removeClass('active')
+        console.log('out:');
         return false;
     }
     function prevHandle(e) {
