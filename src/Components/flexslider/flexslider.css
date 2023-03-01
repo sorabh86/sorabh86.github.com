@@ -143,7 +143,7 @@ html[xmlns] .slides {
     overflow: visible;
     transform: scale(1.2);
     /* box-shadow: 0 0 20px white; */
-    width: 100%;
+    width: calc(100% - 122px);
     z-index: 1;
 }
 .flexslider .slides>li.active:first-child {
