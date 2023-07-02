@@ -36,3 +36,16 @@ npm -i gh-pages --save-dev
 11. deploy gh-pages `npm run deploy`
 
 ##
+
+# Yarn 2 Migration
+
+[migration link](https://yarnpkg.com/getting-started/install)
+```bash
+corepack prepare yarn@stable --activate
+
+# generate some pnp files
+yarn init -2
+
+# set yarn version berry or stable
+yarn set version stable
+```

@@ -120,7 +120,7 @@ export default function AboutMe() {
             <div className='sos-text mb-3 col-xl-4'>
               <p className="degree">
                 <span className="fa fa-certificate"></span> 
-                <strong> MCA (Master Of Computer Application)</strong> <span className='year'>Year 2019</span><br/>
+                <strong> MCA (Master Of Computer Application)</strong> <span className='year'>Year 2022</span><br/>
                 <i> IGNOU (UNIVERSAL INSTITUTE OF COMPUTER & TECHNOLOGY), Sector 62, Noida</i>
               </p>
             </div>

@@ -41,7 +41,6 @@ function App() {
           <Route path="/about" element={<AboutMe />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<ErrorPage />} />
-
         </Routes>
       </BrowserRouter>
       <Loader />

@@ -51,7 +51,6 @@ export function AuthProvider({ children }) {
       .then(userCredential => {
         currentUser = userCredential.user;
       });
-
   }
 
   async function logout() {
