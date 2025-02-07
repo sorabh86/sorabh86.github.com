@@ -1,7 +1,16 @@
 {
   "name": "sorabh86.github.io",
+  "homepage": "https://sorabh86.github.io",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,13 +25,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4",
+    "gh-pages": "^4.0.0"
   },
   "browserslist": {
     "production": [
@@ -35,10 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "gh-pages": "^4.0.0"
   }
 }

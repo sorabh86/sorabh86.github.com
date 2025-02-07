@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
-import { useAuth } from '../Contexts/AuthContext';
+import { useAuth } from './Contexts/AuthContext';
 
 export default function Loader() {
     const {loading, len} = useAuth();
