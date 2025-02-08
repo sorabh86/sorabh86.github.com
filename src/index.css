@@ -1,3 +1,7 @@
+/* src/index.css */
+
+@import "tailwindcss";
+
 * {
     font-family: "Open Sans";
     font-size: medium;

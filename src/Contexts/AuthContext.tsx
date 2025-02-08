@@ -18,10 +18,10 @@ export function AuthProvider({ children }) {
   }
 
   const [posts, setPosts] = useState([])
-  const [currentUser, setCurrentUser] = useState()
+  var [currentUser, setCurrentUser]:any = useState()
   const [loading, setLoading] = useState([])
 
-  function addLoading(str) {
+  function addLoading(str?) {
     let arr = loading;
     arr.push(str)
     setLoading(arr)

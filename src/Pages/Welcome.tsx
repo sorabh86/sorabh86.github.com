@@ -1,10 +1,9 @@
 import React from 'react'
-import "bootstrap";
 import Header from "../Components/header/Header"
 import FlexSlider from '../Components/flexslider/FlexSlider';
 import OurWork from '../Components/ourwork/OurWork';
 import Footer from '../Components/footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export default function Welcome() {
   return (

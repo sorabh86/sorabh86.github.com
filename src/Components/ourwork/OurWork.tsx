@@ -1,11 +1,10 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import "./ourwork.css"
+// import "./ourwork.css"
 
 export default function OurWork() {
   return (
     <>
-        <Container className='our-work mt-5 mb-5'>
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <h2 className="sos-heading sos-text mb-5 text-center">Our Work</h2>
             <ul className="portfolio">           
                 <li className="box">
@@ -33,9 +32,9 @@ export default function OurWork() {
                     <a href="img/image-blank.png" className="magnifier" ><img alt="" src="img/work/8.jpg" /></a>
                 </li>                       
             </ul>
-        </Container>
+        </div>
         <div className='solutions bg-light border border-dash pt-5 pb-5'>
-            <Container>
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <h2 className="text-center sos-heading sos-text">We made solutions for your business</h2>
                 <h4 className='text-center pb-4'><i>Please send us your business requirements, consultancy meetings is totally free.</i></h4>
                 <div className="solution-cards">
@@ -100,7 +99,7 @@ export default function OurWork() {
 
                 </div>
                
-            </Container>
+            </div>
         </div>
     </>
   )

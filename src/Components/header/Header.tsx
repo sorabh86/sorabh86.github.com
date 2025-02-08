@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import jQuery from 'jquery';
 
-import Logo from "../../Assets/images/logo.png"
+import { Link } from 'react-router';
+
+import Logo from "../../assets/logo.png"
 
 export default function Nabbar(props) {
     const [expanded, setExpanded] = useState(false);
-    const $ = jQuery;
+    // const $ = jQuery;
 
     function mainNavbarExpandHandler(e) {
         // e.preventDefault();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './footer.css'
+// import './footer.css'
 import Ecd from '../../Assets/images/ecd-logo.png'
 import Upi from '../../Assets/images/donate-sorabh86-QR.jpg'
 

@@ -1,112 +1,107 @@
-import './flexslider.css'
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import { Link } from "react-router-dom"
-import $ from "jquery/dist/jquery.slim"
+// import './flexslider.css'
+// import { Link } from "react-router-dom"
+// import $ from "jquery/dist/jquery.slim"
 
 // import '../../Assets/js/touchTouch.jquery-src.js'
 // import '../../Assets/js/jquery.flexslider.js'
 
-import Slide1 from "../../Assets/banner/slide-1.jpg"
-import Slide2 from "../../Assets/banner/slide-2.jpg"
-import Slide3 from "../../Assets/banner/slide-3.jpg"
-import Slide4 from "../../Assets/banner/slide-4.jpg"
-import Slide5 from "../../Assets/banner/slide-5.jpg"
-
+import { Link } from 'react-router'
+import LazyImage from '../html/lazyimage'
 
 export default function FlexSlider() {
-    const $window = $(window);
+    // const $window = $(window);
     
-    function handleOver(e) {
-        const $this = $(e.target);
-        // const offset = $this.offset();
-        if($this.is('img')) {
-            const $parent = $this.parent();
-            $parent.addClass('active');
-            return false;
-        }
-        console.log('over:', $this[0]);
-        $this.addClass('active');
-        return false;
-    }
-    function handleOut(e) {
-        var $elements =$(".flexslider .slides li");
-        $elements.removeClass('active')
-        console.log('out:');
-        return false;
-    }
-    function prevHandle(e) {
-        const $list = $('.flexslider .slides li');
-        const $cur = $('.flexslider .slides li:visible');
-        const size = $list.length;
-        let index = $cur.index();
-        $cur.hide();
-        index = index-1;
-        if(index < 0) index = size -1;
-        $($list[index]).show();
-        return false;
-    }
-    function nextHandle(e) {
-        const $list = $('.flexslider .slides li');
-        const $cur = $('.flexslider .slides li:visible');
-        const size = $list.length;
-        let index = $cur.index();
-        $cur.hide();
-        index = index+1;
-        if(index > size-1) index = 0;
-        $($list[index]).show();
-        return false;
-    }
+    // function handleOver(e) {
+    //     const $this = $(e.target);
+    //     // const offset = $this.offset();
+    //     if($this.is('img')) {
+    //         const $parent = $this.parent();
+    //         $parent.addClass('active');
+    //         return false;
+    //     }
+    //     console.log('over:', $this[0]);
+    //     $this.addClass('active');
+    //     return false;
+    // }
+    // function handleOut(e) {
+    //     var $elements =$(".flexslider .slides li");
+    //     $elements.removeClass('active')
+    //     console.log('out:');
+    //     return false;
+    // }
+    // function prevHandle(e) {
+    //     const $list = $('.flexslider .slides li');
+    //     const $cur = $('.flexslider .slides li:visible');
+    //     const size = $list.length;
+    //     let index = $cur.index();
+    //     $cur.hide();
+    //     index = index-1;
+    //     if(index < 0) index = size -1;
+    //     $($list[index]).show();
+    //     return false;
+    // }
+    // function nextHandle(e) {
+    //     const $list = $('.flexslider .slides li');
+    //     const $cur = $('.flexslider .slides li:visible');
+    //     const size = $list.length;
+    //     let index = $cur.index();
+    //     $cur.hide();
+    //     index = index+1;
+    //     if(index > size-1) index = 0;
+    //     $($list[index]).show();
+    //     return false;
+    // }
 
-    $window.on('resize', ()=>{
-        removeEvents();
-        render();
-    });
+    // $window.on('resize', ()=>{
+    //     removeEvents();
+    //     render();
+    // });
 
-    function removeEvents() {
-        const $sliderList = $(".flexslider .slides li");
-        $sliderList.off('mouseenter mouseleave');
-        const $prev = $('.flex-prev');
-        $prev.off('click');
-        const $next = $('.flex-next');
-        $next.off('click');
-        return {$sliderList, $prev, $next};
-    }
+    // function removeEvents() {
+    //     const $sliderList = $(".flexslider .slides li");
+    //     $sliderList.off('mouseenter mouseleave');
+    //     const $prev = $('.flex-prev');
+    //     $prev.off('click');
+    //     const $next = $('.flex-next');
+    //     $next.off('click');
+    //     return {$sliderList, $prev, $next};
+    // }
 
-    function render() {
-        const {$sliderList, $prev, $next} = removeEvents();
-        $sliderList.removeAttr('style');
+    // function render() {
+    //     const {$sliderList, $prev, $next} = removeEvents();
+    //     $sliderList.removeAttr('style');
         
-        if($window.outerWidth() < 1300) {
-            $prev.on('click', prevHandle);
-            $next.on('click', nextHandle);
-        } else {
-            $sliderList.hover(handleOver, handleOut);
-        }
+    //     if($window.outerWidth() < 1300) {
+    //         $prev.on('click', prevHandle);
+    //         $next.on('click', nextHandle);
+    //     } else {
+    //         $sliderList.hover(handleOver, handleOut);
+    //     }
         
-        console.log($window.outerWidth()+" add events");
+    //     console.log($window.outerWidth()+" add events");
 
-        return () => {
-            if($window.outerWidth() < 1300) {
-                $prev.off('click', prevHandle);
-                $next.off('click', nextHandle);
-            } else {
-                $sliderList.off('hover');
-            }
-        }
-    }
+    //     return () => {
+    //         if($window.outerWidth() < 1300) {
+    //             $prev.off('click', prevHandle);
+    //             $next.off('click', nextHandle);
+    //         } else {
+    //             $sliderList.off('hover');
+    //         }
+    //     }
+    // }
 
-    useEffect(render, []);
+    // useEffect(render, []);
 
   return (
     <div className='sos-flexslider bg-dark text-light p-5'>
         <div className="flexslider">
             <ul className="slides">
-                <li> <img src={Slide1} /> </li>
-                <li> <img src={Slide2} /> </li>
-                <li> <img src={Slide3} /> </li>
-                <li> <img src={Slide4} /> </li>
-                <li> <img src={Slide5} /> </li> 
+                <li> <LazyImage src="/banner/slider-1.jpg" /> </li>
+                <li> <LazyImage src="/banner/slider-2.jpg" /> </li>
+                <li> <LazyImage src="/banner/slider-3.jpg" /> </li>
+                <li> <LazyImage src="/banner/slider-4.jpg" /> </li>
+                <li> <LazyImage src="/banner/slider-5.jpg" /> </li> 
             </ul>
             <ul className="flex-control-nav flex-direction-nav">
                 <li><a className="flex-prev" href="#"><span className="fa fa-chevron-left"></span></a></li>

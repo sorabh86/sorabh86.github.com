@@ -1,6 +1,4 @@
-import "./App.css"
 import React, { useEffect } from "react"
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
 import { AuthProvider, useAuth } from "./Contexts/AuthContext"
 import Welcome from "./Pages/Welcome"
 import Work from "./Pages/Work"
@@ -12,22 +10,24 @@ import Login from "./Pages/Login"
 import Signup from "./Pages/Signup"
 import "font-awesome/css/font-awesome.min.css"
 import AboutMe from "./Pages/AboutMe"
-import Loader from "./Loader"
 import { DbProvider } from "./Contexts/DbContext"
 import ErrorPage from "./Pages/ErrorPage"
+import { Link, Route, Routes } from "react-router"
+import SLoader from './Components/loader/SLoader'
+import logo from './assets/logo.png';
 
 function App() {
   return (
     <AuthProvider>
       <DbProvider>
-      <BrowserRouter>
+        <img src={logo} />
         <Routes>
-          <Route exact path="/" element={<Welcome />} />
-          <Route exact path="/dashboard/*" element={<Dashboard />}>
-            <Route exact path="profile" element={<Link to="/">Profile</Link>} />
-            <Route exact path="posts" element={<Link to="/">Posts</Link>} />
-            <Route exact path="posts/new" element={<Link to="/">New Posts</Link>} />
-            <Route exact path="posts/:id" element={<Link to="/">Edit Posts</Link>} />
+          <Route path="/" element={<Welcome />} />
+          {/* <Route path="/dashboard/*" element={<Dashboard />}>
+            <Route path="profile" element={<Link to="/">Profile</Link>} />
+            <Route path="posts" element={<Link to="/">Posts</Link>} />
+            <Route path="posts/new" element={<Link to="/">New Posts</Link>} />
+            <Route path="posts/:id" element={<Link to="/">Edit Posts</Link>} />
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -40,10 +40,9 @@ function App() {
           </Route>
           <Route path="/about" element={<AboutMe />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage />} /> */}
         </Routes>
-      </BrowserRouter>
-      <Loader />
+        <SLoader />
       </DbProvider>
     </AuthProvider>
   )
