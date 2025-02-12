@@ -4,19 +4,21 @@
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
-    "skipLibCheck": true, // Skip library checks to speed up compilation
-    // "module": "CommonJS", // Use CommonJS for Node.js compatibility
-    "moduleResolution": "bundler", // Use Node.js module resolution
-    // "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    // "target": "ESNext", // Target a modern ECMAScript version
-    "esModuleInterop": true, // Enable ES module interop
-    "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true, // Allow synthetic default imports
-    "outDir": "dist", // Output directory for compiled files
-    "rootDir": ".", // Root directory for source files
-    "types": ["node"] // Include Node.js types
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "src/**/*.ts", "src/**/*.tsx"], // Include necessary files
-  "exclude": ["node_modules"] // Exclude node_modules
+  "include": ["vite.config.ts"]
 }
