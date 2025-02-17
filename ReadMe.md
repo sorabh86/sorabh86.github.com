@@ -1,56 +1,63 @@
-[Expert Code Design](http://expertcodedesign.com)
+[Expert Code Design](http://sorabh86.github.com)
 
 # About Me
 
-Introducting you myself as a Software Engineer. I have good understanding of Full Software Development Lifecycle (SDLC), both traditional approach like water fall model, as well as Agile Software development. Apart from that full understanding to Object oriented programming & MVC ( Model, View, Controller ).
-Now days if i talk about software development for any Operating System, then we have two approches, first is native application development, and other is much cross compatible called Hybrid Application development.
+I am a **Software Engineer** with a strong understanding of the **Full Software Development Lifecycle (SDLC)**, including both traditional approaches like the **Waterfall Model** and modern methodologies like **Agile Software Development**. I have in-depth knowledge of **Object-Oriented Programming (OOP)** and **MVC (Model, View, Controller)** architecture.
 
-## Tools 
-WEB DEVELOPMENT
----------------
-* CSS
-  * Bootstrap
-  * Foundation
-  * Material CSS
-* Javascript
-  * jQuery
-  * Angular or Angular.js
-     * A JavaScript framework, that works on concept of Model, View & Whatever concept by using, Dependency Injection, Scope, Minification, Data Binding, Interpolation, Watchers, Digest Loop, routing, templates, controllers, Custom Services, Custom Directives, Complie & Link and Transclusion.
-  * backbone.js
-  * and more
-* HTML
-  * Adaptive page
-  * Responsive page
-  * Static page
-  * Dynamic
-* SERVER
-  * Apache
-  * Tomcat
-* PHP
-* JAVA
-* .NET (C#)
-* SQL
+In today's software development landscape, there are two primary approaches for building applications:
+1. **Native Application Development**: Tailored for specific operating systems.
+2. **Hybrid Application Development**: Cross-platform compatible solutions.
+
+## Tools & Technologies
+
+### Web Development
+- **CSS**
+  - Bootstrap
+  - Foundation
+  - Material CSS
+- **JavaScript**
+  - jQuery
+  - Angular / Angular.js
+    - A robust JavaScript framework based on **Model, View, and Controller** concepts. Key features include Dependency Injection, Data Binding, Interpolation, Watchers, Digest Loop, Routing, Templates, Controllers, Custom Services, Directives, Compile & Link, and Transclusion.
+  - Backbone.js
+  - And more...
+- **HTML**
+  - Adaptive Pages
+  - Responsive Pages
+  - Static Pages
+  - Dynamic Pages
+- **Server**
+  - Apache
+  - Tomcat
+- **Programming Languages**
+  - PHP
+  - Java
+  - .NET (C#)
+- **Database**
+  - SQL
 
 ### Experience
-* Website Design & Development
-* Web Application Design & Development
-* Database Schema Design
-* Web Service Development 
-* JavaScript, AngularJS, JQuery
-* Animated SVG
-* Scrolling Animation
-* LOGO Design, Webstie Design, Graphics & Icons Design 
-* Adobe Flash, Flex, flexsdk
-* PHP & MySQL
-* Adobe Photoshop, Illustrator
-* Wordpress, Magento, Laravel, cakephp etc 
-* Mobile Application
-* Node.js & MongoDB
+- **Website Design & Development**
+- **Web Application Design & Development**
+- **Database Schema Design**
+- **Web Service Development**
+- **JavaScript, AngularJS, jQuery**
+- **Animated SVG**
+- **Scrolling Animations**
+- **Logo Design, Website Design, Graphics & Icons Design**
+- **Adobe Flash, Flex, Flex SDK**
+- **PHP & MySQL**
+- **Adobe Photoshop, Illustrator**
+- **Frameworks & CMS**
+  - WordPress, Magento, Laravel, CakePHP
+- **Mobile Application Development**
+- **Node.js & MongoDB**
 
-## Contact Us
-SKYPE : [ssorabh.ssharma](skype:ssorabh.ssharma?call)      
-email : ssorabh.ssharma@hotmail.com        
-website : http://expertcodedesign.com
+## Contact Me
+- **Skype**: [ssorabh.ssharma](skype:ssorabh.ssharma?call)
+- **Email**: [ssorabh.ssharma@hotmail.com](mailto:ssorabh.ssharma@hotmail.com)
+- **Website**: [Expert Code Design](http://expertcodedesign.com)
 
----------
-© copyright to expertcodedesign.com on 2016
+---
+
+© 2016 [Expert Code Design](http://expertcodedesign.com). All rights reserved.
