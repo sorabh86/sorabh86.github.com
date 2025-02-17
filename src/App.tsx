@@ -1,35 +1,22 @@
 // src/App.tsx
 
 // import React from 'react'
-import React, { Suspense, useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import ScrollToTop from './components/scroll-top'
-import WelcomePage from './pages/welcome.page';
-import { AddPost, DashboardPage, PostCategoryPage, PostsPage, UsersPage } from './lazy/dashboard-import';
+// import WelcomePage from './pages/welcome.page';
+import { AddPost, DashboardPage, PostCategoryPage, 
+  PostsPage, UsersPage , AddUser
+} from './lazy/dashboard-import';
+import { WelcomePage, AboutPage, BlogPage, 
+  ContactPage, ErrorPage, LoginPage, SignupPage
+} from './lazy/common-import';
+import { ProcessPage, WorkPage, CMSDevelopment, 
+  LogoDevelopment, WebsiteDesign, WebDevelopment
+} from './lazy/process-import';
 import Loading from './components/loading';
 import IndexPage from './pages/index.page';
 import sorabhStore from './store/sorabh-store';
-import AddUser from './pages/dashboard/components/add-user';
-// import { generateUsers } from './db/seed-users';
-// import { users } from './constants/users';
-// import PrivateRoute from './db/private-route';
-
-const AboutPage = React.lazy(() => import('./pages/about.page'));
-const BlogPage = React.lazy(() => {
-  return new Promise<typeof import("./pages/blog.page")>((resolve) => {
-    setTimeout(() => resolve(import('./pages/blog.page')), 5); 
-  });
-});
-const ContactPage = React.lazy(() => import('./pages/contact.page'));
-const ErrorPage = React.lazy(() => import('./pages/error.page'));
-const LoginPage = React.lazy(() => import('./pages/login.page'));
-const ProcessPage = React.lazy(() => import('./pages/process.page'));
-const SignupPage = React.lazy(() => import('./pages/signup.page'));
-const WorkPage = React.lazy(() => import('./pages/work.page'));
-const CMSDevelopment = React.lazy(() => import('./pages/process-page/cms-development'));
-const LogoDevelopment = React.lazy(() => import('./pages/process-page/logodevelopment'));
-const WebsiteDesign = React.lazy(() => import('./pages/process-page/webdesign'));
-const WebDevelopment = React.lazy(() => import('./pages/process-page/webdevelopment'));
 
 function App() {
   // const isLoading = sorabhStore((state) => state.isLoading );

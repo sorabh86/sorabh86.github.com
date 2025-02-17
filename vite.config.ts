@@ -27,12 +27,20 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // manualChunks: undefined, // Optional: Customize chunking behavior
-        // entryFileNames: '[name].js',
-        // chunkFileNames: '[name].js',
-        // assetFileNames: '[name][extname]'
-        entryFileNames: `sorabh86${Math.random().toString(36).substring(2, 10)}.js`,
-        chunkFileNames: `sorabh86${Math.random().toString(36).substring(2, 10)}.js`,
-        assetFileNames: `sorabh86${Math.random().toString(36).substring(2, 10)}[extname]`
+        // entryFileNames: 'js/[name].js',
+        // chunkFileNames: 'js/[name].js',
+        // assetFileNames: '[name][extname]',
+        entryFileNames: `js/sorabh86${Math.random().toString(36).substring(2, 10)}.js`,
+        chunkFileNames: `js/sorabh86${Math.random().toString(36).substring(2, 10)}.js`,
+        assetFileNames: `sorabh86${Math.random().toString(36).substring(2, 10)}[extname]`,
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            // if (id.includes('react')) return 'js/react-vendor';
+            if (id.includes('firebase')) return 'js/firebase-vendor';
+            if (id.includes('zustand')) return 'js/zustand-vendor';
+            return 'js/vendor'; // default vendor chunk
+          }
+        }
       },
     },
   },

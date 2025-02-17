@@ -4,7 +4,7 @@ import sorabhStore from '../store/sorabh-store';
 import useUserStore from '../store/users-store';
 
 export default function LoginPage() {
-  const { isLoading} = sorabhStore();
+  const { isLoading, setLoading} = sorabhStore();
   const {login} = useUserStore();
 
   const [message, setMessage] = React.useState<string>('');
@@ -12,6 +12,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     setMessage('');
 
     const formData = new FormData(e.target as HTMLFormElement);
@@ -28,6 +29,7 @@ export default function LoginPage() {
       // console.log(getState().currentUser);
       navigate('/dashboard');
     }
+    setLoading(false);
   };
 
   return (

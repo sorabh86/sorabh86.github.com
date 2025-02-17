@@ -1,11 +1,11 @@
-// src/pages/dashboard/users.page.tsx
+// src/dashboard/users.page.tsx
 
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router";
 import { OrderByDirection } from "firebase/firestore";
-import { User, UserSortKey } from "../../types/default-type";
-import useUserStore from "../../store/users-store";
-import sorabhStore from "../../store/sorabh-store";
+import { User, UserSortKey } from "../types/default-type";
+import useUserStore from "../store/users-store";
+import sorabhStore from "../store/sorabh-store";
 
 export default function UsersPage() {
   const { 

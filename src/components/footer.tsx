@@ -2,7 +2,7 @@ import /* React, */ { MouseEvent, useState } from 'react'
 import Ecd from "../assets/ecd-logo.png";
 import Upi from "../assets/donate-sorabh86-QR.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGithub, faGooglePlus, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGithub, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -23,27 +23,27 @@ function Footer(props: Props) {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 py-6 px-4">
           <ul className="flex flex-wrap justify-center md:justify-start gap-6">
             <li>
-              <a href="#" className="flex items-center justify-center space-x-2 hover:text-blue-400 transition-colors duration-500" >
+              <a href="https://www.facebook.com/expertcodedesign" target="_blank" className="flex items-center justify-center space-x-2 hover:text-blue-400 transition-colors duration-500" >
                 <FontAwesomeIcon className='text-xl' icon={faFacebook} />
                 <span>Facebook</span>
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/company/expertcodedesign" className="flex items-center space-x-2 hover:text-blue-400 transition-colors duration-500" >
+              <a href="https://www.linkedin.com/company/expertcodedesign" target="_blank" className="flex items-center space-x-2 hover:text-blue-400 transition-colors duration-500" >
                 <FontAwesomeIcon className='text-xl' icon={faLinkedin} />
                 <span>LinkedIn</span>
               </a>
             </li>
             <li>
-              <a href="https://www.github.com/sorabh86" className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-500" >
+              <a href="https://www.github.com/sorabh86" target="_blank" className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-500" >
                 <FontAwesomeIcon className='text-xl' icon={faGithub} />
                 <span>GitHub</span>
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center space-x-2 hover:text-red-500 transition-colors duration-500" >
-                <FontAwesomeIcon className='text-xl' icon={faGooglePlus} />
-                <span>Google+</span>
+              <a href="https://www.instagram.com/ssorabh.ssharma/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors duration-500" >
+                <FontAwesomeIcon className='text-xl' icon={faInstagram} />
+                <span>Intragram</span>
               </a>
             </li>
           </ul>

@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore";
-import { User } from "../types/default-type";
+import { User, USER_ROLES } from "../types/default-type";
 
 export const users: User[] = [
   {
@@ -7,7 +7,7 @@ export const users: User[] = [
     email: "aarav.sharma@example.com",
     phone: "+919876543210",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -17,7 +17,7 @@ export const users: User[] = [
     email: "ishita.patel@example.com",
     phone: "+918765432109",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -27,7 +27,7 @@ export const users: User[] = [
     email: "rohan.mehta@example.com",
     phone: "+917654321098",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -37,7 +37,7 @@ export const users: User[] = [
     email: "ananya.iyer@example.com",
     phone: "+916543210987",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -47,7 +47,7 @@ export const users: User[] = [
     email: "kabir.khanna@example.com",
     phone: "+915432109876",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -57,7 +57,7 @@ export const users: User[] = [
     email: "saanvi.joshi@example.com",
     phone: "+914321098765",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -67,7 +67,7 @@ export const users: User[] = [
     email: "aryan.das@example.com",
     phone: "+913210987654",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -77,7 +77,7 @@ export const users: User[] = [
     email: "meera.nair@example.com",
     phone: "+912109876543",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -87,7 +87,7 @@ export const users: User[] = [
     email: "vivaan.kapoor@example.com",
     phone: "+911098765432",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -97,7 +97,7 @@ export const users: User[] = [
     email: "riya.malhotra@example.com",
     phone: "+919987654321",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -107,7 +107,7 @@ export const users: User[] = [
     email: "dev.bajaj@example.com",
     phone: "+918876543210",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -117,7 +117,7 @@ export const users: User[] = [
     email: "pooja.khatri@example.com",
     phone: "+917765432109",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -127,7 +127,7 @@ export const users: User[] = [
     email: "samir.verma@example.com",
     phone: "+916654321098",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -137,7 +137,7 @@ export const users: User[] = [
     email: "aisha.saxena@example.com",
     phone: "+915543210987",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -147,7 +147,7 @@ export const users: User[] = [
     email: "yash.choudhary@example.com",
     phone: "+914432109876",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -157,7 +157,7 @@ export const users: User[] = [
     email: "neha.bhatnagar@example.com",
     phone: "+913321098765",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -167,7 +167,7 @@ export const users: User[] = [
     email: "rajeev.goel@example.com",
     phone: "+912210987654",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -177,7 +177,7 @@ export const users: User[] = [
     email: "shruti.anand@example.com",
     phone: "+911109876543",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -187,7 +187,7 @@ export const users: User[] = [
     email: "kunal.arora@example.com",
     phone: "+919998765432",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()
@@ -197,7 +197,7 @@ export const users: User[] = [
     email: "priya.sethi@example.com",
     phone: "+918887654321",
     password: "sasq1234",
-    role: "subscriber",
+    role: USER_ROLES.SUBSCRIBER,
     address: "",
     create_date: Timestamp.now(),
     last_login: Timestamp.now()

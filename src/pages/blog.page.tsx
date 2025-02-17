@@ -47,7 +47,7 @@ function BlogPage({ }: Props) {
 			</div>
 
 			<div className="bg-dark text-secondary py-12">
-				<div className="container m-auto flex flex-wrap justify-between items-center mb-6">
+				<div className="container m-auto flex flex-wrap justify-between items-center mb-6 px-4 gap-4" >
 					<input
 						type="text"
 						placeholder="Search blogs..."
@@ -110,7 +110,7 @@ function BlogPage({ }: Props) {
 					</Menu>
 				</div>
 
-				<div className="container mx-auto">
+				<div className="container mx-auto px-4">
 
 					{posts.length > 0 && (
 						<motion.div
@@ -182,13 +182,13 @@ function BlogPage({ }: Props) {
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.7 }}
 			>
-				<h2 className="text-xl font-semibold mb-3"> Subscribe to Our Newsletter </h2>
+				<h2 className="text-xl font-semibold mb-4"> Subscribe to Our Newsletter </h2>
 				<p className="mb-4"> Stay updated with our latest blog posts! </p>
-				<div className="flex flex-col md:flex-row justify-center gap-2">
+				<div className="flex flex-col md:flex-row justify-center gap-4 px-4">
 					<input
 						type="email"
 						placeholder="Enter your email..."
-						className="px-6 border border-gray-600 rounded-full w-full md:w-1/3"
+						className="px-6 py-3 border border-gray-600 rounded-full w-full md:w-1/3"
 					/>
 					<button className="btn-blue"> Subscribe </button>
 				</div>

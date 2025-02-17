@@ -14,6 +14,7 @@ interface Props { }
 function Flexslider(props: Props) {
   const { } = props
   const slideArr = [Slide1, Slide2, Slide3, Slide4, Slide5];
+  // const slideArr = ["/banner/slide-1.jpg", "/banner/slide-2.jpg", "/banner/slide-3.jpg", "/banner/slide-4.jpg", "/banner/slide-5.jpg"];
   const [hoverIndex, setHoverIndex] = useState<number|null>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 1298);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

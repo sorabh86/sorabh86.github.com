@@ -1,5 +1,5 @@
-import { getState } from "../../store/sorabh-store";
-import { PostCategory } from "../../types/default-type";
+import { getState } from "../store/sorabh-store";
+import { PostCategory } from "../types/default-type";
 import { Link } from "react-router";
 
 export default function PostCategoryPage() {

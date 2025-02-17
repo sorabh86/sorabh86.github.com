@@ -15,11 +15,12 @@ const fadeInUp = {
 
 const ContactPage = () => {
 
-  const {isLoading, sendMessage} = sorabhStore();
+  const {isLoading, sendMessage, setLoading} = sorabhStore();
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     setSuccess(false);
     setMessage('');
@@ -42,6 +43,8 @@ const ContactPage = () => {
       (e.target as HTMLFormElement).reset();
       setMessage('Message sent successfully!');
     }
+
+    setLoading(false);
   };
 
   return (

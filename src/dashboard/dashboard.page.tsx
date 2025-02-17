@@ -7,8 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Outlet, useNavigate } from "react-router";
 import { useEffect } from "react";
-import { auth } from "../../db/firebase";
-import useUserStore from "../../store/users-store";
+import { auth } from "../db/firebase";
+import useUserStore from "../store/users-store";
 
 export default function DashboardPage() {
   const navigate = useNavigate();

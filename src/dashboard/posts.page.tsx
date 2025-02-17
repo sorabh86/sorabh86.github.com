@@ -1,5 +1,5 @@
-import { getState } from "../../store/sorabh-store";
-import { Post } from "../../types/default-type";
+import { getState } from "../store/sorabh-store";
+import { Post } from "../types/default-type";
 import { Link, Outlet } from "react-router";
 
 export default function PostsPage() {
