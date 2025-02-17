@@ -1,1 +1,0 @@
-import{j as s,O as r}from"./sorabh86ibwb0ek53.js";import"./sorabh86ibwb0ek52.js";import"./sorabh86ibwb0ek54.js";function a(e){return s.jsx("div",{className:"process-page",children:s.jsx(r,{})})}export{a as default};
