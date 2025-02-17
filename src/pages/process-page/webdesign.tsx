@@ -8,13 +8,13 @@ import {
   faClipboardList,
   faPhoneVolume,
 } from "@fortawesome/free-solid-svg-icons";
-import DesignProcess from "../components/design-process";
-import UIUXPrinciples from "../components/uiux-principles";
-import DesignShowcase from "../components/design-showcase";
-import SeoPerformance from "../components/seo-performance";
-import ToolList from "../components/tool-list";
-import { Project } from "../types/default";
-import { getState } from "../store/sorabh-store";
+import DesignProcess from "../../components/design-process";
+import UIUXPrinciples from "../../components/uiux-principles";
+import DesignShowcase from "../../components/design-showcase";
+import SeoPerformance from "../../components/seo-performance";
+import ToolList from "../../components/tool-list";
+import { Project } from "../../types/default-type";
+import { getState } from "../../store/sorabh-store";
 
 const WebsiteDesign = () => {
   const projects = getState().projects as Project[];

@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import Header from '../components/header'
-import Footer from '../components/footer'
+import /* React, */ { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { getState } from '../store/sorabh-store'
-import { Project, ProjectCategory } from '../types/default'
+import { Project, ProjectCategory } from '../types/default-type'
 
 interface Props { }
 
@@ -23,8 +21,6 @@ function WorkPage({ }: Props) {
   return (
     <div className="work-page page">
 
-      <Header active='work' />
-      
       <div className="bg-gray-50 py-12 text-center">
         <motion.h1
           className="text-4xl font-bold text-orange-400 mb-4"
@@ -91,7 +87,6 @@ function WorkPage({ }: Props) {
           )}
         </motion.div>
       </div>
-      <Footer />
     </div>
   )
 }

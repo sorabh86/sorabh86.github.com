@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { fa1, fa2, fa3, fa4, fa5, fa6, fa7, faCheck, faHandshake, faPhone, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router'

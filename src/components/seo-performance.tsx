@@ -1,6 +1,6 @@
 import { faBolt, faChartLine, faMobileAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+// import React from 'react'
 
 interface Props {}
 

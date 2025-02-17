@@ -1,10 +1,8 @@
-import React, { Fragment, useState } from 'react'
-import Header from '../components/header'
-import Footer from '../components/footer'
+import /* React, */ { Fragment, useState } from 'react'
 import { motion } from "framer-motion";
 import { Link } from 'react-router';
 import { getState } from '../store/sorabh-store';
-import { Post, PostCategory } from '../types/default';
+import { Post, PostCategory } from '../types/default-type';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 
 interface Props { }
@@ -32,7 +30,6 @@ function BlogPage({ }: Props) {
 
 	return (
 		<div className="blog-page page">
-			<Header active='blog' />
 
 			<div className="bg-white text-gray-900 pt-12 text-center">
 
@@ -196,7 +193,6 @@ function BlogPage({ }: Props) {
 					<button className="btn-blue"> Subscribe </button>
 				</div>
 			</motion.div>
-			<Footer />
 		</div>
 	)
 }

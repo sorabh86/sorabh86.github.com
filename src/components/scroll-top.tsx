@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
-const ScrollToTop = () => {
+export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
   // Function to check scroll position
@@ -39,5 +39,3 @@ const ScrollToTop = () => {
     </div>
   );
 };
-
-export default ScrollToTop;

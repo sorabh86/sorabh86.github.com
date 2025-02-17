@@ -5,11 +5,11 @@ import {
   faCloud,
   faClipboardList
 } from "@fortawesome/free-solid-svg-icons";
-import ClientTestimonials from "../components/client-testimonials";
-import Portfolio from "../components/portfolio";
-import PricingPlans from "../components/pricing-plan";
-import FAQs from "../components/faqs";
-import Industries from "../components/industries";
+import ClientTestimonials from "../../components/client-testimonials";
+import Portfolio from "../../components/portfolio";
+import PricingPlans from "../../components/pricing-plan";
+import FAQs from "../../components/faqs";
+import Industries from "../../components/industries";
 
 const WebDevelopment = () => {
   return (

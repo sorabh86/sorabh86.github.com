@@ -1,115 +1,31 @@
-import React from 'react'
-import Header from '../components/header'
-import Footer from '../components/footer'
+// import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faSkype } from '@fortawesome/free-brands-svg-icons'
 import { faCertificate, faCode, faEnvelope, faIdBadge, faLaptopCode, faPhoneSquare, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import sorabhStore, { getState } from '../store/sorabh-store'
+import { Education, Experience } from '../types/default-type'
 
 interface Props { }
 
-function AboutPage({}: Props) {
-  const experiences = [
-    {
-      title: "Web Developer",
-      company: "Self Employed Freelancer",
-      period: "July 2019 - Present",
-      details: [
-        "Worked on various online sites, seeking new projects to work.",
-        "Developed & defined SDLC workflow, ER Diagram, DFD, Mockups.",
-        "Developed custom product designing software in HTML5, REST services.",
-        "Backend programming in PHP, database management.",
-        "MEAN & LAMP Stack Development.",
-        "Explored Docker for microservices using AWS, Azure, Google Cloud.",
-        "Learning new technologies, game development for logic building.",
-      ],
-    },
-    {
-      title: "App-Team Lead",
-      company: "WebEsperto | Exabyte Informatics Pvt Ltd",
-      period: "June 2013 - July 2019",
-      details: [
-        "Guided team members to ensure timely project delivery.",
-        "Full-stack development, following SDLC best practices.",
-        "Frontend development using AngularJS, jQuery, HTML5, CSS3.",
-        "Designed and developed WordPress plugins & themes.",
-        "Animated UI/UX elements using JavaScript, jQuery, CSS3.",
-        "Developed custom modules & themes for WordPress, OpenCart, Magento 1.x.",
-        "Worked on various e-commerce projects.",
-      ],
-    },
-    {
-      title: "Senior Developer",
-      company: "Logic IT Solution Pvt Ltd",
-      period: "December 2011 - November 2012",
-      details: [
-        "Prepared online 3D image rendering engine (POV-Ray), exported models via Blender.",
-        "Developed an online product designer for items like cups, T-shirts.",
-        "Integrated with PHP frameworks, managed database structure & REST APIs.",
-        "Developed reusable OOP components & ActionScript APIs.",
-      ],
-    },
-    {
-      title: "Senior Flex Developer",
-      company: "Sparx IT Solutions Pvt Ltd",
-      period: "March 2010 - December 2011",
-      details: [
-        "Developed object-oriented rich applications in ActionScript 3.0 & Flex.",
-        "Wrote user manuals and documentation.",
-        "Problem-solved and upgraded existing applications.",
-        "Developed Flash-based web games for in-house projects.",
-        "Built reusable ActionScript components for secure file uploads & more.",
-      ],
-    },
-  ];
+function AboutPage({ }: Props) {
+  const experiences = sorabhStore(state => state.experiences as Experience[]);
 
-  const educationData = [
-    {
-      degree: "MCA (Master Of Computer Application)",
-      year: "2022",
-      institute: "IGNOU (Universal Institute of Computer & Technology), Sector 62, Noida",
-    },
-    {
-      degree: "PGDCA (Post Graduate Diploma in Computer Application)",
-      year: "2019",
-      institute: "IGNOU (Universal Institute of Computer & Technology), Sector 62, Noida",
-    },
-    {
-      degree: "CWDD (Certification in Web Design & Development)",
-      year: "2010",
-      institute: "UNIQUE COMPUTER CENTER, Seelampur, Delhi",
-    },
-    {
-      degree: "B.A. (Bachelor in Arts)",
-      year: "2007",
-      institute: "CCS University (Meerut Lajpat Rai College), Sahibabad, U.P.",
-    },
-    {
-      degree: "DCA (Diploma in Computer Application)",
-      year: "2005",
-      institute: "CCS University (Meerut Lajpat Rai College), Sahibabad, U.P.",
-    },
-    {
-      degree: "12TH (Senior Secondary School)",
-      year: "2004",
-      institute: "CBSE Board, Delhi",
-    },
-    {
-      degree: "10TH (High School)",
-      year: "2002",
-      institute: "CBSE Board, Delhi",
-    },
-  ];
+  const educationData = getState().educations as Education[];
 
   return (
     <div className="about-page page">
-      <Header active='about' />
+
+      <div className=" lg:px-20 py-12 bg-white text-center text-so-gray text-lg">
+        <h2 className="text-3xl font-bold text-orange-500 mb-4">
+          <FontAwesomeIcon icon={faIdBadge} /> About Me
+        </h2>
+        <p>Blending Development, Design & Innovation</p>
+      </div>
 
       <section className="bg-gray-900 text-white py-10">
         <div className="container mx-auto px-6 lg:px-20">
 
-          <h2 className="text-center text-3xl font-bold text-orange-500 flex items-center justify-center gap-2 mb-10">
-            <FontAwesomeIcon icon={faIdBadge} /> About Me
-          </h2>
+
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <div className="flex justify-center">
@@ -232,7 +148,6 @@ function AboutPage({}: Props) {
         </div>
       </section>
 
-      <Footer />
     </div>
   )
 }

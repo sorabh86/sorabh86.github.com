@@ -1,7 +1,5 @@
-import React from 'react'
-import Header from '../components/header'
+// import React from 'react'
 import { Outlet } from 'react-router'
-import Footer from '../components/footer'
 
 interface Props {}
 
@@ -10,9 +8,7 @@ function ProcessPage(props: Props) {
 
     return (
         <div className="process-page">
-            <Header active='process' />
             <Outlet />
-            <Footer />
         </div>
     )
 }

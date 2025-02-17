@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { Project } from "../types/default";
+import { Project } from "../types/default-type";
 
 interface Prop {
   showcaseItems:Project[]

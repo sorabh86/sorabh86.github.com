@@ -23,6 +23,10 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+
+      // ✅ Add these rules to disable unnecessary React warnings
+      // 'react/jsx-uses-react': 'off',
+      // 'react/react-in-jsx-scope': 'off',
     },
   },
 )

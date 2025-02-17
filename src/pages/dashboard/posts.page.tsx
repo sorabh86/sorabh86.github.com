@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { getState } from "../../store/sorabh-store";
+import { Post } from "../../types/default-type";
 import { Link, Outlet } from "react-router";
 
 export default function PostsPage() {
-  // Mock data for posts
-  const [posts, setPosts] = useState([
-    { id: 1, title: "React Hooks Guide", author: "John Doe", date: "2025-02-11" },
-    { id: 2, title: "Tailwind CSS Tips", author: "Jane Smith", date: "2025-02-10" },
-    { id: 3, title: "State Management in React", author: "Mike Johnson", date: "2025-02-09" },
-  ]);
+  const posts = getState().posts as Post[];
 
   const handleDelete = (id: number) => {
-    setPosts(posts.filter(post => post.id !== id));
+    // setPosts(posts.filter(post => post.id !== id));
+    console.log(id);
+    
   };
 
   return (

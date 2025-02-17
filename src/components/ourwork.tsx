@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, easeIn, easeInOut } from 'framer-motion';
-import { select } from 'framer-motion/client';
+import { useState } from 'react';
+import { motion, AnimatePresence, easeInOut } from 'framer-motion';
 
 
 interface ImageItem {
@@ -15,11 +14,7 @@ function Ourwork(props: Props) {
     { src: "/work/1.jpg" },
     { src: "/work/2.jpg" },
     { src: "/work/3.jpg" },
-    { src: "/work/4.jpg" },
-    // { src: "/work/5.jpg" },
-    // { src: "/work/6.jpg" },
-    // { src: "/work/7.jpg" },
-    // { src: "/work/8.jpg" },
+    { src: "/work/4.jpg" }
   ]
 
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
@@ -61,7 +56,7 @@ function Ourwork(props: Props) {
             animate={{ left: 1 }}
             exit={{ left: 2000 }}
           >
-            <div className="bg-white rounded-2xl w-full h-full flex items-center p-10 justify-center p-4">
+            <div className="bg-white rounded-2xl w-full h-full flex items-center justify-center p-4">
               <img className='max-h-full object-fill' src={selectedImage.src} alt="Selected Image" />
             </div>
           </motion.div>
