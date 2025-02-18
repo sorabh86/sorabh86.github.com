@@ -1,4 +1,6 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { Timestamp } from "firebase/firestore";
+import { ReactNode } from 'react'
 
 export interface PostCategory {
   id: number;
@@ -94,4 +96,18 @@ export interface Logo {
   image:string;
   title:string;
   content:string;
+}
+export interface DashboardMenu {
+  icon:IconDefinition;
+  label:string;
+  link:string;
+  children?:DashboardMenu[]
+}
+
+export interface Menu {
+  label:string;
+  link:string;
+  relink:string;
+  component: ReactNode;
+  children?:Menu[]
 }

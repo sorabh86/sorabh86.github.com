@@ -50,7 +50,7 @@ const AddUser: React.FC = () => {
   }, [users])
 
   return (
-    <div className="mx-10 px-12 py-10 bg-white shadow-md rounded-md mb-6">
+    <div className="mx-2 sm:mx-10 px-4 sm:px-12 py-10 bg-white shadow-md rounded-md mb-6">
       <h2 className="text-xl font-semibold mb-4">{editedUser ? 'Edit User' : 'Add User'}</h2>
       <form onSubmit={handleSubmit} className="space-y-3">
         <label>Name</label>

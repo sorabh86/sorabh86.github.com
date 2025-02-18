@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSkype, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faBars, faCaretDown, faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from "framer-motion";
+import { menuData } from "../constants/menus.data";
 
 interface Props { }
 
-function Header({}: Props) {
+function Header({ }: Props) {
 
   const location = useLocation();
+  const menus = menuData;
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 960);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,8 +21,10 @@ function Header({}: Props) {
 
   useEffect(() => {
     const handleResize = () => {
+      console.log(isMobile);
       setIsMobile(window.innerWidth < 963);
       if (window.innerWidth >= 963) setMenuOpen(false);
+      
     };
 
     window.addEventListener("resize", handleResize);
@@ -72,26 +76,51 @@ function Header({}: Props) {
           {(menuOpen || !isMobile) && (
             <div className={`w-full ${isMobile ? "block" : "hidden"} md:block md:w-auto border-t-1 md:border-t-0 text-center`}>
               <div className="flex flex-col md:flex-row md:space-x-8 p-0 md:p-0 rtl:space-x-reverse">
-                <Link to="/" className={`btn-nav font-bold uppercase m-0${location.pathname==='/'?' bg-so-gray-dark':''}`}>Home</Link>
-                <Link to="/about" className={`btn-nav font-bold uppercase m-0${location.pathname==='/about'?' bg-so-gray-dark':''}`}>About</Link>
-                <Link to="/work" className={`btn-nav font-bold uppercase m-0${location.pathname==='/work'?' bg-so-gray-dark':''}`}>Work</Link>
-                <Link to="/blog" className={`btn-nav font-bold uppercase m-0${location.pathname==='/blog'?' bg-so-gray-dark':''}`}>Blog</Link>
+                {menus.map((menu, key) => (
+                  <div key={key}
+                    className="menu-link relative group m-0"
+                    onClick={() => isMobile && setIsProcessOpen(!isProcessOpen)}
+                    onMouseEnter={menu.children ? () => !isMobile && setIsProcessOpen(true) : undefined}
+                    onMouseLeave={menu.children ? () => !isMobile && setIsProcessOpen(false) : undefined}
+                  >
+                    <Link to={menu.children?'#':menu.link} className={`block btn-nav font-bold uppercase m-0${location.pathname === menu.link ? ' bg-so-gray-dark' : ''}`}>{menu.label}
+                    {menu.children && ( <FontAwesomeIcon className="pl-2" icon={faCaretDown} /> )}
+                    </Link>
+                    
+                    {menu.children && (
+                      <AnimatePresence>
+                      {isProcessOpen && (
+                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="relative md:absolute flex flex-col bg-so-blue p-2 border border-so-gray-light md:w-max rounded-lg drop-shadow-xl z-10">
+                          <Link to="/process/web" className={`p-3 hover:bg-so-orange${location.pathname === "/process/web" ? " bg-so-gray-dark" : ""}`}>Web Development</Link>
+                          <Link to="/process/design" className={`p-3 hover:bg-so-orange${location.pathname === "/process/design" ? " bg-so-gray-dark" : ""}`}>Web Design</Link>
+                          <Link to="/process/cms" className={`p-3 hover:bg-so-orange${location.pathname === "/process/cms" ? " bg-so-gray-dark" : ""}`}>CMS Development</Link>
+                          <Link to="/process/logo" className={`p-3 hover:bg-so-orange${location.pathname === "/process/logo" ? " bg-so-gray-dark" : ""}`}>Logo Designing</Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    )}
+                  </div>
+                ))}
+                {/* <Link to="/" className={`btn-nav font-bold uppercase m-0${location.pathname === '/' ? ' bg-so-gray-dark' : ''}`}>Home</Link>
+                <Link to="/about" className={`btn-nav font-bold uppercase m-0${location.pathname === '/about' ? ' bg-so-gray-dark' : ''}`}>About</Link>
+                <Link to="/work" className={`btn-nav font-bold uppercase m-0${location.pathname === '/work' ? ' bg-so-gray-dark' : ''}`}>Work</Link>
+                <Link to="/blog" className={`btn-nav font-bold uppercase m-0${location.pathname === '/blog' ? ' bg-so-gray-dark' : ''}`}>Blog</Link>
 
                 <div className="relative group m-0" onMouseEnter={() => !isMobile && setIsProcessOpen(true)} onMouseLeave={() => !isMobile && setIsProcessOpen(false)}>
-                  <button onClick={() => isMobile && setIsProcessOpen(!isProcessOpen)} className={`btn-nav font-bold uppercase m-0${location.pathname.startsWith("/process")?" bg-so-gray-dark":""}`}> Process <FontAwesomeIcon className="pl-2" icon={faCaretDown} /> </button>
+                  <button onClick={() => isMobile && setIsProcessOpen(!isProcessOpen)} className={`btn-nav font-bold uppercase m-0${location.pathname.startsWith("/process") ? " bg-so-gray-dark" : ""}`}> Process <FontAwesomeIcon className="pl-2" icon={faCaretDown} /> </button>
                   <AnimatePresence>
                     {isProcessOpen && (
                       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="relative md:absolute left-0 flex flex-col bg-so-blue p-2 border border-so-gray-light md:w-max rounded-lg drop-shadow-xl z-10">
-                        <Link to="/process/web" className={`p-3 hover:bg-so-orange${location.pathname==="/process/web"?" bg-so-gray-dark":""}`}>Web Development</Link>
-                        <Link to="/process/design" className={`p-3 hover:bg-so-orange${location.pathname==="/process/design"?" bg-so-gray-dark":""}`}>Web Design</Link>
-                        <Link to="/process/cms" className={`p-3 hover:bg-so-orange${location.pathname==="/process/cms"?" bg-so-gray-dark":""}`}>CMS Development</Link>
-                        <Link to="/process/logo" className={`p-3 hover:bg-so-orange${location.pathname==="/process/logo"?" bg-so-gray-dark":""}`}>Logo Designing</Link>
+                        <Link to="/process/web" className={`p-3 hover:bg-so-orange${location.pathname === "/process/web" ? " bg-so-gray-dark" : ""}`}>Web Development</Link>
+                        <Link to="/process/design" className={`p-3 hover:bg-so-orange${location.pathname === "/process/design" ? " bg-so-gray-dark" : ""}`}>Web Design</Link>
+                        <Link to="/process/cms" className={`p-3 hover:bg-so-orange${location.pathname === "/process/cms" ? " bg-so-gray-dark" : ""}`}>CMS Development</Link>
+                        <Link to="/process/logo" className={`p-3 hover:bg-so-orange${location.pathname === "/process/logo" ? " bg-so-gray-dark" : ""}`}>Logo Designing</Link>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
-                <Link to="/contact" className={`btn-nav font-bold uppercase m-0${location.pathname==="/contact"?" bg-so-gray-dark":""}`}>Contact</Link>
+                <Link to="/contact" className={`btn-nav font-bold uppercase m-0${location.pathname === "/contact" ? " bg-so-gray-dark" : ""}`}>Contact</Link> */}
               </div>
             </div>
           )}

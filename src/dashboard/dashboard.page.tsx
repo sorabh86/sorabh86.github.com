@@ -41,7 +41,7 @@ export default function DashboardPage() {
         <header className="bg-gray-950 shadow-md flex justify-between items-center p-4 text-dark">
           <h1 className="text-xl font-semibold">
             <FontAwesomeIcon icon={faChartBar} className="w-5 h-5 mr-3" />
-            Dashboard
+            <span className="hidden sm:inline-block">Dashboard</span>
           </h1>
 
           <div className="flex items-center space-x-4">
@@ -67,12 +67,12 @@ export default function DashboardPage() {
 
             <a onClick={handleSignOut} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-800 duration-500 cursor-pointer">
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
-              Sign Out
+              <span className="hidden sm:inline-block">Sign Out</span>
             </a>
           </div>
         </header>
 
-        <div className="p-6 text-black">
+        <div className="p-2 sm:p-6 text-black">
           {location.pathname === "/dashboard" ? (
             <>
               {/* Quick Stats */}

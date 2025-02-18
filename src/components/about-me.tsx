@@ -2,29 +2,12 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import React from 'react'
 import { Link } from 'react-router'
-
-const tools = [
-  {
-    category: "Design",
-    items: ["Vector", "Banner", "Logo", "Mockup", "PSD", "HTML", "CSS", "SVG", "Icons", "Games"]
-  },
-  {
-    category: "Website",
-    items: ["Static", "Dynamic", "CMS", "Blog", "Portfolio", "Ecommerce", "Hospital", "Real Estate", "Society", "Micro Services", "REST API", "Docker"]
-  },
-  {
-    category: "Languages",
-    items: ["Core PHP", "WordPress", "AngularJS", "React", "SQL", "NodeJS", "Java", "Spring", "JavaScript", "jQuery"]
-  },
-  {
-    category: "Databases",
-    items: ["MariaDB", "MySQL", "SQLite", "PostgreSQL", "Firebase", "MSSQL", "MongoDB", "Oracle"]
-  }
-];
+import { skillData } from '../constants/tools.data'
 
 interface Props { }
 
 function Aboutme({ }: Props) {
+  const tools = skillData;
 
   return (
     <div className="aboutme my-8">
@@ -70,36 +53,6 @@ function Aboutme({ }: Props) {
               </div>
             ))}
           </div>
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className='flex flex-col'>
-              <strong className="block self-stretch text-amber-300 bg-so-black-8 py-8 rounded-b-full mb-4 shadow-md shadow-so-orange">DESIGN</strong>
-              {designs.map((item) => (
-                <a key={item} href="#" className="block self-stretch text-so-orange px-6 py-2 hover:bg-so-gray-dark hover:text-white transition-all duration-500">{item}</a>
-              ))}
-            </div>
-
-            <div className='flex flex-col'>
-              <strong className="block self-stretch text-amber-300 bg-so-black-8 py-8 rounded-b-full mb-4 shadow-md shadow-so-orange">WEBSITES</strong>
-              {websites.map((item) => (
-                <a key={item} href="#" className="block self-stretch text-so-orange px-6 py-2 hover:bg-so-gray-dark hover:text-white transition-all duration-500">{item}</a>
-              ))}
-            </div>
-
-            <div className='flex flex-col'>
-              <strong className="block self-stretch text-amber-300 bg-so-black-8 py-8 rounded-b-full mb-4 shadow-md shadow-so-orange">LANGUAGES</strong>
-              {languages.map((item) => (
-                <a key={item} href="#" className="block self-stretch text-so-orange px-6 py-2 hover:bg-so-gray-dark hover:text-white transition-all duration-500">{item}</a>
-              ))}
-            </div>
-
-            <div className='flex flex-col'>
-              <strong className="block self-stretch text-amber-300 bg-so-black-8 py-8 rounded-b-full mb-4 shadow-md shadow-so-orange">DATABASES</strong>
-              {databases.map((item) => (
-                <a key={item} href="#" className="block self-stretch text-so-orange px-6 py-2 hover:bg-so-gray-dark hover:text-white transition-all duration-500">{item}</a>
-              ))}
-            </div>
-
-          </div> */}
         </article>
 
       </div>

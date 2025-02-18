@@ -1,7 +1,7 @@
 // src/dashboard/users.page.tsx
 
 import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router";
+import { Link } from "react-router";
 import { OrderByDirection } from "firebase/firestore";
 import { User, UserSortKey } from "../types/default-type";
 import useUserStore from "../store/users-store";
@@ -37,7 +37,7 @@ export default function UsersPage() {
       if (!res?.success) {
         setError(res?.error || "Failed to fetch users.");
       } else {
-        console.log(`Fetched ${direction} page successfully`);
+        // console.log(`Fetched ${direction} page successfully`);
       }
     } catch (err) {
       setError("Network error. Please check your internet connection.");
@@ -82,8 +82,7 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="p-6">
-      <Outlet />
+    <div className="p-2 sm:p-6">
       <h1 className="text-2xl font-bold mb-4">All Users</h1>
 
       {/* Alert Message */}
@@ -120,7 +119,7 @@ export default function UsersPage() {
       )}
 
       {/* Sorting and Limit Controls */}
-      <div className="mb-4 flex gap-4">
+      <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row">
         <select
           value={selectedSort}
           onChange={(e) => setSelectedSort(e.target.value as UserSortKey)}
@@ -140,27 +139,27 @@ export default function UsersPage() {
           {selectedOrder === "asc" ? "⬆ Ascending" : "⬇ Descending"}
         </button>
 
+        <label className="hidden sm:inline-block">Per page:</label>
         <select
           value={selectedLimit}
           onChange={(e) => setSelectedLimit(Number(e.target.value))}
           className="px-3 py-1 border rounded-lg"
         >
-          <option value={10}>10 per page</option>
-          <option value={20}>20 per page</option>
-          <option value={50}>50 per page</option>
-          <option value={100}>100 per page</option>
+          {[10,20,50,100].map((item, key) => (
+            <option key={key} value={item}>{item}</option>
+          ))}
         </select>
       </div>
 
       {/* Users Table */}
-      <div className="bg-white shadow-md rounded-lg p-4">
+      <div className="bg-white w-full shadow-md rounded-lg p-4">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
         <table className="w-full border-collapse">
-          <thead>
+          <thead className="hidden md:table-row-group">
             <tr className="bg-gray-200">
               <th className="p-3 text-left">Name</th>
               <th className="p-3 text-left">Email</th>
@@ -171,7 +170,7 @@ export default function UsersPage() {
           <tbody>
             {users &&
               users.map((user: User, index: number) => (
-                <tr key={index} className="border-b">
+                <tr key={index} className="border-b w-auto flex flex-col md:table-row">
                   <td className="p-3">{user.name}</td>
                   <td className="p-3">{user.email}</td>
                   <td className="p-3">{user.role}</td>

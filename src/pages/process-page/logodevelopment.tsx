@@ -4,13 +4,13 @@ import {
   faLightbulb,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { Logo } from "../../types/default-type";
+import { logoData } from "../../constants/logo.data";
 
-interface IProp {
-  logos: Logo[]
-}
+interface IProp { }
 
-const LogoDevelopment = ({logos}:IProp) => {
+const LogoDevelopment = ({}:IProp) => {
+  const logos = logoData
+
   return (
     <div className="logo-design">
       <div className="bg-gray-50 py-10 text-center">
