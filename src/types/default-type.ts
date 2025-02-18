@@ -28,8 +28,9 @@ export interface Project {
   description: string;
   cat_id?: number;
   category: string;
-  live: string;
-  github: string;
+  rating?: number;
+  live?: string;
+  github?: string;
 }
 
 export interface Experience {
@@ -74,4 +75,23 @@ export interface ResultObject {
   success:boolean,
   error?:string,
   data?:any
+}
+
+export interface Faq {
+  question:string;
+  answer:string;
+}
+
+export interface Plan {
+  id:number;
+  name:string;
+  price:string;
+  features:string[];
+  recommended:boolean;
+}
+
+export interface Logo {
+  image:string;
+  title:string;
+  content:string;
 }

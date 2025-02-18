@@ -11,12 +11,12 @@ import {
   ProjectCategory,
   ResultObject,
 } from "../types/default-type";
-import { post_cat } from "../constants/post-category";
-import { posts } from "../constants/posts";
-import { proj_cat } from "../constants/project-category";
-import { projects } from "../constants/projects";
-import { experiences } from "../constants/experiences";
-import { educations } from "../constants/educations";
+import { post_cat } from "../constants/post-category.data";
+import { posts } from "../constants/posts.data";
+import { proj_cat } from "../constants/project-category.data";
+import { projects } from "../constants/projects.data";
+import { experiences } from "../constants/experiences.data";
+import { educations } from "../constants/educations.data";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../db/firebase";
 

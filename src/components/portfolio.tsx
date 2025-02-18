@@ -1,42 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faStar } from "@fortawesome/free-solid-svg-icons";
+import { Project } from "../types/default-type";
 
-const Portfolio = () => {
-  // Dummy portfolio data
-  const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "A fully customizable e-commerce platform with advanced features.",
-      image: "/work/1.jpg",
-      category: "Web Development",
-      rating: 5,
-    },
-    {
-      id: 2,
-      title: "Mobile App UI/UX",
-      description: "A sleek and user-friendly mobile app design for a fintech startup.",
-      image: "/work/1.jpg",
-      category: "UI/UX Design",
-      rating: 4,
-    },
-    {
-      id: 3,
-      title: "CMS for Education",
-      description: "A custom CMS for managing online courses and student data.",
-      image: "/work/1.jpg",
-      category: "CMS Development",
-      rating: 5,
-    },
-    {
-      id: 4,
-      title: "Corporate Website",
-      description: "A modern and responsive website for a global corporation.",
-      image: "/work/1.jpg",
-      category: "Web Development",
-      rating: 4,
-    },
-  ];
+interface IProp {
+  projects: Project[]
+}
+
+const Portfolio = ({projects}:IProp) => {
 
   return (
     <div className="bg-gray-50 py-12">

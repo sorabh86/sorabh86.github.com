@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { Timestamp } from 'firebase/firestore';
 import { Message } from '../types/default-type';
 import sorabhStore from '../store/sorabh-store';
+import FAQs from '../components/faqs';
+import { softwareEngineerFacts } from '../constants/faqs.data';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -120,6 +122,8 @@ const ContactPage = () => {
 
         </div>
       </div>
+
+      <FAQs faqData={softwareEngineerFacts} />
 
     </div>
   );

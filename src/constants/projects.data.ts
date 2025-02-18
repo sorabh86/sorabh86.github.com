@@ -83,3 +83,30 @@ export const projects:Project[] = [
     github: "",
   },
 ];
+
+export const projectWithRating:Project[] = [
+  {
+    id: 1,
+    title: "E-Commerce Platform",
+    description: "A fully customizable e-commerce platform with advanced features.",
+    image: "/project/ecommerce.jpg",
+    category: "Web Development",
+    rating: 5,
+  },
+  {
+    id: 3,
+    title: "CMS for Education",
+    description: "A custom CMS for managing online courses and student data.",
+    image: "/project/student-cms.jpg",
+    category: "CMS Development",
+    rating: 5,
+  },
+  {
+    id: 4,
+    title: "Corporate Website",
+    description: "A modern and responsive website for a global corporation.",
+    image: "/project/global-corporation.jpg",
+    category: "Web Development",
+    rating: 4,
+  },
+];

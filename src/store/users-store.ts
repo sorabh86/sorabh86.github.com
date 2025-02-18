@@ -78,7 +78,7 @@ const useUserStore = create<IStore>((set, get) => ({
   
       // Store user data in Firestore (without password)
       const userRef = doc(db, "users", uid);
-      await setDoc(userRef, { ...user, password: undefined });
+      await setDoc(userRef, { ...user, password: '' });
   
       return { success: true };
     } catch (error) {
@@ -89,7 +89,7 @@ const useUserStore = create<IStore>((set, get) => ({
   updateUserById: async (userId, userData) => {
     try {  
       const userRef = doc(db, "users", userId);
-      await setDoc(userRef, userData, { merge: true }); // Merge prevents overwriting existing fields
+      await setDoc(userRef, { ...userData, password: '' }, { merge: true }); // Merge prevents overwriting existing fields
   
       return { success: true };
     } catch (error) {

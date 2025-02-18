@@ -17,6 +17,7 @@ import { ProcessPage, WorkPage, CMSDevelopment,
 import Loading from './components/loading';
 import IndexPage from './pages/index.page';
 import sorabhStore from './store/sorabh-store';
+import { logos } from './constants/logo.data';
 
 function App() {
   // const isLoading = sorabhStore((state) => state.isLoading );
@@ -44,7 +45,7 @@ function App() {
             <Route path="web" element={<WebDevelopment />} />
             <Route path="design" element={<WebsiteDesign />} />
             <Route path="cms" element={<CMSDevelopment />} />
-            <Route path="logo" element={<LogoDevelopment />} />
+            <Route path="logo" element={<LogoDevelopment logos={logos} />} />
           </Route>
 
           <Route path="contact" element={<ContactPage />} />

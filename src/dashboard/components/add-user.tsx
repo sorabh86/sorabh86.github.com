@@ -4,10 +4,9 @@ import { User, USER_ROLES } from "../../types/default-type";
 import useUserStore from "../../store/users-store";
 import { Timestamp } from "firebase/firestore";
 
-
 const AddUser: React.FC = () => {
   const navigate = useNavigate(); 
-  const { users, /* updateUserById, */ createUser } = useUserStore(); 
+  const { users, updateUserById, createUser } = useUserStore(); 
   
   const { userId } = useParams<{ userId: string }>(); 
   const [editedUser, setEditedUser] = useState<User | null>(null);
@@ -24,12 +23,12 @@ const AddUser: React.FC = () => {
       role: formData.get('role') as USER_ROLES,
     };
 
-    console.log(newUser);
+    // console.log(newUser);
     // return;
 
     try {
       if(userId && editedUser){
-        // updateUserById(userId, newUser);
+        updateUserById(userId, newUser);
         console.log("try to update");
       }else
         createUser(newUser);

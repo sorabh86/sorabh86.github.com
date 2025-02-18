@@ -10,6 +10,9 @@ import Portfolio from "../../components/portfolio";
 import PricingPlans from "../../components/pricing-plan";
 import FAQs from "../../components/faqs";
 import Industries from "../../components/industries";
+import { uiUxFacts } from "../../constants/faqs.data";
+import { plans } from "../../constants/plans.data";
+import { projectWithRating } from "../../constants/projects.data";
 
 const WebDevelopment = () => {
   return (
@@ -63,13 +66,13 @@ const WebDevelopment = () => {
 
       <ClientTestimonials />
 
-      <Portfolio />
+      <Portfolio projects={projectWithRating} />
 
       <Industries />
 
-      <PricingPlans />
+      <PricingPlans plans={plans} />
 
-      <FAQs />
+      <FAQs faqData={uiUxFacts} />
 
       <section className="container mx-auto px-6 text-center border-t-1 border-so-gray-light pt-10">
         <h3 className="text-2xl font-bold text-gray-900 mb-4"> Ready to Start Your Project? </h3>

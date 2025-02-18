@@ -1,30 +1,13 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { Faq } from "../types/default-type";
 
-const FAQs = () => {
-  const faqData = [
-    {
-      question: "What services do you offer?",
-      answer: "We provide web development, UI/UX design, e-commerce solutions, and SEO optimization.",
-    },
-    {
-      question: "How long does a website take to develop?",
-      answer: "The timeline varies based on complexity, but a standard website typically takes 4-6 weeks.",
-    },
-    {
-      question: "Do you offer support after project completion?",
-      answer: "Yes! We provide ongoing support and maintenance to ensure your website stays updated and secure.",
-    },
-    {
-      question: "Can I customize my website later?",
-      answer: "Absolutely! We build scalable websites that allow easy modifications and feature additions.",
-    },
-    {
-      question: "What are your pricing plans?",
-      answer: "We have flexible pricing plans tailored to your needs. Check out our Pricing section for details.",
-    },
-  ];
+interface IProp {
+  faqData: Faq[]
+}
+
+const FAQs = ({faqData}:IProp) => {
 
   const [openIndex, setOpenIndex] = useState<number|null>(null);
 
