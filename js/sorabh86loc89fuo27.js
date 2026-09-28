@@ -1,0 +1,1 @@
+import{j as s}from"./sorabh86loc89fuo4.js";import{O as r}from"./sorabh86loc89fuo6.js";import"./sorabh86loc89fuo2.js";function a(){return s.jsx("div",{className:"process-page",children:s.jsx(r,{})})}export{a as default};
