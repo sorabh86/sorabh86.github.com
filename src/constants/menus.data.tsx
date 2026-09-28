@@ -31,7 +31,7 @@ export const menuData: Menu[] = [
       { label: "Logo Designing", link: "/process/logo", relink:'logo/', component: <LogoDevelopment /> },
     ],
   },
-  { label: "Contact", link: "/contact", relink:'about', component: <ContactPage /> },
+  { label: "Contact", link: "/contact", relink:'contact', component: <ContactPage /> },
 ];
 
 export const dashboardMenus: DashboardMenu[] = [

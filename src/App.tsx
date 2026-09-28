@@ -12,6 +12,7 @@ import Loading from './components/loading';
 import IndexPage from './pages/index.page';
 import sorabhStore from './store/sorabh-store';
 import { menuData } from './constants/menus.data';
+import ArcHeader from './components/archeader';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <Suspense key={location.pathname} fallback={<Loading />}>{/* force loading content */}
+      <ArcHeader />
       <Routes > 
         <Route path="/*" element={<IndexPage />} >
           {mainMenu.map((menu, key)=>(

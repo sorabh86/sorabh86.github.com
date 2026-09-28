@@ -7,7 +7,8 @@ export const BlogPage = lazy(() => {
     setTimeout(() => resolve(import('../pages/blog.page')), 5); 
   });
 });
-export const ContactPage = lazy(() => import('../pages/contact.page'));
+
 export const ErrorPage = lazy(() => import('../pages/error.page'));
 export const LoginPage = lazy(() => import('../pages/login.page'));
 export const SignupPage = lazy(() => import('../pages/signup.page'));
+export const ContactPage = lazy(() => import('../pages/contact.page'));
