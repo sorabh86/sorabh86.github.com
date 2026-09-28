@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router'
 import { skillData } from '../constants/tools.data'
 
-interface Props { }
-
-function Aboutme({ }: Props) {
+function Aboutme() {
   const tools = skillData;
 
   return (

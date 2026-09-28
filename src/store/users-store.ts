@@ -113,9 +113,10 @@ const useUserStore = create<IStore>((set, get) => ({
       );
 
       return { success: true };
-    } catch (e: any) {
-      console.error("Error deleting user:", e.message);
-      return { success: false, error: e.message };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      console.error("Error deleting user:", message);
+      return { success: false, error: message };
     }
   },
 
@@ -144,8 +145,11 @@ const useUserStore = create<IStore>((set, get) => ({
       } else {
         return { success: false, error: "User data not found!" };
       }
-    } catch (e: any) {
-      const message = e.code.replace("auth/", "").replace(/-/g, " ");
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      const message = typeof firebaseError.code === 'string'
+        ? firebaseError.code.replace("auth/", "").replace(/-/g, " ")
+        : firebaseError.message ?? "Unknown error";
       return { success: false, error: message };
     }
   },
@@ -162,7 +166,7 @@ const useUserStore = create<IStore>((set, get) => ({
       const colRef = collection(db, "users");
       const snapshot = await getDocs(colRef);
       return snapshot.size;
-    } catch (e) {
+    } catch {
       return -1;
     }
   },
@@ -196,8 +200,8 @@ const useUserStore = create<IStore>((set, get) => ({
     // Fetch current page
     const usersSnapshot = await getDocs(queryRef);
     const usersList = usersSnapshot.docs.map((doc) => ({
-      id: doc.id,
       ...(doc.data() as User),
+      id: doc.id,
     }));
 
     // Use the baseQuery for checking previous and next page availability
@@ -209,10 +213,10 @@ const useUserStore = create<IStore>((set, get) => ({
       produce((state: IStore) => {
         state.users = usersList;
         state.firstUser = firstVisible
-          ? { id: firstVisible.id, ...(firstVisible.data() as User) }
+          ? { ...(firstVisible.data() as User), id: firstVisible.id }
           : null;
         state.lastUser = lastVisible
-          ? { id: lastVisible.id, ...(lastVisible.data() as User) }
+          ? { ...(lastVisible.data() as User), id: lastVisible.id }
           : null;
       })
     );
@@ -234,9 +238,10 @@ const useUserStore = create<IStore>((set, get) => ({
     );
 
       return { success: true };
-    } catch (e: any) {
-      console.error("Error fetching users:", e.message);
-      return { success: false, error: e.message };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      console.error("Error fetching users:", message);
+      return { success: false, error: message };
     }
   },
 }));

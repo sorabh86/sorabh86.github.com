@@ -5,9 +5,7 @@ import { faCertificate, faCode, faEnvelope, faIdBadge, faLaptopCode, faPhoneSqua
 import sorabhStore, { getState } from '../store/sorabh-store'
 import { Education, Experience } from '../types/default-type'
 
-interface Props { }
-
-function AboutPage({ }: Props) {
+function AboutPage() {
   const experiences = sorabhStore(state => state.experiences as Experience[]);
 
   const educationData = getState().educations as Education[];

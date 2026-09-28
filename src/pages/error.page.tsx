@@ -3,9 +3,7 @@ import { Link } from 'react-router'
 import Header from '../components/header'
 import Footer from '../components/footer'
 
-interface Props { }
-
-function ErrorPage({}: Props) {
+function ErrorPage() {
 
   return (
     <div className='error-page page'>

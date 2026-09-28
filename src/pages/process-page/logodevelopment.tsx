@@ -6,9 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { logoData } from "../../constants/logo.data";
 
-interface IProp { }
-
-const LogoDevelopment = ({}:IProp) => {
+const LogoDevelopment = () => {
   const logos = logoData
 
   return (

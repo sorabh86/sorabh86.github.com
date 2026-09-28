@@ -6,9 +6,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 import { getState } from '../store/sorabh-store'
 import { Project, ProjectCategory } from '../types/default-type'
 
-interface Props { }
-
-function WorkPage({ }: Props) {
+function WorkPage() {
   const projects = getState().projects as Project[];
   const categories = getState().prod_cat as ProjectCategory[];
 

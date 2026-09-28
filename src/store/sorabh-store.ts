@@ -1,6 +1,5 @@
 // src/store/sorabh-store.ts
-import { create } from "zustand";
-import { produce } from "immer";
+import { create, type StateCreator } from "zustand";
 import {
   Education,
   Experience,
@@ -20,11 +19,9 @@ import { educations } from "../constants/educations.data";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../db/firebase";
 
-const immer = (config: any) => (set: any, get: any) =>
-  config((fn: any) => set(produce(fn)), get);
-
 interface IStore {
   isLoading: boolean;
+  error?: string;
   setLoading: (loading: boolean) => void;
   post_cat: PostCategory[] | null;
   posts: Post[] | null;
@@ -39,11 +36,12 @@ interface IStore {
   sendMessage: (message: Message) => Promise<ResultObject>;
 }
 
-const store = (set: any/* , get: any */): IStore => ({
+const store: StateCreator<IStore> = (set) => ({
   isLoading: false,
   setLoading: (loading) =>
-    set((state: any) => {
+    set((state) => {
       state.isLoading = loading;
+      return state;
     }),
 
   post_cat: post_cat,
@@ -53,41 +51,52 @@ const store = (set: any/* , get: any */): IStore => ({
   experiences: experiences,
   educations: educations,
   addPost: (post) =>
-    set((state: any) => {
-      state.posts.push(post);
+    set((state) => {
+      if (!state.posts) return state;
+      state.posts = [...state.posts, post];
+      return state;
     }),
   removePost: (id) =>
-    set((state: any) => {
-      state.posts = state.posts.filter((post: Post) => post.id !== id);
+    set((state) => {
+      if (!state.posts) return state;
+      state.posts = state.posts.filter((post) => post.id !== id);
+      return state;
     }),
   updatePost: (id, updatedData) =>
-    set((state: any) => {
-      const post = state.posts.find((post: Post) => post.id === id);
+    set((state) => {
+      if (!state.posts) return state;
+      const post = state.posts.find((item) => item.id === id);
       if (post) {
         Object.assign(post, updatedData);
       }
+      return state;
     }),
 
   sendMessage: async (message) => {
     try {
-      set((state: any) => {
+      set((state) => {
         state.isLoading = true;
         state.error = "";
+        return state;
       });
       await addDoc(collection(db, "messages"), message);
       return { success: true };
-    } catch (e: any) {
-      const message = e.code.replace("auth/", "").replace(/-/g, " ");
-      return { success: false, error: message };
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      const messageText = typeof firebaseError.code === 'string'
+        ? firebaseError.code.replace('auth/', '').replace(/-/g, ' ')
+        : firebaseError.message ?? 'Unknown error';
+      return { success: false, error: messageText };
     } finally {
-      set((state: any) => {
+      set((state) => {
         state.isLoading = false;
+        return state;
       });
     }
   },
 });
 
-const sorabhStore = create<IStore>(immer(store));
+const sorabhStore = create<IStore>()(store);
 
 export default sorabhStore;
 export const { getState, setState, subscribe } = sorabhStore;

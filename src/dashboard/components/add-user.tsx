@@ -45,9 +45,9 @@ const AddUser: React.FC = () => {
   };
 
   useEffect(() => {
-    const user = users?.find((u) => u.id === userId) as User;
-    setEditedUser(user);
-  }, [users])
+    const user = users?.find((u) => u.id === userId) as User | undefined;
+    setEditedUser(user ?? null);
+  }, [userId, users])
 
   return (
     <div className="mx-2 sm:mx-10 px-4 sm:px-12 py-10 bg-white shadow-md rounded-md mb-6">

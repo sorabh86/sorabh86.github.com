@@ -12,11 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import React from "react";
 
-interface Props {}
-
-function Solution(props: Props) {
-  const {} = props;
-
+function Solution() {
   return (
     <div className="solutions  bg-[#eee] border-t-1 border-so-gray-light text-so-gray-dark">
       <div className="text-center my-10">

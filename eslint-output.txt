@@ -1,0 +1,16 @@
+
+D:\A-PROJECTS\sorabh86\sorabh86.github.com\src\components\header.tsx
+  30:6  warning  React Hook useEffect has a missing dependency: 'isMobile'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\A-PROJECTS\sorabh86\sorabh86.github.com\src\dashboard\components\add-user.tsx
+  50:6  warning  React Hook useEffect has a missing dependency: 'userId'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\A-PROJECTS\sorabh86\sorabh86.github.com\src\dashboard\dashboard.page.tsx
+  33:6  warning  React Hook useEffect has missing dependencies: 'logout' and 'navigate'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\A-PROJECTS\sorabh86\sorabh86.github.com\src\dashboard\users.page.tsx
+  51:6  warning  React Hook useEffect has a missing dependency: 'fetchUsers'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Γ£û 4 problems (0 errors, 4 warnings)
+
+ESLint found too many warnings (maximum: 0).

@@ -1,6 +1,6 @@
 // src/dashboard/users.page.tsx
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { OrderByDirection } from "firebase/firestore";
 import { User, UserSortKey } from "../types/default-type";
@@ -23,32 +23,29 @@ export default function UsersPage() {
   const [showConfirmation, setShowConfirmation] = useState(false); // For confirmation dialog
   const [userToDelete, setUserToDelete] = useState<string | null>(null); // Store user ID to delete
 
-  const fetchUsers = async (direction: "next" | "prev" | '') => {
+  const fetchUsers = useCallback(async (direction: "next" | "prev" | '') => {
     setLoading(true);
     try {
       const res = await fetchAllUsers(
-        selectedLimit, 
+        selectedLimit,
         direction === "next" ? lastUser : null,
         direction === "prev" ? firstUser : null,
         direction || 'next',
-        selectedSort, 
+        selectedSort,
         selectedOrder
       );
       if (!res?.success) {
         setError(res?.error || "Failed to fetch users.");
-      } else {
-        // console.log(`Fetched ${direction} page successfully`);
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please check your internet connection.");
     }
     setLoading(false);
-  };
+  }, [fetchAllUsers, firstUser, lastUser, selectedLimit, selectedOrder, selectedSort, setLoading]);
 
   useEffect(() => {
-    // Initial load is the first page (no cursors passed)
     fetchUsers("");
-  }, [selectedSort, selectedOrder, selectedLimit]);
+  }, [fetchUsers]);
 
   const toggleSortOrder = () => {
     setSelectedOrder((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -182,7 +179,7 @@ export default function UsersPage() {
                       Edit
                     </Link>
                     <button
-                      onClick={() => handleDeleteConfirmation(user.id)}
+                      onClick={() => user.id && handleDeleteConfirmation(user.id)}
                       className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
                     >
                       Delete

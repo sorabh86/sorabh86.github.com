@@ -6,13 +6,10 @@ import { faFacebook, faGithub, faInstagram, faLinkedin } from '@fortawesome/free
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface Props { }
-
-function Footer(props: Props) {
-  const { } = props
+function Footer() {
   const [upi, setUpi] = useState(false);
 
-  function donateHandle(e:MouseEvent<any>) {
+  function donateHandle(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setUpi(!upi);
   }

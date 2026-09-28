@@ -13,6 +13,7 @@ import IndexPage from './pages/index.page';
 import sorabhStore from './store/sorabh-store';
 import { menuData } from './constants/menus.data';
 import ArcHeader from './components/archeader';
+import PrivateRoute from './db/private-route';
 
 function App() {
   
@@ -39,13 +40,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
 
         {/* <PrivateRoute> */}
-        <Route path="/dashboard/*" element={<DashboardPage />}>
+        <Route path="/dashboard/*" element={<PrivateRoute><DashboardPage /></PrivateRoute>}>
           <Route path="profile/*" element={<p>Profile</p>} />
           <Route path="posts/*" element={<PostsPage />} >
             <Route path="add" element={<AddPost />} />
             <Route path="edit/:id" element={<AddPost />} />
             <Route path="category/*" element={<PostCategoryPage />} />
           </Route>
+          <Route path="categories" element={<PostCategoryPage />} />
           <Route path="users/" element={<UsersPage />} />
           <Route path="users/add/" element={<AddUser />} />
           <Route path="users/edit/:userId" element={<AddUser />} />

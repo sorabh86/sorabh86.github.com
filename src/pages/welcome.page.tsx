@@ -5,11 +5,7 @@ import Ourwork from '../components/ourwork'
 import Solution from '../components/solution'
 import Aboutme from '../components/about-me'
 
-interface Props { }
-
-function WelcomePage(props: Props) {
-  const { } = props
-
+function WelcomePage() {
   return (
     <>
       <Flexslider />

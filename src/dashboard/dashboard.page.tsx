@@ -5,13 +5,14 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
 import { auth } from "../db/firebase";
 import useUserStore from "../store/users-store";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {currentUser, logout} = useUserStore();
 
@@ -24,13 +25,13 @@ export default function DashboardPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
-        logout()
+        logout();
         navigate("/login");
       }
     });
-  
+
     return () => unsubscribe();
-  }, []);
+  }, [logout, navigate]);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -108,7 +109,7 @@ export default function DashboardPage() {
                   <p className="text-gray-600">View, edit, and delete posts</p>
                 </Link>
                 <Link
-                  to="/dashboard/categories"
+                  to="/dashboard/posts/category"
                   className="bg-white p-6 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
                 >
                   <h2 className="text-xl font-semibold">Manage Categories</h2>

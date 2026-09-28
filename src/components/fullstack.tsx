@@ -3,9 +3,7 @@ import { fa1, fa2, fa3, fa4, fa5, fa6, fa7, faCheck, faHandshake, faPhone, faQuo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router'
 
-interface Props { }
-
-function Fullstack({}: Props) {
+function Fullstack() {
 
   return (
     <div className="fullstack slogan text-so-gray-light lg:mx-10 sm:mx-4 mb-10">

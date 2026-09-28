@@ -8,9 +8,7 @@ import { faBars, faCaretDown, faEnvelope, faTimes } from '@fortawesome/free-soli
 import { motion, AnimatePresence } from "framer-motion";
 import { menuData } from "../constants/menus.data";
 
-interface Props { }
-
-function Header({ }: Props) {
+function Header() {
 
   const location = useLocation();
   const menus = menuData;
@@ -21,12 +19,12 @@ function Header({ }: Props) {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log(isMobile);
-      setIsMobile(window.innerWidth < 963);
-      if (window.innerWidth >= 963) setMenuOpen(false);
-      
+      const mobile = window.innerWidth < 963;
+      setIsMobile(mobile);
+      if (!mobile) setMenuOpen(false);
     };
 
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

@@ -8,13 +8,13 @@ export interface PostCategory {
 }
 
 export interface Post {
+  id: number | string;
   title: string;
   content: string;
   cat_id?: number;
   category: string;
   author: string;
   date: string;
-  [key: string]: any;
 }
 
 export interface ProjectCategory {
@@ -61,6 +61,7 @@ export enum USER_ROLES {
   ADMIN = "admin",
 }
 export interface User {
+  id?: string;
   name:string;
   email:string;
   password:string;
@@ -69,14 +70,13 @@ export interface User {
   role:USER_ROLES;
   create_date?:Timestamp;
   last_login?:Timestamp;
-  [key: string]: any;
 }
 export type UserSortKey = | 'name' | 'email' | 'role' | 'create_date' | 'last_login' | 'id';
 
 export interface ResultObject {
   success:boolean,
   error?:string,
-  data?:any
+  data?:unknown
 }
 
 export interface Faq {

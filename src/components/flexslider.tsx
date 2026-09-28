@@ -9,10 +9,7 @@ import Slide5 from "../assets/banner/slide-5.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-interface Props { }
-
-function Flexslider(props: Props) {
-  const { } = props
+function Flexslider() {
   const slideArr = [Slide1, Slide2, Slide3, Slide4, Slide5];
   // const slideArr = ["/banner/slide-1.jpg", "/banner/slide-2.jpg", "/banner/slide-3.jpg", "/banner/slide-4.jpg", "/banner/slide-5.jpg"];
   const [hoverIndex, setHoverIndex] = useState<number|null>(null);

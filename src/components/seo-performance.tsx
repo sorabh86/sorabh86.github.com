@@ -2,11 +2,7 @@ import { faBolt, faChartLine, faMobileAlt } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import React from 'react'
 
-interface Props {}
-
-function SeoPerformance(props: Props) {
-  const {} = props
-
+function SeoPerformance() {
   return (
     <section className="container mx-auto px-6 mt-16 text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">SEO & Performance</h2>

@@ -5,10 +5,9 @@ import { Link, Outlet } from "react-router";
 export default function PostsPage() {
   const posts = getState().posts as Post[];
 
-  const handleDelete = (id: number) => {
-    // setPosts(posts.filter(post => post.id !== id));
+  const handleDelete = (id: number | string) => {
+    if (typeof id === 'undefined') return;
     console.log(id);
-    
   };
 
   return (

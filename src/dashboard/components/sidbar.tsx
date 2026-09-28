@@ -4,9 +4,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router';
 import { dashboardMenus } from '../../constants/menus.data';
 
-interface Props { }
-
-function Sidbar({}: Props) {
+function Sidbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const location = useLocation();
   const menus = dashboardMenus;

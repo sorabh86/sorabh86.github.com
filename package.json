@@ -8,6 +8,7 @@
     "deploy": "gh-pages -d dist",
     "prerender": "ts-node --esm -r tsconfig-paths/register renderDefaultPage.ts",
     "firebase": "TS_NODE_ESM=true ts-node src/db/testfirebase.ts",
+    "start": "vite --host 0.0.0.0",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

@@ -5,9 +5,7 @@ import { getState } from '../store/sorabh-store';
 import { Post, PostCategory } from '../types/default-type';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 
-interface Props { }
-
-function BlogPage({ }: Props) {
+function BlogPage() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("All");
 	const postsPerPage = 9;

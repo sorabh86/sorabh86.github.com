@@ -5,11 +5,7 @@ import { motion, AnimatePresence, easeInOut } from 'framer-motion';
 interface ImageItem {
   src:string
 }
-interface Props { }
-
-function Ourwork(props: Props) {
-  const { } = props
-
+function Ourwork() {
   const images:ImageItem[] = [
     { src: "/work/1.jpg" },
     { src: "/work/2.jpg" },
