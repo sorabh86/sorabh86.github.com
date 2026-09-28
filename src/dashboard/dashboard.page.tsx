@@ -1,20 +1,18 @@
 import Sidbar from "./components/sidbar";
-import {
-  faBell,
-  faChartBar,
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
 import { auth } from "../db/firebase";
 import useUserStore from "../store/users-store";
+import { USER_ROLES } from "../types/default-type";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const {currentUser, logout} = useUserStore();
+  const isAdmin = currentUser?.role === USER_ROLES.ADMIN;
 
   const handleSignOut = () => {
     logout();
@@ -39,21 +37,12 @@ export default function DashboardPage() {
 
       <div className="flex-1">
         {/* Top Bar */}
-        <header className="bg-gray-950 shadow-md flex justify-between items-center p-4 text-dark">
+        <header className="bg-white border-b border-gray-200 flex justify-between items-center p-4 text-gray-950">
           <h1 className="text-xl font-semibold">
-            <FontAwesomeIcon icon={faChartBar} className="w-5 h-5 mr-3" />
             <span className="hidden sm:inline-block">Dashboard</span>
           </h1>
 
           <div className="flex items-center space-x-4">
-            {/* Notifications */}
-            <button className="relative p-2 hover:text-gray-300">
-              <FontAwesomeIcon icon={faBell} />
-              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                3
-              </span>
-            </button>
-
             <div className="flex items-center space-x-2">
               <img
                 src='/sorabh-profile.jpg'
@@ -66,72 +55,52 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <a onClick={handleSignOut} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-800 duration-500 cursor-pointer">
+            <button type="button" onClick={handleSignOut} className="px-3 py-2 bg-gray-900 text-white rounded hover:bg-gray-700 duration-200">
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
               <span className="hidden sm:inline-block">Sign Out</span>
-            </a>
+            </button>
           </div>
         </header>
 
         <div className="p-2 sm:p-6 text-black">
           {location.pathname === "/dashboard" ? (
-            <>
-              {/* Quick Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold">Total Users</h2>
-                  <p className="text-3xl">150</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold">Total Posts</h2>
-                  <p className="text-3xl">500</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <h2 className="text-xl font-semibold">Total Categories</h2>
-                  <p className="text-3xl">10</p>
-                </div>
-              </div>
-
-              {/* Quick Links */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <Link
-                  to="/dashboard/users"
-                  className="bg-white p-6 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
-                >
-                  <h2 className="text-xl font-semibold">Manage Users</h2>
-                  <p className="text-gray-600">View, edit, and delete users</p>
-                </Link>
-                <Link
-                  to="/dashboard/posts"
-                  className="bg-white p-6 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
-                >
-                  <h2 className="text-xl font-semibold">Manage Posts</h2>
-                  <p className="text-gray-600">View, edit, and delete posts</p>
-                </Link>
-                <Link
-                  to="/dashboard/posts/category"
-                  className="bg-white p-6 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
-                >
-                  <h2 className="text-xl font-semibold">Manage Categories</h2>
-                  <p className="text-gray-600">View, edit, and delete categories</p>
-                </Link>
-              </div>
-
-              {/* Recent Activity */}
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-                <ul>
-                  <li className="mb-2">New user "John Doe" registered.</li>
-                  <li className="mb-2">Post "React Tips" was published.</li>
-                  <li className="mb-2">Category "Technology" was updated.</li>
-                </ul>
-              </div>
-            </>
+            <DashboardOverview name={currentUser?.name} isAdmin={isAdmin} />
           ) : (
             <Outlet />
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+function DashboardOverview({ name, isAdmin }: { name?: string; isAdmin: boolean }) {
+  const actions = [
+    { to: '/dashboard/profile', title: 'Your profile', description: 'Keep your contact details up to date.' },
+    { to: '/dashboard/tasks', title: 'Personal tasks', description: 'Plan and track your own to-do list.' },
+    { to: '/dashboard/support', title: 'Support the work', description: 'Record a pledge or contribution intention.' },
+    ...(isAdmin ? [
+      { to: '/dashboard/users', title: 'Manage members', description: 'Review and manage registered accounts.' },
+      { to: '/dashboard/posts', title: 'Manage posts', description: 'Maintain published content and categories.' },
+    ] : []),
+  ];
+
+  return (
+    <section className="mx-auto max-w-5xl py-4">
+      <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">{isAdmin ? 'Administrator workspace' : 'Member workspace'}</p>
+      <h2 className="mt-2 text-3xl font-semibold text-gray-950">Welcome{ name ? `, ${name}` : ''}.</h2>
+      <p className="mt-2 max-w-2xl text-gray-600">{isAdmin ? 'Your personal tools are here, alongside the site management controls.' : 'A quiet place to manage your details, organize your next steps, and support the work.'}</p>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {actions.map((action) => (
+          <Link key={action.to} to={action.to} className="group flex min-h-32 items-start justify-between border border-gray-200 bg-white p-5 transition hover:border-blue-700">
+            <span>
+              <span className="block text-lg font-semibold text-gray-950">{action.title}</span>
+              <span className="mt-2 block text-sm text-gray-600">{action.description}</span>
+            </span>
+            <FontAwesomeIcon icon={faArrowRight} className="mt-1 text-blue-800 transition-transform group-hover:translate-x-1" />
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

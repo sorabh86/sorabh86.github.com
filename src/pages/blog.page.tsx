@@ -1,18 +1,67 @@
-import /* React, */ { Fragment, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 import { Link } from 'react-router';
-import { getState } from '../store/sorabh-store';
 import { Post, PostCategory } from '../types/default-type';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../db/firebase';
+import Loading from '../components/loading';
 
 function BlogPage() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("All");
 	const postsPerPage = 9;
 	const [currentPage, setCurrentPage] = useState(1);
+	const [posts, setPosts] = useState<Post[]>([]);
+	const [categories, setCategories] = useState<PostCategory[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
 
-	const categories = getState().post_cat as PostCategory[];
-	const posts = getState().posts as Post[];
+	useEffect(() => {
+		let active = true;
+		const loadBlogData = async () => {
+			setLoading(true);
+			setError("");
+			try {
+				const [postSnapshot, categorySnapshot] = await Promise.all([
+					getDocs(collection(db, "posts")),
+					getDocs(collection(db, "post_categories")),
+				]);
+
+				const loadedPosts = postSnapshot.docs.map((item) => {
+					const data = item.data();
+					return {
+						id: item.id,
+						title: typeof data.title === "string" ? data.title : "Untitled post",
+						content: typeof data.content === "string" ? data.content : "",
+						category: typeof data.category === "string" ? data.category : "",
+						author: typeof data.author === "string" ? data.author : "",
+						date: typeof data.date === "string" ? data.date : "",
+					} satisfies Post;
+				}).sort((left, right) => right.date.localeCompare(left.date));
+
+				const savedCategories = categorySnapshot.docs
+					.map((item) => item.data().title)
+					.filter((title): title is string => typeof title === "string" && title.trim().length > 0);
+				const postCategories = loadedPosts.map((post) => post.category).filter(Boolean);
+				const categoryTitles = [...new Set([...savedCategories, ...postCategories].filter((title) => title !== "All"))]
+					.sort((left, right) => left.localeCompare(right));
+
+				if (active) {
+					setPosts(loadedPosts);
+					setCategories([
+						{ id: 0, title: "All" },
+						...categoryTitles.map((title, index) => ({ id: index + 1, title })),
+					]);
+				}
+			} catch (loadError) {
+				if (active) setError(loadError instanceof Error ? loadError.message : "Blog content could not be loaded.");
+			} finally {
+				if (active) setLoading(false);
+			}
+		};
+		void loadBlogData();
+		return () => { active = false; };
+	}, []);
 
 	const filteredPosts = posts.filter((post: Post) =>
 		selectedCategory === "All" ? true : post.category === selectedCategory
@@ -21,10 +70,15 @@ function BlogPage() {
 	);
 
 	const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchQuery, selectedCategory]);
 	const displayedPosts = filteredPosts.slice(
 		(currentPage - 1) * postsPerPage,
 		currentPage * postsPerPage
 	);
+
+	if (loading) return <Loading />;
 
 	return (
 		<div className="blog-page page">
@@ -54,62 +108,24 @@ function BlogPage() {
 						onChange={(e) => setSearchQuery(e.target.value)}
 					/>
 
-					{/* <select
-						className="w-full md:w-1/4 px-6 py-4 border border-gray-600bg-gray-200 appearance-none text-white p-2 focus:outline-none focus:ring-2 rounded-full"
-						value={selectedCategory}
-						onChange={(e) => setSelectedCategory(e.target.value)}
-					>
-						{categories.map((category, index) => (
-							<option key={index} value={category.title}>
-								{category.title}
-							</option>
-						))}
-					</select> */}
-					<Menu as="div" className="relative w-full md:w-1/4">
-						<MenuButton className="w-full px-6 py-4 border border-gray-600 text-white rounded-full flex justify-between items-center focus:outline-none focus:ring-2">
-							{selectedCategory || 'Select a category'}
-							<svg
-								className="w-4 h-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M19 9l-7 7-7-7"
-								/>
-							</svg>
-						</MenuButton>
-
-						<Transition
-							as={Fragment}
-							enter="transition ease-out duration-100"
-							enterFrom="transform opacity-0 scale-95"
-							enterTo="transform opacity-100 scale-100"
-							leave="transition ease-in duration-75"
-							leaveFrom="transform opacity-100 scale-100"
-							leaveTo="transform opacity-0 scale-95"
+					<label className="w-full text-sm md:w-1/4">
+						<span className="sr-only">Filter by category</span>
+						<select
+							aria-label="Filter by category"
+							className="w-full rounded-full border border-gray-600 bg-gray-900 px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+							value={selectedCategory}
+							onChange={(event) => setSelectedCategory(event.target.value)}
+							disabled={loading}
 						>
-							<MenuItems className="absolute w-full p-2 bg-so-gray rounded-lg shadow-2xl ">
-								{categories.map((category, index) => (
-									<MenuItem key={index}>
-										<div className="cursor-pointer py-2 px-8 rounded-2xl hover:bg-so-blue transition-colors duration-500"
-											onClick={() => setSelectedCategory(category.title)}
-										>
-											{category.title}
-										</div>
-									</MenuItem>
-								))}
-							</MenuItems>
-						</Transition>
-					</Menu>
+							{categories.map((category) => (
+								<option key={category.id} value={category.title}>{category.title}</option>
+							))}
+						</select>
+					</label>
 				</div>
 
 				<div className="container mx-auto px-4">
-
+					{error && <p role="alert" className="mb-6 border-l-4 border-red-500 bg-red-50 px-4 py-3 text-red-800">Blog content could not be loaded. Check Firebase rules and your connection.</p>}
 					{posts.length > 0 && (
 						<motion.div
 							className="bg-white text-black p-5 rounded-lg mb-8"

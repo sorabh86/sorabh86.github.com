@@ -1,88 +1,172 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router";
+import { FormEvent, useEffect, useState } from "react";
+import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore";
+import { Link, useNavigate, useParams } from "react-router";
+import { db } from "../../db/firebase";
+import Loading from "../../components/loading";
+
+interface PostFormData {
+  title: string;
+  content: string;
+  category: string;
+  author: string;
+  date: string;
+  image: string;
+}
+
+const emptyPost: PostFormData = {
+  title: "",
+  content: "",
+  category: "",
+  author: "",
+  date: new Date().toISOString().slice(0, 10),
+  image: "",
+};
 
 export default function AddPost() {
-  const {id} = useParams();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [post, setPost] = useState<PostFormData>(emptyPost);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(id));
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const handleImageUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    let active = true;
+    const loadFormData = async () => {
+      setLoading(Boolean(id));
+      setError("");
+      try {
+        const categorySnapshot = await getDocs(collection(db, "post_categories"));
+        if (active) {
+          setCategories(categorySnapshot.docs
+            .map((item) => item.data().title)
+            .filter((value): value is string => typeof value === "string")
+            .sort((left, right) => left.localeCompare(right)));
+          setCategoriesLoading(false);
+        }
 
-    const file = event.target.files?.[0];
-    if(file)
-      setImage(file);
+        if (id) {
+          const snapshot = await getDoc(doc(db, "posts", id));
+          if (!snapshot.exists()) {
+            if (active) setError("This post could not be found.");
+            return;
+          }
+          const data = snapshot.data();
+          if (active) {
+            setPost({
+              title: typeof data.title === "string" ? data.title : "",
+              content: typeof data.content === "string" ? data.content : "",
+              category: typeof data.category === "string" ? data.category : "",
+              author: typeof data.author === "string" ? data.author : "",
+              date: typeof data.date === "string" ? data.date.slice(0, 10) : new Date().toISOString().slice(0, 10),
+              image: typeof data.image === "string" ? data.image : "",
+            });
+          }
+        }
+      } catch (loadError) {
+        if (active) setError(loadError instanceof Error ? loadError.message : "Post data could not be loaded.");
+      } finally {
+        if (active) {
+          setCategoriesLoading(false);
+          setLoading(false);
+        }
+      }
+    };
+    void loadFormData();
+    return () => { active = false; };
+  }, [id]);
+
+  const updateField = (field: keyof PostFormData, value: string) => {
+    setPost((current) => ({ ...current, [field]: value }));
   };
 
-  const handleSubmit = (event:React.FormEvent) => {
+  const categoryOptions = post.category && !categories.includes(post.category)
+    ? [...categories, post.category].sort((left, right) => left.localeCompare(right))
+    : categories;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!title || !content || !category) {
-      setError("All fields are required.");
-      return;
-    }
+    setSaving(true);
     setError("");
-    
-    // Handle post submission (API call or state management)
-    console.log({ title, content, category, image });
+    const postData = {
+      title: post.title.trim(),
+      content: post.content.trim(),
+      category: post.category.trim(),
+      author: post.author.trim(),
+      date: post.date,
+      image: post.image.trim(),
+      updatedAt: serverTimestamp(),
+    };
+
+    try {
+      if (id) {
+        await updateDoc(doc(db, "posts", id), postData);
+      } else {
+        await addDoc(collection(db, "posts"), { ...postData, createdAt: serverTimestamp() });
+      }
+      navigate("/dashboard/posts");
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : "Post could not be saved. Check your Firebase rules and connection.");
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) return <Loading />;
 
   return (
-    <div className="mx-auto bg-white p-6 rounded-lg shadow-lg mb-5">
-      <h2 className="text-2xl font-semibold mb-4 flex items-center">
-        {id ? `Edit Post: ${id}` : "Add New Post"}
-        <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add New Post
-      </h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-medium">Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded-lg"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Content</label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="w-full p-2 border rounded-lg"
-            rows={4}
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label className="block font-medium">Category</label>
+    <section className="mx-auto max-w-3xl border border-gray-200 bg-white p-5 sm:p-7">
+      <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">Posts</p>
+      <h2 className="mt-2 text-2xl font-semibold text-gray-950">{id ? "Edit post" : "Add post"}</h2>
+      {error && <p role="alert" className="mt-4 border-l-4 border-red-700 bg-red-50 px-4 py-3 text-sm text-red-800">{error}</p>}
+      <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+        <label className="block text-sm font-medium text-gray-800">
+          Title
+          <input value={post.title} onChange={(event) => updateField("title", event.target.value)} maxLength={180} required className="mt-1 block w-full border border-gray-300 px-3 py-2" />
+        </label>
+        <label className="block text-sm font-medium text-gray-800">
+          Content
+          <textarea value={post.content} onChange={(event) => updateField("content", event.target.value)} rows={8} required className="mt-1 block w-full border border-gray-300 px-3 py-2" />
+        </label>
+        <label className="block text-sm font-medium text-gray-800">
+          Category
           <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            value={post.category}
+            onChange={(event) => updateField("category", event.target.value)}
             required
+            disabled={categoriesLoading || categoryOptions.length === 0}
+            className="mt-1 block w-full border border-gray-300 bg-white px-3 py-2 disabled:bg-gray-100"
           >
-            <option value="">Select Category</option>
-            <option value="Technology">Technology</option>
-            <option value="Business">Business</option>
-            <option value="Lifestyle">Lifestyle</option>
+            <option value="" disabled>{categoriesLoading ? "Loading categories..." : "Select a category"}</option>
+            {categoryOptions.map((category) => <option key={category} value={category}>{category}</option>)}
           </select>
+          {!categoriesLoading && categories.length === 0 && (
+            <span className="mt-1 block text-xs text-gray-600">
+              No saved categories are available. <Link to="/dashboard/posts/category" className="font-medium text-blue-800 underline">Add a category</Link> first.
+            </span>
+          )}
+        </label>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm font-medium text-gray-800">
+            Author
+            <input value={post.author} onChange={(event) => updateField("author", event.target.value)} maxLength={100} required className="mt-1 block w-full border border-gray-300 px-3 py-2" />
+          </label>
+          <label className="block text-sm font-medium text-gray-800">
+            Publication date
+            <input type="date" value={post.date} onChange={(event) => updateField("date", event.target.value)} required className="mt-1 block w-full border border-gray-300 px-3 py-2" />
+          </label>
         </div>
-        <div>
-          <label className="block font-medium">Upload Image</label>
-          <input type="file" onChange={handleImageUpload} className="w-full" />
+        <label className="block text-sm font-medium text-gray-800">
+          Image URL <span className="font-normal text-gray-500">(optional)</span>
+          <input type="url" value={post.image} onChange={(event) => updateField("image", event.target.value)} placeholder="https://example.com/image.jpg" className="mt-1 block w-full border border-gray-300 px-3 py-2" />
+        </label>
+        <div className="flex flex-wrap gap-3 border-t border-gray-200 pt-5">
+          <button type="submit" disabled={saving} className="bg-blue-800 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50">{saving ? "Saving..." : id ? "Save changes" : "Create post"}</button>
+          <Link to="/dashboard/posts" className="border border-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel</Link>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Submit Post
-        </button>
       </form>
-    </div>
+    </section>
   );
 }

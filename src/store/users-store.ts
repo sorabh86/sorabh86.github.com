@@ -6,6 +6,7 @@ import { ResultObject, User, UserSortKey } from "../types/default-type";
 import {
   collection,
   deleteDoc,
+  documentId,
   doc,
   getDoc,
   getDocs,
@@ -20,6 +21,7 @@ import {
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../db/firebase";
@@ -38,9 +40,11 @@ interface IStore {
 
   createUser: (user:User & {password:string}) => Promise<ResultObject>;
   updateUserById: (userId: string, userData: Partial<User>) => void;
+  updateCurrentUserProfile: (userId: string, profile: Pick<User, "name" | "phone" | "address">) => Promise<ResultObject>;
   deleteUserById: (userId: string) => Promise<ResultObject>;
   signup: (user: User) => Promise<ResultObject>;
   login: (email: string, password: string) => Promise<ResultObject>;
+  sendPasswordReset: (email: string) => Promise<ResultObject>;
   logout: () => void;
   getTotalUsers: () => Promise<number>;
   fetchAllUsers: (
@@ -78,7 +82,16 @@ const useUserStore = create<IStore>((set, get) => ({
   
       // Store user data in Firestore (without password)
       const userRef = doc(db, "users", uid);
-      await setDoc(userRef, { ...user, password: '' });
+      const userProfile = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+        ...(user.create_date ? { create_date: user.create_date } : {}),
+        ...(user.last_login ? { last_login: user.last_login } : {}),
+      };
+      await setDoc(userRef, userProfile);
   
       return { success: true };
     } catch (error) {
@@ -95,6 +108,21 @@ const useUserStore = create<IStore>((set, get) => ({
     } catch (error) {
       console.error("Error updating user:", error);
       return { success: false, error: (error as Error).message };
+    }
+  },
+
+  updateCurrentUserProfile: async (userId, profile) => {
+    try {
+      await setDoc(doc(db, "users", userId), profile, { merge: true });
+      set((state) => {
+        if (!state.currentUser || state.currentUser.id !== userId) return state;
+        const currentUser = { ...state.currentUser, ...profile };
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        return { ...state, currentUser };
+      });
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : "Could not save profile." };
     }
   },
 
@@ -154,6 +182,19 @@ const useUserStore = create<IStore>((set, get) => ({
     }
   },
 
+  sendPasswordReset: async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return { success: true };
+    } catch (error: unknown) {
+      const firebaseError = error as { code?: string; message?: string };
+      const message = typeof firebaseError.code === "string"
+        ? firebaseError.code.replace("auth/", "").replace(/-/g, " ")
+        : firebaseError.message ?? "Unable to send the reset email.";
+      return { success: false, error: message };
+    }
+  },
+
   logout: () => {
     auth.signOut();
     set((state) => ({ ...state, currentUser: null }));
@@ -183,15 +224,20 @@ const useUserStore = create<IStore>((set, get) => ({
       
 
     const colRef = collection(db, "users");
-    // Build a base query without any cursors.
-    const baseQuery = query(colRef, orderBy(sortKey, sortOrder));
+    const sortField = sortKey === "id" ? documentId() : sortKey;
+    const baseQuery = sortKey === "id"
+      ? query(colRef, orderBy(documentId(), sortOrder))
+      : query(colRef, orderBy(sortField, sortOrder), orderBy(documentId(), sortOrder));
+    const cursorValues = (user: User) => sortKey === "id"
+      ? [user.id]
+      : [user[sortKey], user.id];
 
     let queryRef;
 
     if (direction === "next" && lastUser) {
-      queryRef = query(baseQuery, startAfter(lastUser[sortKey]), limit(pageSize));
+      queryRef = query(baseQuery, startAfter(...cursorValues(lastUser)), limit(pageSize));
     } else if (direction === "prev" && firstUser) {
-      queryRef = query(baseQuery, endBefore(firstUser[sortKey]), limitToLast(pageSize));
+      queryRef = query(baseQuery, endBefore(...cursorValues(firstUser)), limitToLast(pageSize));
     } else {
       // Initial load
       queryRef = query(baseQuery, limit(pageSize));
@@ -222,18 +268,28 @@ const useUserStore = create<IStore>((set, get) => ({
     );
 
     // Build queries from the baseQuery for checking availability
-    const nextQuery = query(baseQuery, startAfter(lastVisible), limit(1));
-    const prevQuery = query(baseQuery, endBefore(firstVisible), limitToLast(1));
+    let nextAvailable = false;
+    let previousAvailable = false;
+    const availabilityQueries: Promise<void>[] = [];
 
-    const [nextSnap, prevSnap] = await Promise.all([
-      getDocs(nextQuery),
-      getDocs(prevQuery),
-    ]);
+    if (lastVisible) {
+      const cursor = sortKey === "id" ? [lastVisible.id] : [lastVisible.get(sortKey), lastVisible.id];
+      availabilityQueries.push(getDocs(query(baseQuery, startAfter(...cursor), limit(1))).then((snapshot) => {
+        nextAvailable = !snapshot.empty;
+      }));
+    }
+    if (firstVisible) {
+      const cursor = sortKey === "id" ? [firstVisible.id] : [firstVisible.get(sortKey), firstVisible.id];
+      availabilityQueries.push(getDocs(query(baseQuery, endBefore(...cursor), limitToLast(1))).then((snapshot) => {
+        previousAvailable = !snapshot.empty;
+      }));
+    }
+    await Promise.all(availabilityQueries);
 
     set(
       produce((state: IStore) => {
-        state.hasNextPage = !nextSnap.empty;
-        state.hasPreviousPage = !prevSnap.empty;
+        state.hasNextPage = nextAvailable;
+        state.hasPreviousPage = previousAvailable;
       })
     );
 

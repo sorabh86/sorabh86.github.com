@@ -1,92 +1,54 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faCamera, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FormEvent, useState } from "react";
+import useUserStore from "../store/users-store";
 
-export default function AdminProfile() {
-  const [name, setName] = useState("Admin User");
-  const [email, setEmail] = useState("admin@example.com");
-  const [profilePic, setProfilePic] = useState("/sorabh-profile.jpg");
-  const [password, setPassword] = useState("");
-  const [socialLinks, setSocialLinks] = useState([
-    { id: 1, platform: "Twitter", url: "https://twitter.com/admin" },
-    { id: 2, platform: "LinkedIn", url: "https://linkedin.com/in/admin" }
-  ]);
+export default function ProfilePage() {
+  const { currentUser, updateCurrentUserProfile } = useUserStore();
+  const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
 
-  // Handle Profile Picture Upload
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Handle Adding a New Social Link
-  const addSocialLink = () => {
-    const newPlatform = prompt("Enter social media platform:");
-    const newUrl = prompt("Enter social media URL:");
-    if (newPlatform && newUrl) {
-      setSocialLinks([...socialLinks, { id: Date.now(), platform: newPlatform, url: newUrl }]);
-    }
-  };
-
-  // Handle Removing a Social Link
-  const removeSocialLink = (id: number) => {
-    setSocialLinks(socialLinks.filter(link => link.id !== id));
-  };
+  async function saveProfile(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!currentUser?.id) return;
+    const form = new FormData(event.currentTarget);
+    setSaving(true);
+    setMessage("");
+    const result = await updateCurrentUserProfile(currentUser.id, {
+      name: String(form.get("name") ?? "").trim(),
+      phone: String(form.get("phone") ?? "").trim(),
+      address: String(form.get("address") ?? "").trim(),
+    });
+    setMessage(result.success ? "Profile saved." : result.error ?? "Could not save profile.");
+    setSaving(false);
+  }
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
-      <h2 className="text-2xl font-semibold mb-4">Admin Profile</h2>
-      
-      {/* Profile Picture Upload */}
-      <div className="text-center">
-        <img src={profilePic} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-2" />
-        <label className="cursor-pointer inline-block bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
-          <FontAwesomeIcon icon={faCamera} /> Upload
-          <input type="file" className="hidden" onChange={handleImageUpload} />
+    <section className="mx-auto max-w-3xl py-4">
+      <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">Account</p>
+      <h2 className="mt-2 text-2xl font-semibold text-gray-950">Your profile</h2>
+      <p className="mt-2 text-sm text-gray-600">Your account role and sign-in email are managed separately and cannot be changed here.</p>
+      <form onSubmit={saveProfile} className="mt-6 space-y-5 border-t border-gray-200 py-6">
+        {message && <p role="status" className="text-sm text-blue-800">{message}</p>}
+        <label className="block text-sm font-medium text-gray-800">
+          Name
+          <input name="name" required maxLength={100} defaultValue={currentUser?.name ?? ""} className="mt-1 block w-full border border-gray-300 bg-white px-3 py-2 text-gray-950" />
         </label>
-      </div>
-      
-      {/* Name & Email Edit */}
-      <div className="mt-4">
-        <label className="block font-medium">Name:</label>
-        <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full p-2 border rounded-md mt-1" />
-      </div>
-      <div className="mt-4">
-        <label className="block font-medium">Email:</label>
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full p-2 border rounded-md mt-1" />
-      </div>
-      
-      {/* Password Change */}
-      <div className="mt-4">
-        <label className="block font-medium">Change Password:</label>
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border rounded-md mt-1" />
-        <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-          <FontAwesomeIcon icon={faKey} /> Update Password
+        <label className="block text-sm font-medium text-gray-800">
+          Email
+          <input type="email" readOnly value={currentUser?.email ?? ""} className="mt-1 block w-full border border-gray-200 bg-gray-100 px-3 py-2 text-gray-600" />
+        </label>
+        <label className="block text-sm font-medium text-gray-800">
+          Phone
+          <input name="phone" maxLength={40} defaultValue={currentUser?.phone ?? ""} className="mt-1 block w-full border border-gray-300 bg-white px-3 py-2 text-gray-950" />
+        </label>
+        <label className="block text-sm font-medium text-gray-800">
+          Address
+          <textarea name="address" maxLength={300} rows={3} defaultValue={currentUser?.address ?? ""} className="mt-1 block w-full border border-gray-300 bg-white px-3 py-2 text-gray-950" />
+        </label>
+        <p className="text-xs uppercase text-gray-500">Account type: {currentUser?.role ?? "member"}</p>
+        <button type="submit" disabled={saving} className="bg-gray-950 px-4 py-2 text-white hover:bg-gray-700 disabled:opacity-50">
+          {saving ? "Saving..." : "Save profile"}
         </button>
-      </div>
-      
-      {/* Social Links */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold">Social Links</h3>
-        <ul className="mt-2">
-          {socialLinks.map(link => (
-            <li key={link.id} className="flex justify-between items-center bg-gray-100 p-2 rounded-md mb-2">
-              <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-600">{link.platform}</a>
-              <button onClick={() => removeSocialLink(link.id)} className="text-red-500 hover:text-red-700">
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <button onClick={addSocialLink} className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
-          <FontAwesomeIcon icon={faEdit} /> Add Social Link
-        </button>
-      </div>
-    </div>
+      </form>
+    </section>
   );
 }

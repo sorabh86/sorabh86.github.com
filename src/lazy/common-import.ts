@@ -7,6 +7,7 @@ export const BlogPage = lazy(() => {
     setTimeout(() => resolve(import('../pages/blog.page')), 5); 
   });
 });
+export const BlogPostPage = lazy(() => import('../pages/blog-post.page'));
 
 export const ErrorPage = lazy(() => import('../pages/error.page'));
 export const LoginPage = lazy(() => import('../pages/login.page'));

@@ -5,16 +5,15 @@ import { Link } from "react-router";
 import { OrderByDirection } from "firebase/firestore";
 import { User, UserSortKey } from "../types/default-type";
 import useUserStore from "../store/users-store";
-import sorabhStore from "../store/sorabh-store";
 
 export default function UsersPage() {
   const { 
-    users, firstUser, lastUser, hasPreviousPage, hasNextPage,
+    users, hasPreviousPage, hasNextPage,
     fetchAllUsers, deleteUserById 
   } = useUserStore();
 
-  const {setLoading} = sorabhStore();
   const [error, setError] = useState<string | undefined>();
+  const [loading, setPageLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null); // For success/error messages
 
   const [selectedSort, setSelectedSort] = useState<UserSortKey>("name");
@@ -24,12 +23,14 @@ export default function UsersPage() {
   const [userToDelete, setUserToDelete] = useState<string | null>(null); // Store user ID to delete
 
   const fetchUsers = useCallback(async (direction: "next" | "prev" | '') => {
-    setLoading(true);
+    setPageLoading(true);
+    setError(undefined);
     try {
+      const { firstUser: currentFirstUser, lastUser: currentLastUser } = useUserStore.getState();
       const res = await fetchAllUsers(
         selectedLimit,
-        direction === "next" ? lastUser : null,
-        direction === "prev" ? firstUser : null,
+        direction === "next" ? currentLastUser : null,
+        direction === "prev" ? currentFirstUser : null,
         direction || 'next',
         selectedSort,
         selectedOrder
@@ -39,9 +40,10 @@ export default function UsersPage() {
       }
     } catch {
       setError("Network error. Please check your internet connection.");
+    } finally {
+      setPageLoading(false);
     }
-    setLoading(false);
-  }, [fetchAllUsers, firstUser, lastUser, selectedLimit, selectedOrder, selectedSort, setLoading]);
+  }, [fetchAllUsers, selectedLimit, selectedOrder, selectedSort]);
 
   useEffect(() => {
     fetchUsers("");
@@ -150,6 +152,7 @@ export default function UsersPage() {
 
       {/* Users Table */}
       <div className="bg-white w-full shadow-md rounded-lg p-4">
+        {loading && <p role="status" className="mb-3 text-sm text-gray-600">Loading users...</p>}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
@@ -165,7 +168,7 @@ export default function UsersPage() {
             </tr>
           </thead>
           <tbody>
-            {users &&
+              {users && users.length > 0 &&
               users.map((user: User, index: number) => (
                 <tr key={index} className="border-b w-auto flex flex-col md:table-row">
                   <td className="p-3">{user.name}</td>
@@ -187,6 +190,7 @@ export default function UsersPage() {
                   </td>
                 </tr>
               ))}
+              {!loading && users?.length === 0 && <tr><td colSpan={4} className="p-4 text-center text-gray-600">No users found.</td></tr>}
           </tbody>
         </table>
       </div>

@@ -1,26 +1,87 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Restrict access to user data
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    function canManageUserData(uid) {
+      return signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    function validTodo() {
+      return request.resource.data.keys().hasOnly(["title", "done", "createdAt"])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 180
+        && request.resource.data.done is bool
+        && request.resource.data.createdAt is timestamp;
+    }
+
+    function validPledge() {
+      return request.resource.data.keys().hasOnly(["amount", "note", "createdAt"])
+        && request.resource.data.amount is number
+        && request.resource.data.amount > 0
+        && request.resource.data.amount <= 100000
+        && request.resource.data.note is string
+        && request.resource.data.note.size() <= 400
+        && request.resource.data.createdAt is timestamp;
+    }
+
     match /users/{uid} {
-      allow read: if request.auth != null && (request.auth.uid == uid || request.auth.token.role == "admin"); // Users can read their own data, admins can read all
-      allow update: if request.auth != null && request.auth.uid == uid && !(request.resource.data.role != resource.data.role); // Users can update their data but NOT change 'role'
-      allow write: if request.auth != null && request.auth.uid == uid; // Users can create their own document
-      allow write: if request.auth.token.role == "admin"; // Admins can manage all users
+      allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isAdmin() || (
+        signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(["name", "email", "role", "phone", "address", "create_date", "last_login"])
+        && request.resource.data.role == "subscriber"
+        && request.resource.data.email == request.auth.token.email
+      );
+      allow update: if isAdmin() || (
+        signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(["name", "phone", "address", "last_login"])
+      );
+      allow delete: if isAdmin();
+
+      match /todos/{todoId} {
+        allow read, delete: if canManageUserData(uid);
+        allow create: if canManageUserData(uid) && validTodo();
+        allow update: if canManageUserData(uid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["title", "done"])
+          && validTodo();
+      }
+
+      match /pledges/{pledgeId} {
+        allow read, delete: if canManageUserData(uid);
+        allow create: if canManageUserData(uid) && validPledge();
+        allow update: if canManageUserData(uid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["amount", "note"])
+          && validPledge();
+      }
     }
 
-    // Example: If you have a 'posts' collection
     match /posts/{postId} {
-      allow read: if request.auth != null; // All authenticated users can read posts
-      allow write: if request.auth != null && request.auth.token.role == "admin"; // Only admins can create/edit posts
-    }
-    
-    // Secure messages collection
-    match /messages/{messageId} {
-      allow read: if request.auth != null; // Any authenticated user can read
-      allow create: if request.auth != null; // Only logged-in users can write
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
     }
 
+    match /post_categories/{categoryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow read: if isAdmin();
+      allow create: if signedIn();
+    }
   }
 }
