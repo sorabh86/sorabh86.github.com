@@ -22,7 +22,7 @@ export default function LoginPage() {
     const res = await login(email, password);
 
     if(!res.success) {
-      setMessage('Failed to create an account: ' + res.error);
+      setMessage('Failed to login: ' + res.error);
     } else {
       // setMessage('Login Sucessfully');
       (e.target as HTMLFormElement).reset();
