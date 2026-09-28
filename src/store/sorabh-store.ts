@@ -16,8 +16,6 @@ import { proj_cat } from "../constants/project-category.data";
 import { projects } from "../constants/projects.data";
 import { experiences } from "../constants/experiences.data";
 import { educations } from "../constants/educations.data";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../db/firebase";
 
 interface IStore {
   isLoading: boolean;
@@ -74,6 +72,10 @@ const store: StateCreator<IStore> = (set) => ({
 
   sendMessage: async (message) => {
     try {
+      const [{ addDoc, collection }, { db }] = await Promise.all([
+        import("firebase/firestore"),
+        import("../db/firebase"),
+      ]);
       set((state) => {
         state.isLoading = true;
         state.error = "";

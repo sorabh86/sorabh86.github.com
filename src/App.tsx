@@ -1,6 +1,6 @@
 // src/App.tsx
 // import React from 'react'
-import { Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import ScrollToTop from './components/scroll-top'
 import { AddPost, DashboardPage, PostCategoryPage, 
@@ -13,7 +13,8 @@ import IndexPage from './pages/index.page';
 import sorabhStore from './store/sorabh-store';
 import { menuData } from './constants/menus.data';
 import ArcHeader from './components/archeader';
-import PrivateRoute from './db/private-route';
+
+const PrivateRoute = lazy(() => import('./db/private-route'));
 
 function App() {
   

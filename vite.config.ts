@@ -34,12 +34,25 @@ export default defineConfig({
         chunkFileNames: `js/sorabh86${Math.random().toString(36).substring(2, 10)}.js`,
         assetFileNames: `sorabh86${Math.random().toString(36).substring(2, 10)}[extname]`,
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // if (id.includes('react')) return 'js/react-vendor';
-            if (id.includes('firebase')) return 'js/firebase-vendor';
-            if (id.includes('zustand')) return 'js/zustand-vendor';
-            return 'js/vendor'; // default vendor chunk
+          const moduleId = id.replaceAll('\\', '/');
+
+          if (!moduleId.includes('/node_modules/')) return;
+
+          if (moduleId.includes('/@firebase/') || moduleId.includes('/node_modules/firebase/')) {
+            return 'firebase-vendor';
           }
+          if (/\/node_modules\/(react|react-dom|scheduler)\//.test(moduleId)) {
+            return 'react-vendor';
+          }
+          if (/\/node_modules\/(react-router|react-router-dom|@remix-run)\//.test(moduleId)) {
+            return 'router-vendor';
+          }
+          if (moduleId.includes('/node_modules/framer-motion/')) return 'motion-vendor';
+          if (moduleId.includes('/node_modules/@fortawesome/')) return 'icons-vendor';
+          if (moduleId.includes('/node_modules/@headlessui/')) return 'headlessui-vendor';
+          if (/\/node_modules\/(zustand|immer)\//.test(moduleId)) return 'state-vendor';
+
+          return 'vendor';
         }
       },
     },
