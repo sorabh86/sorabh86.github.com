@@ -33,6 +33,24 @@ service cloud.firestore {
         && request.resource.data.createdAt is timestamp;
     }
 
+    function validContactMessage() {
+      return request.resource.data.keys().hasAll(["name", "phone", "email", "message", "created"])
+        && request.resource.data.keys().hasOnly(["name", "phone", "email", "message", "created"])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 100
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() > 0
+        && request.resource.data.phone.size() <= 30
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 0
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0
+        && request.resource.data.message.size() <= 5000
+        && request.resource.data.created is timestamp;
+    }
+
     match /users/{uid} {
       allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
       allow list: if isAdmin();
@@ -81,7 +99,8 @@ service cloud.firestore {
 
     match /messages/{messageId} {
       allow read: if isAdmin();
-      allow create: if signedIn();
+      allow create: if validContactMessage();
+      allow delete: if isAdmin();
     }
   }
 }

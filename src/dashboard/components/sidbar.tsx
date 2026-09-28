@@ -1,4 +1,4 @@
-import { faAddressCard, faBars, faChartBar, faClipboard, faFolder, faHeart, faList, faPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faBars, faChartBar, faClipboard, faEnvelope, faFolder, faHeart, faList, faPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router';
@@ -114,6 +114,7 @@ function Sidbar() {
                 {renderAdminLink('Add user', '/dashboard/users/add', faPlus)}
               </div>}
             </div>
+              {renderAdminLink('Messages', '/dashboard/messages', faEnvelope)}
           </>
         )}
       </nav>

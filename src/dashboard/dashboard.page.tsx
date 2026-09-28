@@ -82,6 +82,7 @@ function DashboardOverview({ name, isAdmin }: { name?: string; isAdmin: boolean 
     ...(isAdmin ? [
       { to: '/dashboard/users', title: 'Manage members', description: 'Review and manage registered accounts.' },
       { to: '/dashboard/posts', title: 'Manage posts', description: 'Maintain published content and categories.' },
+      { to: '/dashboard/messages', title: 'Contact messages', description: 'Review and manage messages sent through the contact form.' },
     ] : []),
   ];
 
