@@ -5,9 +5,11 @@ export const PostCategoryPage = lazy(() => import('../dashboard/posts.category.p
 export const PostsPage = lazy(() => import('../dashboard/posts.page'));
 export const UsersPage = lazy(() => import('../dashboard/users.page'));
 export const MessagesPage = lazy(() => import('../dashboard/messages.page'));
+export const MyWorkPage = lazy(() => import('../dashboard/mywork.page'));
 
 export const AddPost = lazy(() => import('../dashboard/components/add-posts'));
 export const AddUser = lazy(() => import('../dashboard/components/add-user'));
+export const AddWork = lazy(() => import('../dashboard/components/add-work'));
 
 export const ProfilePage = lazy(() => import('../dashboard/profile.page'));
 export const TasksPage = lazy(() => import('../dashboard/tasks.page'));

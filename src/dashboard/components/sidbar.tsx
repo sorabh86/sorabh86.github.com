@@ -48,7 +48,7 @@ function Sidbar() {
 
   const renderAdminLink = (label: string, path: string, icon: typeof faList) => {
     const currentPath = location.pathname.replace(/\/$/, '') || '/';
-    const isActive = currentPath === path;
+    const isActive = currentPath === path || currentPath.startsWith(`${path}/`);
     return (
       <Link
         key={path}
@@ -80,6 +80,7 @@ function Sidbar() {
         {role === USER_ROLES.ADMIN && (
           <>
             {isSidebarOpen && <p className="mt-6 mb-1 px-2 text-xs font-semibold uppercase text-gray-500">Administration</p>}
+            {renderAdminLink('My work', '/dashboard/mywork', faFolder)}
             <div>
               <button
                 type="button"

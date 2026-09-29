@@ -80,6 +80,7 @@ function DashboardOverview({ name, isAdmin }: { name?: string; isAdmin: boolean 
     { to: '/dashboard/tasks', title: 'Personal tasks', description: 'Plan and track your own to-do list.' },
     { to: '/dashboard/support', title: 'Support the work', description: 'Record a pledge or contribution intention.' },
     ...(isAdmin ? [
+      { to: '/dashboard/mywork', title: 'Manage my work', description: 'Add and update projects shown on the public work page.' },
       { to: '/dashboard/users', title: 'Manage members', description: 'Review and manage registered accounts.' },
       { to: '/dashboard/posts', title: 'Manage posts', description: 'Maintain published content and categories.' },
       { to: '/dashboard/messages', title: 'Contact messages', description: 'Review and manage messages sent through the contact form.' },

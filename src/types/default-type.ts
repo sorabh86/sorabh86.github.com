@@ -35,6 +35,17 @@ export interface Project {
   github?: string;
 }
 
+export interface MyWorkItem {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  live: string;
+  github: string;
+  sortOrder: number;
+}
+
 export interface Experience {
   title: string;
   company: string;

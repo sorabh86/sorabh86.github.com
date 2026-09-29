@@ -4,7 +4,7 @@ import { lazy, Suspense } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import ScrollToTop from './components/scroll-top'
 import { AddPost, DashboardPage, PostCategoryPage, ProfilePage, PostsPage,
-  SupportPage, TasksPage, UsersPage, AddUser, MessagesPage
+  SupportPage, TasksPage, UsersPage, AddUser, MessagesPage, MyWorkPage, AddWork
 } from './lazy/dashboard-import';
 import { BlogPostPage, ErrorPage, LoginPage, SignupPage
 } from './lazy/common-import';
@@ -58,6 +58,10 @@ function App() {
             <Route path="users/add/" element={<AddUser />} />
             <Route path="users/edit/:userId" element={<AddUser />} />
             <Route path="messages" element={<MessagesPage />} />
+            <Route path="mywork/*" element={<MyWorkPage />}>
+              <Route path="add" element={<AddWork />} />
+              <Route path="edit/:id" element={<AddWork />} />
+            </Route>
           </Route>
         </Route>
         {/* </PrivateRoute> */}
