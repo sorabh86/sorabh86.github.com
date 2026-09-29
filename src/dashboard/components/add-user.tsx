@@ -6,7 +6,7 @@ import { Timestamp } from "firebase/firestore";
 
 const AddUser: React.FC = () => {
   const navigate = useNavigate();
-  const { users, updateUserById, createUser } = useUserStore();
+  const { getUserById, updateUserById, createUser } = useUserStore();
 
   const { userId } = useParams<{ userId: string }>();
   const [editedUser, setEditedUser] = useState<User | null>(null);
@@ -20,6 +20,7 @@ const AddUser: React.FC = () => {
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(Boolean(userId));
 
   const saveUser = async (userData: {
     name: string;
@@ -72,9 +73,44 @@ const AddUser: React.FC = () => {
   const handleCancel = () => navigate("/dashboard/users");
 
   useEffect(() => {
-    const user = users?.find((u) => u.id === userId) as User | undefined;
-    setEditedUser(user ?? null);
-  }, [userId, users]);
+    if (!userId) {
+      setEditedUser(null);
+      setLoadingUser(false);
+      return;
+    }
+
+    let active = true;
+    setLoadingUser(true);
+    setError(null);
+    void getUserById(userId).then((result) => {
+      if (!active) return;
+      if (!result.success || !result.data) {
+        setEditedUser(null);
+        setError(result.error || "Could not load user.");
+        return;
+      }
+      setEditedUser(result.data as User);
+    }).finally(() => {
+      if (active) setLoadingUser(false);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [getUserById, userId]);
+
+  if (userId && loadingUser) {
+    return <p role="status" className="p-6 text-gray-600">Loading user...</p>;
+  }
+
+  if (userId && !editedUser) {
+    return (
+      <div className="p-6">
+        <p role="alert" className="mb-4 text-red-700">{error || "User could not be loaded."}</p>
+        <button type="button" onClick={handleCancel} className="bg-gray-300 px-4 py-2 rounded">Back to users</button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-2 sm:mx-10 px-4 sm:px-12 py-10 bg-white shadow-md rounded-md mb-6">
@@ -121,8 +157,8 @@ const AddUser: React.FC = () => {
           defaultValue={editedUser ? editedUser.role : ''}
           className="w-full p-2 border rounded"
         >
-          {Object.values(USER_ROLES).map((role, index) => (
-            <option key={index} defaultValue={role}> {role} </option>
+          {Object.values(USER_ROLES).map((role) => (
+            <option key={role} value={role}>{role}</option>
           ))}
           {/* <option value="subscriber">Subscriber</option>
           <option value="admin">Admin</option>

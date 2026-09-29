@@ -20,9 +20,12 @@ import {
   limitToLast,
 } from "firebase/firestore";
 import {
+  EmailAuthProvider,
   createUserWithEmailAndPassword,
+  reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updatePassword as updateAuthPassword,
 } from "firebase/auth";
 import { httpsCallable } from "firebase/functions";
 import { auth, db, functions } from "../db/firebase";
@@ -39,18 +42,21 @@ interface IStore {
   hasNextPage: boolean;
 
   createUser: (user:User & {password:string}) => Promise<ResultObject>;
+  getUserById: (userId: string) => Promise<ResultObject>;
   updateUserById: (
     userId: string,
     userData: Omit<Partial<User>, "password">,
     password?: string
   ) => Promise<ResultObject>;
   updateCurrentUserProfile: (userId: string, profile: Pick<User, "name" | "phone" | "address">) => Promise<ResultObject>;
+  changeCurrentUserPassword: (currentPassword: string, newPassword: string) => Promise<ResultObject>;
   deleteUserById: (userId: string) => Promise<ResultObject>;
   signup: (user: User) => Promise<ResultObject>;
   login: (email: string, password: string) => Promise<ResultObject>;
   sendPasswordReset: (email: string) => Promise<ResultObject>;
   logout: () => void;
   getTotalUsers: () => Promise<number>;
+  loadUsersForSearch: () => Promise<ResultObject>;
   fetchAllUsers: (
     pageSize: number,
     lastUser?: User | null,
@@ -103,6 +109,23 @@ const useUserStore = create<IStore>((set, get) => ({
       return { success: false, error: (error as Error).message };
     }
   },
+  getUserById: async (userId) => {
+    try {
+      const userSnapshot = await getDoc(doc(db, "users", userId));
+      if (!userSnapshot.exists()) {
+        return { success: false, error: "User not found." };
+      }
+      return {
+        success: true,
+        data: { ...userSnapshot.data(), id: userSnapshot.id } as User,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Could not load user.",
+      };
+    }
+  },
   updateUserById: async (userId, userData, password) => {
     let passwordChanged = false;
     try {
@@ -117,6 +140,12 @@ const useUserStore = create<IStore>((set, get) => ({
 
       const userRef = doc(db, "users", userId);
       await setDoc(userRef, userData, { merge: true });
+      set((state) => {
+        if (state.currentUser?.id !== userId) return state;
+        const currentUser = { ...state.currentUser, ...userData };
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        return { ...state, currentUser };
+      });
 
       return { success: true };
     } catch (error) {
@@ -143,6 +172,28 @@ const useUserStore = create<IStore>((set, get) => ({
       return { success: true };
     } catch (error) {
       return { success: false, error: error instanceof Error ? error.message : "Could not save profile." };
+    }
+  },
+
+  changeCurrentUserPassword: async (currentPassword, newPassword) => {
+    const currentAuthUser = auth.currentUser;
+    if (!currentAuthUser?.email) {
+      return { success: false, error: "Sign in again before changing your password." };
+    }
+
+    try {
+      const credential = EmailAuthProvider.credential(currentAuthUser.email, currentPassword);
+      await reauthenticateWithCredential(currentAuthUser, credential);
+      await updateAuthPassword(currentAuthUser, newPassword);
+      return { success: true };
+    } catch (error) {
+      const firebaseError = error as { code?: string; message?: string };
+      const message = firebaseError.code === "auth/invalid-credential"
+        ? "The current password is incorrect."
+        : firebaseError.code === "auth/requires-recent-login"
+          ? "Please sign in again, then retry the password change."
+          : firebaseError.message ?? "Could not change password.";
+      return { success: false, error: message };
     }
   },
 
@@ -229,6 +280,20 @@ const useUserStore = create<IStore>((set, get) => ({
       return snapshot.size;
     } catch {
       return -1;
+    }
+  },
+
+  loadUsersForSearch: async () => {
+    try {
+      const usersSnapshot = await getDocs(collection(db, "users"));
+      const usersList = usersSnapshot.docs.map((userDoc) => ({
+        ...(userDoc.data() as User),
+        id: userDoc.id,
+      }));
+      return { success: true, data: usersList };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      return { success: false, error: message };
     }
   },
 

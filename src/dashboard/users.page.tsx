@@ -1,15 +1,15 @@
 // src/dashboard/users.page.tsx
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { OrderByDirection } from "firebase/firestore";
+import { OrderByDirection, Timestamp } from "firebase/firestore";
 import { User, UserSortKey } from "../types/default-type";
 import useUserStore from "../store/users-store";
 
 export default function UsersPage() {
   const { 
     users, hasPreviousPage, hasNextPage,
-    fetchAllUsers, deleteUserById 
+    fetchAllUsers, loadUsersForSearch, deleteUserById
   } = useUserStore();
 
   const [error, setError] = useState<string | undefined>();
@@ -19,6 +19,11 @@ export default function UsersPage() {
   const [selectedSort, setSelectedSort] = useState<UserSortKey>("name");
   const [selectedOrder, setSelectedOrder] = useState<OrderByDirection>("asc");
   const [selectedLimit, setSelectedLimit] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchUsers, setSearchUsers] = useState<User[] | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchPage, setSearchPage] = useState(0);
+  const searchLoadStarted = useRef(false);
   const [showConfirmation, setShowConfirmation] = useState(false); // For confirmation dialog
   const [userToDelete, setUserToDelete] = useState<string | null>(null); // Store user ID to delete
 
@@ -53,6 +58,49 @@ export default function UsersPage() {
     setSelectedOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setSearchPage(0);
+
+    if (!value.trim() || searchLoadStarted.current) return;
+
+    searchLoadStarted.current = true;
+    setSearchLoading(true);
+    setError(undefined);
+    void loadUsersForSearch().then((result) => {
+      if (result.success && Array.isArray(result.data)) {
+        setSearchUsers(result.data as User[]);
+      } else {
+        setError(result.error || "Failed to load users for search.");
+        searchLoadStarted.current = false;
+      }
+    }).finally(() => setSearchLoading(false));
+  };
+
+  const isSearchActive = searchTerm.trim().length > 0;
+  const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase();
+  const matchingUsers = (searchUsers ?? [])
+    .filter((user) =>
+      [user.name, user.email, user.phone, user.role]
+        .some((value) => value?.toLocaleLowerCase().includes(normalizedSearchTerm))
+    )
+    .sort((leftUser, rightUser) => {
+      const getSortValue = (user: User) => {
+        const value = user[selectedSort];
+        return value instanceof Timestamp
+          ? value.toMillis()
+          : String(value ?? "").toLocaleLowerCase();
+      };
+      const leftValue = getSortValue(leftUser);
+      const rightValue = getSortValue(rightUser);
+      const comparison = leftValue < rightValue ? -1 : leftValue > rightValue ? 1 : 0;
+      return selectedOrder === "asc" ? comparison : -comparison;
+    });
+  const displayedUsers = isSearchActive
+    ? matchingUsers.slice(searchPage * selectedLimit, (searchPage + 1) * selectedLimit)
+    : users ?? [];
+  const searchPageCount = Math.ceil(matchingUsers.length / selectedLimit);
+
   // Handle delete confirmation
   const handleDeleteConfirmation = (userId: string) => {
     setUserToDelete(userId);
@@ -65,6 +113,7 @@ export default function UsersPage() {
       const result = await deleteUserById(userToDelete);
       if (result.success) {
         setAlertMessage("User deleted successfully!");
+        setSearchUsers((current) => current?.filter((user) => user.id !== userToDelete) ?? null);
         fetchUsers("next"); // Refresh user list
       } else {
         setAlertMessage(`Failed to delete user: ${result.error}`);
@@ -119,6 +168,14 @@ export default function UsersPage() {
 
       {/* Sorting and Limit Controls */}
       <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row">
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={(event) => handleSearchChange(event.target.value)}
+          placeholder="Search name, email, phone, or role"
+          aria-label="Search users"
+          className="w-full rounded-lg border px-3 py-2 sm:w-72"
+        />
         <select
           value={selectedSort}
           onChange={(e) => setSelectedSort(e.target.value as UserSortKey)}
@@ -141,7 +198,10 @@ export default function UsersPage() {
         <label className="hidden sm:inline-block">Per page:</label>
         <select
           value={selectedLimit}
-          onChange={(e) => setSelectedLimit(Number(e.target.value))}
+          onChange={(e) => {
+            setSelectedLimit(Number(e.target.value));
+            setSearchPage(0);
+          }}
           className="px-3 py-1 border rounded-lg"
         >
           {[10,20,50,100].map((item, key) => (
@@ -152,7 +212,7 @@ export default function UsersPage() {
 
       {/* Users Table */}
       <div className="bg-white w-full shadow-md rounded-lg p-4">
-        {loading && <p role="status" className="mb-3 text-sm text-gray-600">Loading users...</p>}
+        {(loading || searchLoading) && <p role="status" className="mb-3 text-sm text-gray-600">Loading users...</p>}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
@@ -168,9 +228,9 @@ export default function UsersPage() {
             </tr>
           </thead>
           <tbody>
-              {users && users.length > 0 &&
-              users.map((user: User, index: number) => (
-                <tr key={index} className="border-b w-auto flex flex-col md:table-row">
+              {displayedUsers.length > 0 &&
+              displayedUsers.map((user: User) => (
+                <tr key={user.id} className="border-b w-auto flex flex-col md:table-row">
                   <td className="p-3">{user.name}</td>
                   <td className="p-3">{user.email}</td>
                   <td className="p-3">{user.role}</td>
@@ -190,7 +250,11 @@ export default function UsersPage() {
                   </td>
                 </tr>
               ))}
-              {!loading && users?.length === 0 && <tr><td colSpan={4} className="p-4 text-center text-gray-600">No users found.</td></tr>}
+              {!loading && !searchLoading && displayedUsers.length === 0 && (!isSearchActive || searchUsers !== null) && (
+                <tr><td colSpan={4} className="p-4 text-center text-gray-600">
+                  {isSearchActive ? "No matching users found." : "No users found."}
+                </td></tr>
+              )}
           </tbody>
         </table>
       </div>
@@ -198,17 +262,17 @@ export default function UsersPage() {
       {/* Pagination Controls */}
       <div className="mt-4 flex justify-between">
         <button
-          onClick={() => fetchUsers("prev")}
+          onClick={() => isSearchActive ? setSearchPage((page) => Math.max(0, page - 1)) : fetchUsers("prev")}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 cursor-pointer"
-          disabled={!hasPreviousPage} // Disable if this is the first page
+          disabled={isSearchActive ? searchPage === 0 : !hasPreviousPage}
         >
           Previous
         </button>
 
         <button
-          onClick={() => fetchUsers("next")}
+          onClick={() => isSearchActive ? setSearchPage((page) => page + 1) : fetchUsers("next")}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 cursor-pointer"
-          disabled={!hasNextPage} // Disable if there is no next page
+          disabled={isSearchActive ? searchPage + 1 >= searchPageCount : !hasNextPage}
         >
           Next
         </button>
