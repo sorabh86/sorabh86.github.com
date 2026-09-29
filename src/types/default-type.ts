@@ -75,12 +75,14 @@ export interface User {
   id?: string;
   name:string;
   email:string;
-  password:string;
   phone:string;
   address:string;
   role:USER_ROLES;
   create_date?:Timestamp;
   last_login?:Timestamp;
+}
+export interface UserCredentials extends User {
+  password: string;
 }
 export type UserSortKey = | 'name' | 'email' | 'role' | 'create_date' | 'last_login' | 'id';
 

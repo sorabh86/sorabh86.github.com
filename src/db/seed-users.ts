@@ -1,11 +1,11 @@
 import { /* collection, addDoc, */ setDoc, doc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, /* updateProfile */ } from "firebase/auth";
 import { auth, db } from "./firebase";
-import { User } from "../types/default-type";
+import { UserCredentials } from "../types/default-type";
 
 
 // Function to add users to Firebase Authentication and Firestore
-export const generateUsers = async (users:User[]) => {
+export const generateUsers = async (users:UserCredentials[]) => {
   for (const user of users) {
     try {
       // Create user in Firebase Authentication
@@ -13,8 +13,15 @@ export const generateUsers = async (users:User[]) => {
       
       const userRef = doc(db, "users", userCredential.user.uid);
       
-      // Store user details in Firestore (excluding password)
-      await setDoc(userRef, user);
+      await setDoc(userRef, {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+        ...(user.create_date ? { create_date: user.create_date } : {}),
+        ...(user.last_login ? { last_login: user.last_login } : {}),
+      });
 
       // const createdUser = userCredential.user;
       

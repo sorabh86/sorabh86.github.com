@@ -10,8 +10,19 @@ service cloud.firestore {
         && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
     }
 
+    function isInitialAdmin(uid) {
+      return signedIn()
+        && request.auth.uid == uid
+        && request.auth.token.email == "ssorabh.ssharma@gmail.com"
+        && request.auth.token.email_verified == true;
+    }
+
     function canManageUserData(uid) {
       return signedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    function hasNoStoredPassword() {
+      return !request.resource.data.keys().hasAny(["password"]);
     }
 
     function validTodo() {
@@ -54,19 +65,33 @@ service cloud.firestore {
     match /users/{uid} {
       allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
       allow list: if isAdmin();
-      allow create: if isAdmin() || (
-        signedIn()
-        && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(["name", "email", "role", "phone", "address", "create_date", "last_login"])
-        && request.resource.data.role == "subscriber"
-        && request.resource.data.email == request.auth.token.email
+      allow create: if hasNoStoredPassword() && (
+        isAdmin() || (
+          isInitialAdmin(uid)
+          && request.resource.data.keys().hasOnly(["name", "email", "role", "phone", "address", "create_date", "last_login"])
+          && request.resource.data.role == "admin"
+          && request.resource.data.email == request.auth.token.email
+        ) || (
+          signedIn()
+          && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(["name", "email", "role", "phone", "address", "create_date", "last_login"])
+          && request.resource.data.role == "subscriber"
+          && request.resource.data.email == request.auth.token.email
+        )
       );
-      allow update: if isAdmin() || (
-        signedIn()
-        && request.auth.uid == uid
-        && request.resource.data.role == resource.data.role
-        && request.resource.data.diff(resource.data).affectedKeys()
-          .hasOnly(["name", "phone", "address", "last_login"])
+      allow update: if hasNoStoredPassword() && (
+        isAdmin() || (
+          isInitialAdmin(uid)
+          && request.resource.data.keys().hasOnly(["name", "email", "role", "phone", "address", "create_date", "last_login"])
+          && request.resource.data.role == "admin"
+          && request.resource.data.email == request.auth.token.email
+        ) || (
+          signedIn()
+          && request.auth.uid == uid
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["name", "phone", "address", "last_login"])
+        )
       );
       allow delete: if isAdmin();
 

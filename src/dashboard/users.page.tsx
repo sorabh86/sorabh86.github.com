@@ -9,7 +9,7 @@ import useUserStore from "../store/users-store";
 export default function UsersPage() {
   const { 
     users, hasPreviousPage, hasNextPage,
-    fetchAllUsers, loadUsersForSearch, deleteUserById
+    fetchAllUsers, loadUsersForSearch, deleteUserById, removeStoredUserPasswords
   } = useUserStore();
 
   const [error, setError] = useState<string | undefined>();
@@ -26,6 +26,7 @@ export default function UsersPage() {
   const searchLoadStarted = useRef(false);
   const [showConfirmation, setShowConfirmation] = useState(false); // For confirmation dialog
   const [userToDelete, setUserToDelete] = useState<string | null>(null); // Store user ID to delete
+  const [cleaningPasswords, setCleaningPasswords] = useState(false);
 
   const fetchUsers = useCallback(async (direction: "next" | "prev" | '') => {
     setPageLoading(true);
@@ -129,9 +130,36 @@ export default function UsersPage() {
     setUserToDelete(null);
   };
 
+  const handleRemoveStoredPasswords = async () => {
+    if (!window.confirm("Remove any password fields stored in Firestore user profiles? Firebase Authentication passwords will not be changed.")) return;
+    setCleaningPasswords(true);
+    setError(undefined);
+    try {
+      const result = await removeStoredUserPasswords();
+      if (!result.success) {
+        setError(result.error || "Could not remove stored password fields.");
+      } else {
+        const removedCount = typeof result.data === "number" ? result.data : 0;
+        setAlertMessage(removedCount
+          ? `Removed stored password fields from ${removedCount} user profile(s).`
+          : "No stored password fields were found.");
+        setSearchUsers(null);
+        searchLoadStarted.current = false;
+        await fetchUsers("");
+      }
+    } finally {
+      setCleaningPasswords(false);
+    }
+  };
+
   return (
     <div className="p-2 sm:p-6">
-      <h1 className="text-2xl font-bold mb-4">All Users</h1>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold">All Users</h1>
+        <button type="button" onClick={() => void handleRemoveStoredPasswords()} disabled={cleaningPasswords} className="border border-red-700 px-3 py-2 text-sm text-red-800 hover:bg-red-50 disabled:opacity-50">
+          {cleaningPasswords ? "Cleaning..." : "Remove Firestore password fields"}
+        </button>
+      </div>
 
       {/* Alert Message */}
       {alertMessage && (

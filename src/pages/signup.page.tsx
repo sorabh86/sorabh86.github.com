@@ -1,7 +1,7 @@
 // src/pages/signup.page.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router';
-import { User, USER_ROLES } from '../types/default-type';
+import { UserCredentials, USER_ROLES } from '../types/default-type';
 import { Timestamp } from 'firebase/firestore';
 import useUserStore from '../store/users-store';
 import sorabhStore from '../store/sorabh-store';
@@ -24,7 +24,7 @@ export default function SignupPage() {
     const formData = new FormData(e.target as HTMLFormElement);
     const cpassword = formData.get('cpassword') as string;
 
-    const user: User = {
+    const user: UserCredentials = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
       password: formData.get('password') as string,

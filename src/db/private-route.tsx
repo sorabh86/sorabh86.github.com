@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth } from "./firebase";
 import { db } from "./firebase";
-import useUserStore from "../store/users-store";
+import useUserStore, { sanitizeUserProfile } from "../store/users-store";
 import { User } from "../types/default-type";
 
 interface PrivateRouteProps {
@@ -36,7 +36,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
           return;
         }
 
-        const userData = { ...profile.data(), id: currentUser.uid } as User;
+        const userData = { ...sanitizeUserProfile(profile.data()), id: currentUser.uid } as User;
         useUserStore.setState({ currentUser: userData });
         localStorage.setItem("currentUser", JSON.stringify(userData));
         setUser(true);

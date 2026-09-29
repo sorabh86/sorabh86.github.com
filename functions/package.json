@@ -2,6 +2,9 @@
   "name": "sorabh86-firebase-functions",
   "private": true,
   "main": "index.js",
+  "scripts": {
+    "provision:owner-admin": "node scripts/provision-owner-admin.js"
+  },
   "engines": {
     "node": "20"
   },

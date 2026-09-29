@@ -34,7 +34,7 @@ const AddUser: React.FC = () => {
 
     try {
       const result = userId && editedUser
-        ? await updateUserById(userId, userData, newPassword || undefined)
+        ? await updateUserById(userId, userData, newPassword || undefined, editedUser.email)
         : await createUser({ ...userData, password: newPassword });
 
       if (!result.success) {

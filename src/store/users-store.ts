@@ -2,9 +2,10 @@
 
 import { create } from "zustand";
 import { produce } from "immer";
-import { ResultObject, User, UserSortKey } from "../types/default-type";
+import { ResultObject, User, UserCredentials, UserSortKey, USER_ROLES } from "../types/default-type";
 import {
   collection,
+  deleteField,
   deleteDoc,
   documentId,
   doc,
@@ -16,8 +17,10 @@ import {
   query,
   startAfter,
   setDoc,
+  Timestamp,
   endBefore,
   limitToLast,
+  writeBatch,
 } from "firebase/firestore";
 import {
   EmailAuthProvider,
@@ -30,6 +33,8 @@ import {
 import { httpsCallable } from "firebase/functions";
 import { auth, db, functions } from "../db/firebase";
 
+const INITIAL_ADMIN_EMAIL = "ssorabh.ssharma@gmail.com";
+
 // Define the store interface
 interface IStore {
   currentUser: User | null;
@@ -41,22 +46,24 @@ interface IStore {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 
-  createUser: (user:User & {password:string}) => Promise<ResultObject>;
+  createUser: (user: UserCredentials) => Promise<ResultObject>;
   getUserById: (userId: string) => Promise<ResultObject>;
   updateUserById: (
     userId: string,
     userData: Omit<Partial<User>, "password">,
-    password?: string
+    password?: string,
+    currentEmail?: string
   ) => Promise<ResultObject>;
   updateCurrentUserProfile: (userId: string, profile: Pick<User, "name" | "phone" | "address">) => Promise<ResultObject>;
   changeCurrentUserPassword: (currentPassword: string, newPassword: string) => Promise<ResultObject>;
   deleteUserById: (userId: string) => Promise<ResultObject>;
-  signup: (user: User) => Promise<ResultObject>;
+  signup: (user: UserCredentials) => Promise<ResultObject>;
   login: (email: string, password: string) => Promise<ResultObject>;
   sendPasswordReset: (email: string) => Promise<ResultObject>;
   logout: () => void;
   getTotalUsers: () => Promise<number>;
   loadUsersForSearch: () => Promise<ResultObject>;
+  removeStoredUserPasswords: () => Promise<ResultObject>;
   fetchAllUsers: (
     pageSize: number,
     lastUser?: User | null,
@@ -67,9 +74,33 @@ interface IStore {
   ) => Promise<ResultObject>;
 }
 
+export function sanitizeUserProfile(data: Record<string, unknown>): User {
+  const profile = { ...data };
+  delete profile.password;
+  return profile as unknown as User;
+}
+
+function getStoredCurrentUser(): User | null {
+  const storedUser = localStorage.getItem("currentUser");
+  if (!storedUser) return null;
+  try {
+    const parsedUser = JSON.parse(storedUser) as Record<string, unknown> | null;
+    if (!parsedUser) {
+      localStorage.removeItem("currentUser");
+      return null;
+    }
+    const profile = sanitizeUserProfile(parsedUser);
+    localStorage.setItem("currentUser", JSON.stringify(profile));
+    return profile;
+  } catch {
+    localStorage.removeItem("currentUser");
+    return null;
+  }
+}
+
 // Create Zustand store manually applying Immer
 const useUserStore = create<IStore>((set, get) => ({
-  currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"), // Load from localStorage
+  currentUser: getStoredCurrentUser(),
   users: null,
   isLoading: false,
   firstUser: null,
@@ -117,7 +148,7 @@ const useUserStore = create<IStore>((set, get) => ({
       }
       return {
         success: true,
-        data: { ...userSnapshot.data(), id: userSnapshot.id } as User,
+        data: { ...sanitizeUserProfile(userSnapshot.data()), id: userSnapshot.id },
       };
     } catch (error) {
       return {
@@ -126,20 +157,20 @@ const useUserStore = create<IStore>((set, get) => ({
       };
     }
   },
-  updateUserById: async (userId, userData, password) => {
-    let passwordChanged = false;
+  updateUserById: async (userId, userData, password, currentEmail) => {
+    let credentialsUpdated = false;
     try {
-      if (password) {
+      if (password || (currentEmail && userData.email && currentEmail !== userData.email)) {
         const updatePassword = httpsCallable<
-          { userId: string; password: string },
+          { userId: string; email: string; password?: string },
           { success: boolean }
         >(functions, "updateUserPassword");
-        await updatePassword({ userId, password });
-        passwordChanged = true;
+        await updatePassword({ userId, email: userData.email ?? currentEmail ?? "", password });
+        credentialsUpdated = true;
       }
 
       const userRef = doc(db, "users", userId);
-      await setDoc(userRef, userData, { merge: true });
+      await setDoc(userRef, { ...userData, password: deleteField() }, { merge: true });
       set((state) => {
         if (state.currentUser?.id !== userId) return state;
         const currentUser = { ...state.currentUser, ...userData };
@@ -149,12 +180,23 @@ const useUserStore = create<IStore>((set, get) => ({
 
       return { success: true };
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown error";
+      const callableError = error as { code?: string; message?: string };
+      const code = callableError.code ?? "";
+      const rawMessage = callableError.message ?? "Unknown error";
+      const isGenericInternalError = code === "functions/internal"
+        && (!rawMessage || rawMessage.toLowerCase() === "internal" || rawMessage.toLowerCase().includes("internal error"));
+      const message = isGenericInternalError
+        ? "The deployed password function returned a generic internal error. Deploy the latest updateUserPassword function, then check its logs for the failed request."
+        : code === "functions/not-found"
+          ? rawMessage || "No matching Firebase Authentication account was found for this user."
+          : code === "functions/permission-denied"
+            ? "Only an administrator can change another user's password."
+            : rawMessage;
       console.error("Error updating user:", message);
       return {
         success: false,
-        error: passwordChanged
-          ? `Password changed, but the user profile could not be saved: ${message}`
+        error: credentialsUpdated
+          ? `Firebase Authentication was updated, but the user profile could not be saved: ${message}`
           : message,
       };
     }
@@ -162,7 +204,7 @@ const useUserStore = create<IStore>((set, get) => ({
 
   updateCurrentUserProfile: async (userId, profile) => {
     try {
-      await setDoc(doc(db, "users", userId), profile, { merge: true });
+      await setDoc(doc(db, "users", userId), { ...profile, password: deleteField() }, { merge: true });
       set((state) => {
         if (!state.currentUser || state.currentUser.id !== userId) return state;
         const currentUser = { ...state.currentUser, ...profile };
@@ -221,7 +263,7 @@ const useUserStore = create<IStore>((set, get) => ({
 
   signup: async (user) => {
     const {createUser} = get();
-    return createUser(user as User & {password:string});
+    return createUser(user);
   },
 
   login: async (email: string, password: string) => {
@@ -232,18 +274,47 @@ const useUserStore = create<IStore>((set, get) => ({
         email,
         password
       );
-      const uid = userCredential.user.uid;
+      const authUser = userCredential.user;
+      const uid = authUser.uid;
 
       const userDoc = await getDoc(doc(db, "users", uid));
+      const isInitialAdmin = authUser.emailVerified
+        && authUser.email?.toLocaleLowerCase() === INITIAL_ADMIN_EMAIL;
+      let userProfile: User;
       if (userDoc.exists()) {
-        const userData = userDoc.data() as User;
-        set((state) => ({ ...state, currentUser: userData }));
-        localStorage.setItem("currentUser", JSON.stringify(userData));
-
-        return { success: true };
+        userProfile = sanitizeUserProfile(userDoc.data());
+        if (isInitialAdmin && userProfile.role !== USER_ROLES.ADMIN) {
+          userProfile = { ...userProfile, role: USER_ROLES.ADMIN };
+          await setDoc(doc(db, "users", uid), userProfile, { merge: true });
+        }
       } else {
-        return { success: false, error: "User data not found!" };
+        const profileEmail = authUser.email ?? email;
+        userProfile = {
+          name: authUser.displayName || profileEmail.split("@")[0] || "Member",
+          email: profileEmail,
+          phone: "",
+          address: "",
+          role: isInitialAdmin ? USER_ROLES.ADMIN : USER_ROLES.SUBSCRIBER,
+          create_date: Timestamp.now(),
+          last_login: Timestamp.now(),
+        };
+
+        try {
+          await setDoc(doc(db, "users", uid), userProfile);
+        } catch (profileError) {
+          await auth.signOut();
+          const firestoreError = profileError as { code?: string; message?: string };
+          const message = firestoreError.code === "permission-denied"
+            ? "Your Firebase account is valid, but Firestore rules blocked profile setup. Deploy the current Firestore rules or ask an administrator to create your profile."
+            : firestoreError.message ?? "Could not create your user profile.";
+          return { success: false, error: message };
+        }
       }
+
+      const userData = { ...userProfile, id: uid };
+      set((state) => ({ ...state, currentUser: userData }));
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      return { success: true };
     } catch (error: unknown) {
       const firebaseError = error as { code?: string; message?: string };
       const message = typeof firebaseError.code === 'string'
@@ -287,13 +358,37 @@ const useUserStore = create<IStore>((set, get) => ({
     try {
       const usersSnapshot = await getDocs(collection(db, "users"));
       const usersList = usersSnapshot.docs.map((userDoc) => ({
-        ...(userDoc.data() as User),
+        ...sanitizeUserProfile(userDoc.data()),
         id: userDoc.id,
       }));
       return { success: true, data: usersList };
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       return { success: false, error: message };
+    }
+  },
+
+  removeStoredUserPasswords: async () => {
+    try {
+      const snapshot = await getDocs(collection(db, "users"));
+      const profilesWithPasswords = snapshot.docs.filter((userDoc) =>
+        Object.prototype.hasOwnProperty.call(userDoc.data(), "password")
+      );
+
+      for (let start = 0; start < profilesWithPasswords.length; start += 450) {
+        const batch = writeBatch(db);
+        profilesWithPasswords.slice(start, start + 450).forEach((userDoc) => {
+          batch.update(userDoc.ref, { password: deleteField() });
+        });
+        await batch.commit();
+      }
+
+      return { success: true, data: profilesWithPasswords.length };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Could not remove stored password fields.",
+      };
     }
   },
 
@@ -330,9 +425,9 @@ const useUserStore = create<IStore>((set, get) => ({
 
     // Fetch current page
     const usersSnapshot = await getDocs(queryRef);
-    const usersList = usersSnapshot.docs.map((doc) => ({
-      ...(doc.data() as User),
-      id: doc.id,
+    const usersList = usersSnapshot.docs.map((userDoc) => ({
+      ...sanitizeUserProfile(userDoc.data()),
+      id: userDoc.id,
     }));
 
     // Use the baseQuery for checking previous and next page availability
@@ -344,10 +439,10 @@ const useUserStore = create<IStore>((set, get) => ({
       produce((state: IStore) => {
         state.users = usersList;
         state.firstUser = firstVisible
-          ? { ...(firstVisible.data() as User), id: firstVisible.id }
+          ? { ...sanitizeUserProfile(firstVisible.data()), id: firstVisible.id }
           : null;
         state.lastUser = lastVisible
-          ? { ...(lastVisible.data() as User), id: lastVisible.id }
+          ? { ...sanitizeUserProfile(lastVisible.data()), id: lastVisible.id }
           : null;
       })
     );
