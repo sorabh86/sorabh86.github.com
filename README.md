@@ -1,5 +1,9 @@
 # React + TypeScript + Vite
 
+## Firebase password updates
+
+Admin password changes run through the `updateUserPassword` Cloud Function, which checks the caller's Firestore role before using Firebase Admin Authentication. Select the Firebase project in the Firebase CLI, then deploy it with `firebase deploy --only functions:updateUserPassword`. Cloud Functions deployment requires a Firebase project with billing enabled. Passwords are never stored in Firestore.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

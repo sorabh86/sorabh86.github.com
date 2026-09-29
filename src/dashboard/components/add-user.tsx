@@ -5,49 +5,76 @@ import useUserStore from "../../store/users-store";
 import { Timestamp } from "firebase/firestore";
 
 const AddUser: React.FC = () => {
-  const navigate = useNavigate(); 
-  const { users, updateUserById, createUser } = useUserStore(); 
-  
-  const { userId } = useParams<{ userId: string }>(); 
+  const navigate = useNavigate();
+  const { users, updateUserById, createUser } = useUserStore();
+
+  const { userId } = useParams<{ userId: string }>();
   const [editedUser, setEditedUser] = useState<User | null>(null);
+  const [password, setPassword] = useState("");
+  const [pendingUser, setPendingUser] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: USER_ROLES;
+  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const saveUser = async (userData: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    role: USER_ROLES;
+  }, newPassword: string) => {
+    setSaving(true);
+    setError(null);
+
+    try {
+      const result = userId && editedUser
+        ? await updateUserById(userId, userData, newPassword || undefined)
+        : await createUser({ ...userData, password: newPassword });
+
+      if (!result.success) {
+        setError(result.error || "Could not save the user.");
+        return;
+      }
+
+      navigate("/dashboard/users");
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : "Could not save the user.");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const newUser: User = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      phone: formData.get('phone') as string,
-      address: formData.get('address') as string,
-      role: formData.get('role') as USER_ROLES,
+    const userData = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      address: formData.get("address") as string,
+      role: formData.get("role") as USER_ROLES,
     };
 
-    // console.log(newUser);
-    // return;
-
-    try {
-      if(userId && editedUser){
-        updateUserById(userId, newUser);
-        console.log("try to update");
-      }else
-        createUser(newUser);
-
-      navigate("/dashboard/users");
-    } catch (error) {
-      console.error("Error updating user:", error);
+    if (editedUser && password) {
+      setPendingUser(userData);
+      return;
     }
+
+    await saveUser(userData, password);
   };
 
   // Handle cancel button click
-  const handleCancel = () => {
-    navigate("/dashboard/users"); // Navigate back to the users list
-  };
+  const handleCancel = () => navigate("/dashboard/users");
 
   useEffect(() => {
     const user = users?.find((u) => u.id === userId) as User | undefined;
     setEditedUser(user ?? null);
-  }, [userId, users])
+  }, [userId, users]);
 
   return (
     <div className="mx-2 sm:mx-10 px-4 sm:px-12 py-10 bg-white shadow-md rounded-md mb-6">
@@ -62,14 +89,26 @@ const AddUser: React.FC = () => {
           defaultValue={editedUser ? editedUser.email : ''}
           className="w-full p-2 border rounded" placeholder="Email" required
           />
-        {!editedUser && (
-          <>
-            <label>password</label>
-            <input type="password" id="password" name="password"
-              className="w-full p-2 border rounded" placeholder="Password" required
-            />
-          </>
-        )}
+        <label htmlFor="password">Password{editedUser ? " (optional)" : ""}</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className="w-full p-2 border rounded"
+          placeholder={editedUser ? "Leave blank to keep current password" : "Password"}
+          autoComplete="new-password"
+          minLength={6}
+          required={!editedUser}
+          aria-describedby="password-note"
+        />
+        <p id="password-note" className="text-sm text-gray-600">
+          {editedUser
+            ? "Strict note: leave this field empty to keep the current password. Any entered password replaces it immediately after confirmation (minimum 6 characters)."
+            : "Password must be at least 6 characters."}
+        </p>
+        {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
         <label>Phone</label>
         <input type="text" id="phone" name="phone"
           defaultValue={editedUser ? editedUser.phone : ''}
@@ -103,10 +142,46 @@ const AddUser: React.FC = () => {
           </>
         )}
         <div className="flex justify-between">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded"> Save </button>
-          <button type="button" onClick={handleCancel} className="bg-gray-300 px-4 py-2 rounded" > Cancel </button>
+          <button type="submit" disabled={saving} className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50">
+            {saving ? "Saving..." : "Save"}
+          </button>
+          <button type="button" onClick={handleCancel} className="bg-gray-300 px-4 py-2 rounded" disabled={saving}>Cancel</button>
         </div>
       </form>
+      {pendingUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div role="dialog" aria-modal="true" aria-labelledby="password-dialog-title" className="w-full max-w-md rounded bg-white p-6 shadow-xl">
+            <h3 id="password-dialog-title" className="mb-3 text-lg font-semibold">Change this user's password?</h3>
+            <p className="mb-5 text-sm text-gray-700">
+              This immediately replaces the current Firebase Authentication password. The user will need the new password to sign in.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setPendingUser(null);
+                  setPassword("");
+                }}
+                className="rounded bg-gray-200 px-4 py-2"
+                disabled={saving}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (pendingUser) void saveUser(pendingUser, password);
+                  setPendingUser(null);
+                }}
+                className="rounded bg-red-600 px-4 py-2 text-white disabled:opacity-50"
+                disabled={saving}
+              >
+                Confirm password change
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

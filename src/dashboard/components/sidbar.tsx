@@ -55,7 +55,7 @@ function Sidbar() {
         to={path}
         aria-current={isActive ? 'page' : undefined}
         title={isSidebarOpen ? undefined : label}
-        className={`ml-8 mt-1 flex min-h-9 items-center gap-3 rounded px-2 text-sm transition ${isActive ? 'bg-blue-700 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+        className={`mt-1 flex min-h-9 items-center gap-3 rounded px-2 text-sm transition ${isActive ? 'bg-blue-700 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
       >
         <FontAwesomeIcon icon={icon} className="w-4 shrink-0" />
         {isSidebarOpen && <span>{label}</span>}

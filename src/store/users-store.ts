@@ -24,8 +24,8 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../db/firebase";
-import { db } from "../db/firebase"; // Ensure `db` is imported
+import { httpsCallable } from "firebase/functions";
+import { auth, db, functions } from "../db/firebase";
 
 // Define the store interface
 interface IStore {
@@ -39,7 +39,11 @@ interface IStore {
   hasNextPage: boolean;
 
   createUser: (user:User & {password:string}) => Promise<ResultObject>;
-  updateUserById: (userId: string, userData: Partial<User>) => void;
+  updateUserById: (
+    userId: string,
+    userData: Omit<Partial<User>, "password">,
+    password?: string
+  ) => Promise<ResultObject>;
   updateCurrentUserProfile: (userId: string, profile: Pick<User, "name" | "phone" | "address">) => Promise<ResultObject>;
   deleteUserById: (userId: string) => Promise<ResultObject>;
   signup: (user: User) => Promise<ResultObject>;
@@ -99,15 +103,31 @@ const useUserStore = create<IStore>((set, get) => ({
       return { success: false, error: (error as Error).message };
     }
   },
-  updateUserById: async (userId, userData) => {
-    try {  
+  updateUserById: async (userId, userData, password) => {
+    let passwordChanged = false;
+    try {
+      if (password) {
+        const updatePassword = httpsCallable<
+          { userId: string; password: string },
+          { success: boolean }
+        >(functions, "updateUserPassword");
+        await updatePassword({ userId, password });
+        passwordChanged = true;
+      }
+
       const userRef = doc(db, "users", userId);
-      await setDoc(userRef, { ...userData, password: '' }, { merge: true }); // Merge prevents overwriting existing fields
-  
+      await setDoc(userRef, userData, { merge: true });
+
       return { success: true };
     } catch (error) {
-      console.error("Error updating user:", error);
-      return { success: false, error: (error as Error).message };
+      const message = error instanceof Error ? error.message : "Unknown error";
+      console.error("Error updating user:", message);
+      return {
+        success: false,
+        error: passwordChanged
+          ? `Password changed, but the user profile could not be saved: ${message}`
+          : message,
+      };
     }
   },
 
